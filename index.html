@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FX学習ノート ― テクニカル分析とファンダメンタルズ分析</title>
+<meta name="description" content="FXのテクニカル分析とファンダメンタルズ分析を、図解と練習問題で基礎から上級まで学べる学習ノート。米ドル/円のデイトレード・短期トレード向け。">
+<style>
+  :root{
+    color-scheme: light;
+    --page:#f9f9f7; --surface:#fcfcfb;
+    --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781;
+    --line:#e1e0d9; --axis:#c3c2b7;
+    --up:#e34948; --down:#2a78d6;
+    --line1:#eb6834; --line2:#4a3aa7; --line3:#1baf7a;
+    --good:#0ca30c; --crit:#d03b3b;
+    --ring:rgba(11,11,11,0.10);
+    --shadow:0 1px 2px rgba(11,11,11,.04), 0 8px 24px rgba(11,11,11,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:where(:not([data-theme="light"])){
+      color-scheme: dark;
+      --page:#0d0d0d; --surface:#1a1a19;
+      --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
+      --line:#2c2c2a; --axis:#383835;
+      --up:#e66767; --down:#3987e5;
+      --line1:#d95926; --line2:#9085e9; --line3:#199e70;
+      --good:#0ca30c; --crit:#d03b3b;
+      --ring:rgba(255,255,255,0.10);
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
+    --line:#2c2c2a; --axis:#383835; --up:#e66767; --down:#3987e5;
+    --line1:#d95926; --line2:#9085e9; --line3:#199e70; --good:#0ca30c; --crit:#d03b3b;
+    --ring:rgba(255,255,255,0.10);
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0; background:var(--page); color:var(--ink);
+    font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",Meiryo,sans-serif;
+    line-height:1.85; font-size:16px; text-rendering:optimizeLegibility;}
+  .wrap{max-width:920px; margin:0 auto; padding:0 20px 96px}
+
+  header.hero{padding:64px 0 40px; border-bottom:1px solid var(--line)}
+  .eyebrow{font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--line1); font-weight:700; margin:0 0 14px}
+  h1{font-size:clamp(27px,4.8vw,40px); line-height:1.32; margin:0 0 18px; letter-spacing:-.01em}
+  .lede{font-size:17px; color:var(--ink-2); margin:0; max-width:64ch}
+  .meta{margin-top:22px; font-size:13px; color:var(--muted)}
+  .themetoggle{position:fixed; top:14px; right:14px; z-index:50; background:var(--surface);
+    color:var(--ink-2); border:1px solid var(--ring); border-radius:999px; padding:7px 14px;
+    font-size:12px; cursor:pointer; font-family:inherit; box-shadow:var(--shadow)}
+  .themetoggle:hover{color:var(--ink)}
+
+  nav.toc{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
+    padding:20px 24px; margin:32px 0 8px; box-shadow:var(--shadow)}
+  nav.toc h2{font-size:13px; letter-spacing:.1em; color:var(--muted); margin:0 0 12px; text-transform:uppercase}
+  nav.toc ol{margin:0; padding-left:20px; columns:2; column-gap:32px}
+  nav.toc li{margin:5px 0; break-inside:avoid}
+  nav.toc a{color:var(--ink-2); text-decoration:none; border-bottom:1px solid transparent}
+  nav.toc a:hover{color:var(--ink); border-bottom-color:var(--axis)}
+  @media (max-width:640px){nav.toc ol{columns:1}}
+
+  section{padding-top:58px; scroll-margin-top:20px}
+  h2.sec{font-size:clamp(21px,3.4vw,27px); margin:0 0 8px; letter-spacing:-.01em; display:flex; align-items:baseline; gap:12px}
+  h2.sec .num{font-size:13px; font-weight:700; color:var(--line1); letter-spacing:.08em; flex:none}
+  .sec-sub{color:var(--ink-2); margin:0 0 26px; font-size:15.5px; max-width:66ch}
+  h3{font-size:18px; margin:36px 0 10px; letter-spacing:-.005em}
+  h4{font-size:15.5px; margin:22px 0 6px}
+  p{margin:0 0 14px}
+  strong{font-weight:700}
+
+  .card{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
+    padding:22px 26px; margin:20px 0; box-shadow:var(--shadow)}
+  .card > :first-child{margin-top:0}
+  .card > :last-child{margin-bottom:0}
+
+  .key{background:var(--surface); border:1px solid var(--ring); border-left:3px solid var(--line1);
+    border-radius:0 12px 12px 0; padding:18px 22px; margin:18px 0}
+  .key .tag{display:block; font-size:11.5px; font-weight:700; letter-spacing:.1em; color:var(--line1); margin-bottom:6px}
+  .key p{margin:0; font-size:15.5px}
+  .key p + p{margin-top:10px}
+
+  .warn{background:var(--surface); border:1px solid var(--ring); border-left:3px solid var(--crit);
+    border-radius:0 12px 12px 0; padding:18px 22px; margin:18px 0}
+  .warn .tag{display:block; font-size:11.5px; font-weight:700; letter-spacing:.1em; color:var(--crit); margin-bottom:6px}
+  .warn p{margin:0; font-size:15.5px}
+
+  .note{font-size:14.5px; color:var(--ink-2); background:var(--surface);
+    border:1px dashed var(--axis); border-radius:12px; padding:14px 18px; margin:18px 0}
+  .note strong{color:var(--ink)}
+  ul.plain{margin:10px 0 14px; padding-left:22px}
+  ul.plain li{margin:7px 0}
+  ol.steps2{margin:10px 0 14px; padding-left:22px}
+  ol.steps2 li{margin:8px 0}
+
+  figure{margin:22px 0; background:var(--surface); border:1px solid var(--ring);
+    border-radius:14px; padding:20px 20px 14px; box-shadow:var(--shadow)}
+  figure svg{display:block; width:100%; height:auto}
+  figcaption{font-size:13.5px; color:var(--ink-2); margin-top:12px; padding-top:12px;
+    border-top:1px solid var(--line); line-height:1.75}
+  .legend{display:flex; flex-wrap:wrap; gap:16px; margin:0 0 12px; font-size:12.5px; color:var(--ink-2)}
+  .legend span{display:inline-flex; align-items:center; gap:7px}
+  .sw{width:12px; height:3px; border-radius:2px; flex:none}
+  .sw.box{height:11px; width:11px; border-radius:3px}
+  .figrow{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+  @media (max-width:700px){.figrow{grid-template-columns:1fr}}
+  .figrow figure{margin:0}
+
+  .t{font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
+  .t-lbl{font-size:12px; fill:var(--ink-2)}
+  .t-mut{font-size:11px; fill:var(--muted)}
+
+  table{width:100%; border-collapse:collapse; margin:16px 0; font-size:14.5px;
+    background:var(--surface); border:1px solid var(--ring); border-radius:12px; overflow:hidden}
+  th,td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
+  th{font-size:12.5px; letter-spacing:.05em; color:var(--muted); font-weight:700; background:var(--page)}
+  tr:last-child td{border-bottom:none}
+  td.rank{font-weight:700; color:var(--line1); white-space:nowrap}
+
+  .q{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
+    padding:22px 24px; margin:18px 0; box-shadow:var(--shadow)}
+  .q .qh{display:flex; gap:10px; align-items:baseline; margin-bottom:6px}
+  .q .qn{font-size:12px; font-weight:700; color:var(--line1); letter-spacing:.06em; flex:none}
+  .q .qt{font-size:16px; font-weight:600; margin:0}
+  .q figure{margin:14px 0; padding:14px 14px 10px}
+  .opts{display:flex; flex-direction:column; gap:8px; margin:14px 0 0}
+  .opt{text-align:left; font:inherit; font-size:15px; cursor:pointer; background:var(--page);
+    color:var(--ink); border:1px solid var(--ring); border-radius:10px; padding:11px 15px;
+    transition:border-color .12s, background .12s}
+  .opt:hover:not(:disabled){border-color:var(--axis)}
+  .opt:disabled{cursor:default}
+  .opt.correct{border-color:var(--good); background:color-mix(in srgb, var(--good) 9%, var(--page))}
+  .opt.wrong{border-color:var(--crit); background:color-mix(in srgb, var(--crit) 9%, var(--page))}
+  .opt .mark{font-weight:700; margin-right:8px}
+  .fb{margin:14px 0 0; font-size:14.5px; color:var(--ink-2); line-height:1.75;
+    border-left:3px solid var(--good); padding:2px 0 2px 14px; display:none}
+  .fb.show{display:block}
+  .score{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
+    padding:18px 24px; margin:22px 0 0; box-shadow:var(--shadow); font-size:15px;
+    display:flex; justify-content:space-between; align-items:center; gap:16px}
+  .score b{font-size:24px; font-variant-numeric:tabular-nums}
+
+  .chk{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
+    padding:8px 24px 16px; margin:18px 0; box-shadow:var(--shadow)}
+  .chk label{display:flex; gap:11px; align-items:flex-start; padding:9px 0; font-size:15px;
+    cursor:pointer; border-bottom:1px solid var(--line)}
+  .chk label:last-child{border-bottom:none}
+  .chk input{margin:6px 0 0; width:16px; height:16px; accent-color:var(--good); flex:none; cursor:pointer}
+  .chk input:checked + span{color:var(--muted); text-decoration:line-through}
+  .progressbar{height:6px; background:var(--line); border-radius:999px; overflow:hidden; margin:10px 0 4px}
+  .progressbar i{display:block; height:100%; width:0; background:var(--good); border-radius:999px; transition:width .25s}
+  .progresstxt{font-size:13px; color:var(--muted); margin:0 0 8px}
+
+  footer{margin-top:72px; padding-top:28px; border-top:1px solid var(--line);
+    font-size:13.5px; color:var(--muted); line-height:1.8}
+
+  /* ---- site nav (added for GitHub Pages) ---- */
+  .sitenav{position:sticky; top:0; z-index:60; background:var(--page);
+    border-bottom:1px solid var(--line)}
+  @supports (backdrop-filter: blur(8px)){
+    .sitenav{background:color-mix(in srgb, var(--page) 86%, transparent); backdrop-filter:saturate(1.5) blur(10px)}
+  }
+  .sitenav .inner{max-width:920px; margin:0 auto; padding:0 20px; display:flex; gap:2px;
+    align-items:center; overflow-x:auto; scrollbar-width:none}
+  .sitenav .inner::-webkit-scrollbar{display:none}
+  .sitenav a{flex:none; font-size:12.5px; color:var(--ink-2); text-decoration:none;
+    padding:12px 11px; border-bottom:2px solid transparent; white-space:nowrap; line-height:1.2}
+  .sitenav a:hover{color:var(--ink)}
+  .sitenav a.cur{color:var(--line1); border-bottom-color:var(--line1); font-weight:700}
+  .sitenav .home{font-weight:700; color:var(--ink); margin-right:8px; padding-right:14px;
+    border-right:1px solid var(--line); border-bottom:none}
+  .sitenav .home:hover{color:var(--line1)}
+  .sitenav .themetoggle{position:static; margin-left:auto; flex:none; box-shadow:none;
+    padding:5px 11px; font-size:11.5px}
+  header.hero{padding-top:44px}
+</style>
+
+<style>
+  .cards{display:grid; gap:18px; margin:34px 0 0}
+  .pcard{display:block; text-decoration:none; color:inherit; background:var(--surface);
+    border:1px solid var(--ring); border-radius:16px; padding:26px 28px; box-shadow:var(--shadow);
+    transition:border-color .14s, transform .14s}
+  .pcard:hover{border-color:var(--line1); transform:translateY(-2px)}
+  .pcard .top{display:flex; align-items:baseline; gap:14px; margin-bottom:8px; flex-wrap:wrap}
+  .pcard .no{font-size:11.5px; font-weight:700; letter-spacing:.12em; color:var(--line1); flex:none}
+  .pcard h3{font-size:20px; margin:0; letter-spacing:-.01em}
+  .pcard .lead{color:var(--ink-2); font-size:15px; margin:0 0 14px}
+  .pcard .tags{display:flex; flex-wrap:wrap; gap:7px; margin:0}
+  .pcard .tags span{font-size:11.5px; color:var(--ink-2); background:var(--page);
+    border:1px solid var(--ring); border-radius:999px; padding:3px 10px; line-height:1.6}
+  .pcard .go{display:inline-block; margin-top:14px; font-size:13px; font-weight:700; color:var(--line1)}
+  .howto{background:var(--surface); border:1px solid var(--ring); border-left:3px solid var(--line1);
+    border-radius:0 12px 12px 0; padding:18px 22px; margin:30px 0 0}
+  .howto p{margin:0; font-size:15px}
+  .howto p + p{margin-top:10px}
+</style>
+
+</head>
+<body>
+<nav class="sitenav"><div class="inner">
+<a class="home cur" href="index.html">FX学習ノート</a>
+<a href="basics.html">基礎</a>
+<a href="intro.html">入門</a>
+<a href="lines.html">線の意味</a>
+<a href="structure.html">相場の構造</a>
+<button class="themetoggle" id="themeBtn" type="button">◐ 表示切替</button>
+</div></nav>
+<div class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">FX Study Notes</p>
+  <h1>FX学習ノート</h1>
+  <p class="lede">
+    米ドル/円のデイトレード・短期トレードを対象に、テクニカル分析とファンダメンタルズ分析を
+    <strong>基礎から上級まで4部構成</strong>で整理した学習ノートです。
+    すべての図はローソク足を生成するコードで描いており、RSI・一目均衡表・ボリンジャーバンドは実際に計算した値を使っています。
+  </p>
+  <p class="meta">全4編 ／ 図解40点以上 ／ 練習問題16問 ／ チェックリスト47項目</p>
+</header>
+
+<div class="howto">
+  <p><strong>読む順番について。</strong>上から順に読むのがおすすめです。
+  各編は前の編の内容を前提にしていて、<strong>後の編ほど「前に学んだ道具で同じことを別角度から説明する」</strong>構成になっています。</p>
+  <p>すでにチャートが読めるなら<strong>実践編 Vol.2</strong>から、線の意味まで理解できているなら<strong>上級編 Vol.3</strong>から始めても構いません。</p>
+</div>
+
+<div class="cards">
+  <a class="pcard" href="basics.html">
+    <div class="top"><span class="no">基礎編</span><h3>FX学習ガイド</h3></div>
+    <p class="lead">まず全体像をつかむ。テクニカル分析とファンダメンタルズ分析の役割分担、初心者向けの通貨ペアの選び方、主要な経済指標が過去にどちら方向の値動きをもたらしたかの検証、現実的な目標設定まで。</p>
+    <div class="tags"><span>2つの分析の役割分担</span><span>米ドル/円に絞る理由</span><span>NFP・CPI・FOMC・日銀の実例</span><span>為替介入とリスクオフ</span><span>目標設定とフェーズ分け</span></div>
+    <span class="go">読む →</span>
+  </a>
+  <a class="pcard" href="intro.html">
+    <div class="top"><span class="no">入門編</span><h3>テクニカル分析 やさしい入門</h3></div>
+    <p class="lead">むずかしい言葉をぜんぶ「たとえ話」と「図」に置きかえた入門。全6ステップの学習ロードマップ、図解レッスン6本、練習問題6問、習得チェックリスト18項目。</p>
+    <div class="tags"><span>学習ロードマップ(全6ステップ)</span><span>ローソク足＝その時間の日記</span><span>トレンド＝階段</span><span>サポレジ＝床と天井</span><span>移動平均線＝テストの平均点</span><span>RSI＝いきぎれメーター</span></div>
+    <span class="go">読む →</span>
+  </a>
+  <a class="pcard" href="lines.html">
+    <div class="top"><span class="no">実践編 Vol.2</span><h3>「線」の意味を理解する</h3></div>
+    <p class="lead">線の引き方ではなく「その線が何を表しているか」を扱う。すべての線が同じ一つの原理 ― 注文が置かれている場所 ― で説明できるようになる。</p>
+    <div class="tags"><span>線が効く原理と3種類の人</span><span>トレンドラインは3点目で有効</span><span>直近安値＝押し安値の特定</span><span>ロールリバーサル</span><span>リテストとだましの構造</span><span>フィボナッチ／ネックライン</span><span>線の強さのランキング</span><span>損切り位置の決め方</span></div>
+    <span class="go">読む →</span>
+  </a>
+  <a class="pcard" href="structure.html">
+    <div class="top"><span class="no">上級編 Vol.3</span><h3>相場の「構造」を読む</h3></div>
+    <p class="lead">線の外側にある話。時間軸の入れ子構造、大口が仕込む場所、損切りが狩られる仕組み、そして勝率では何も測れないという数学。</p>
+    <div class="tags"><span>マルチタイムフレーム分析</span><span>相場の4局面(蓄積・分散)</span><span>流動性とストップスイープ</span><span>プライスアクションは文脈</span><span>一目均衡表の雲</span><span>ダイバージェンス</span><span>期待値の数学</span><span>執行の技術と上級者の罠</span></div>
+    <span class="go">読む →</span>
+  </a>
+</div>
+
+<footer>
+  <p><strong>この資料について</strong><br>
+  FXは証拠金取引であり、元本は保証されません。この資料は学習用のまとめであり、投資助言ではありません。
+  紹介している手法・概念・数値はいずれも市場で広く使われている一般的な考え方であって、将来の利益を保証するものではありません。
+  相場の4局面、流動性、エリオット波動などは<strong>市場を解釈するためのモデルであり、証明された法則ではありません</strong>。
+  チャート図はすべて解説のために作成した模式図であり、実際の相場データではありません。
+  実際の取引は必ずご自身の判断と責任で、デモ口座や少額での検証を経てから行ってください。</p>
+  <p>作成:2026年 ／ 対象:米ドル/円 デイトレード・短期トレード</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var btn = document.getElementById('themeBtn');
+  if(!btn) return;
+  btn.addEventListener('click', function(){
+    var root = document.documentElement, cur = root.getAttribute('data-theme');
+    if(!cur){ cur = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+    root.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+  });
+})();
+</script>
+</body>
+</html>

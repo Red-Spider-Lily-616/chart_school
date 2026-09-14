@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FX学習ガイド ― テクニカル分析とファンダメンタルズ分析の基礎知識</title>
+<meta name="description" content="FXを始めるにあたって必要な基礎知識。テクニカル分析とファンダメンタルズ分析、通貨ペアの選び方、主要指標の過去の値動き検証、目標設定まで。">
+<style>
+  :root{
+    color-scheme: light;
+    --page:#f9f9f7; --surface:#fcfcfb;
+    --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781;
+    --line:#e1e0d9; --axis:#c3c2b7;
+    --up:#e34948; --down:#2a78d6;
+    --line1:#eb6834; --line2:#4a3aa7; --line3:#1baf7a;
+    --good:#0ca30c; --crit:#d03b3b;
+    --ring:rgba(11,11,11,0.10);
+    --shadow:0 1px 2px rgba(11,11,11,.04), 0 8px 24px rgba(11,11,11,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:where(:not([data-theme="light"])){
+      color-scheme: dark;
+      --page:#0d0d0d; --surface:#1a1a19;
+      --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
+      --line:#2c2c2a; --axis:#383835;
+      --up:#e66767; --down:#3987e5;
+      --line1:#d95926; --line2:#9085e9; --line3:#199e70;
+      --good:#0ca30c; --crit:#d03b3b;
+      --ring:rgba(255,255,255,0.10);
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
+    --line:#2c2c2a; --axis:#383835; --up:#e66767; --down:#3987e5;
+    --line1:#d95926; --line2:#9085e9; --line3:#199e70; --good:#0ca30c; --crit:#d03b3b;
+    --ring:rgba(255,255,255,0.10);
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0; background:var(--page); color:var(--ink);
+    font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",Meiryo,sans-serif;
+    line-height:1.85; font-size:16px; text-rendering:optimizeLegibility;}
+  .wrap{max-width:920px; margin:0 auto; padding:0 20px 96px}
+
+  header.hero{padding:64px 0 40px; border-bottom:1px solid var(--line)}
+  .eyebrow{font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--line1); font-weight:700; margin:0 0 14px}
+  h1{font-size:clamp(27px,4.8vw,40px); line-height:1.32; margin:0 0 18px; letter-spacing:-.01em}
+  .lede{font-size:17px; color:var(--ink-2); margin:0; max-width:64ch}
+  .meta{margin-top:22px; font-size:13px; color:var(--muted)}
+  .themetoggle{position:fixed; top:14px; right:14px; z-index:50; background:var(--surface);
+    color:var(--ink-2); border:1px solid var(--ring); border-radius:999px; padding:7px 14px;
+    font-size:12px; cursor:pointer; font-family:inherit; box-shadow:var(--shadow)}
+  .themetoggle:hover{color:var(--ink)}
+
+  nav.toc{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
+    padding:20px 24px; margin:32px 0 8px; box-shadow:var(--shadow)}
+  nav.toc h2{font-size:13px; letter-spacing:.1em; color:var(--muted); margin:0 0 12px; text-transform:uppercase}
+  nav.toc ol{margin:0; padding-left:20px; columns:2; column-gap:32px}
+  nav.toc li{margin:5px 0; break-inside:avoid}
+  nav.toc a{color:var(--ink-2); text-decoration:none; border-bottom:1px solid transparent}
+  nav.toc a:hover{color:var(--ink); border-bottom-color:var(--axis)}
+  @media (max-width:640px){nav.toc ol{columns:1}}
+
+  section{padding-top:58px; scroll-margin-top:20px}
+  h2.sec{font-size:clamp(21px,3.4vw,27px); margin:0 0 8px; letter-spacing:-.01em; display:flex; align-items:baseline; gap:12px}
+  h2.sec .num{font-size:13px; font-weight:700; color:var(--line1); letter-spacing:.08em; flex:none}
+  .sec-sub{color:var(--ink-2); margin:0 0 26px; font-size:15.5px; max-width:66ch}
+  h3{font-size:18px; margin:36px 0 10px; letter-spacing:-.005em}
+  h4{font-size:15.5px; margin:22px 0 6px}
+  p{margin:0 0 14px}
+  strong{font-weight:700}
+
+  .card{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
+    padding:22px 26px; margin:20px 0; box-shadow:var(--shadow)}
+  .card > :first-child{margin-top:0}
+  .card > :last-child{margin-bottom:0}
+
+  .key{background:var(--surface); border:1px solid var(--ring); border-left:3px solid var(--line1);
+    border-radius:0 12px 12px 0; padding:18px 22px; margin:18px 0}
+  .key .tag{display:block; font-size:11.5px; font-weight:700; letter-spacing:.1em; color:var(--line1); margin-bottom:6px}
+  .key p{margin:0; font-size:15.5px}
+  .key p + p{margin-top:10px}
+
+  .warn{background:var(--surface); border:1px solid var(--ring); border-left:3px solid var(--crit);
+    border-radius:0 12px 12px 0; padding:18px 22px; margin:18px 0}
+  .warn .tag{display:block; font-size:11.5px; font-weight:700; letter-spacing:.1em; color:var(--crit); margin-bottom:6px}
+  .warn p{margin:0; font-size:15.5px}
+
+  .note{font-size:14.5px; color:var(--ink-2); background:var(--surface);
+    border:1px dashed var(--axis); border-radius:12px; padding:14px 18px; margin:18px 0}
+  .note strong{color:var(--ink)}
+  ul.plain{margin:10px 0 14px; padding-left:22px}
+  ul.plain li{margin:7px 0}
+  ol.steps2{margin:10px 0 14px; padding-left:22px}
+  ol.steps2 li{margin:8px 0}
+
+  figure{margin:22px 0; background:var(--surface); border:1px solid var(--ring);
+    border-radius:14px; padding:20px 20px 14px; box-shadow:var(--shadow)}
+  figure svg{display:block; width:100%; height:auto}
+  figcaption{font-size:13.5px; color:var(--ink-2); margin-top:12px; padding-top:12px;
+    border-top:1px solid var(--line); line-height:1.75}
+  .legend{display:flex; flex-wrap:wrap; gap:16px; margin:0 0 12px; font-size:12.5px; color:var(--ink-2)}
+  .legend span{display:inline-flex; align-items:center; gap:7px}
+  .sw{width:12px; height:3px; border-radius:2px; flex:none}
+  .sw.box{height:11px; width:11px; border-radius:3px}
+  .figrow{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+  @media (max-width:700px){.figrow{grid-template-columns:1fr}}
+  .figrow figure{margin:0}
+
+  .t{font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
+  .t-lbl{font-size:12px; fill:var(--ink-2)}
+  .t-mut{font-size:11px; fill:var(--muted)}
+
+  table{width:100%; border-collapse:collapse; margin:16px 0; font-size:14.5px;
+    background:var(--surface); border:1px solid var(--ring); border-radius:12px; overflow:hidden}
+  th,td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
+  th{font-size:12.5px; letter-spacing:.05em; color:var(--muted); font-weight:700; background:var(--page)}
+  tr:last-child td{border-bottom:none}
+  td.rank{font-weight:700; color:var(--line1); white-space:nowrap}
+
+  .q{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
+    padding:22px 24px; margin:18px 0; box-shadow:var(--shadow)}
+  .q .qh{display:flex; gap:10px; align-items:baseline; margin-bottom:6px}
+  .q .qn{font-size:12px; font-weight:700; color:var(--line1); letter-spacing:.06em; flex:none}
+  .q .qt{font-size:16px; font-weight:600; margin:0}
+  .q figure{margin:14px 0; padding:14px 14px 10px}
+  .opts{display:flex; flex-direction:column; gap:8px; margin:14px 0 0}
+  .opt{text-align:left; font:inherit; font-size:15px; cursor:pointer; background:var(--page);
+    color:var(--ink); border:1px solid var(--ring); border-radius:10px; padding:11px 15px;
+    transition:border-color .12s, background .12s}
+  .opt:hover:not(:disabled){border-color:var(--axis)}
+  .opt:disabled{cursor:default}
+  .opt.correct{border-color:var(--good); background:color-mix(in srgb, var(--good) 9%, var(--page))}
+  .opt.wrong{border-color:var(--crit); background:color-mix(in srgb, var(--crit) 9%, var(--page))}
+  .opt .mark{font-weight:700; margin-right:8px}
+  .fb{margin:14px 0 0; font-size:14.5px; color:var(--ink-2); line-height:1.75;
+    border-left:3px solid var(--good); padding:2px 0 2px 14px; display:none}
+  .fb.show{display:block}
+  .score{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
+    padding:18px 24px; margin:22px 0 0; box-shadow:var(--shadow); font-size:15px;
+    display:flex; justify-content:space-between; align-items:center; gap:16px}
+  .score b{font-size:24px; font-variant-numeric:tabular-nums}
+
+  .chk{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
+    padding:8px 24px 16px; margin:18px 0; box-shadow:var(--shadow)}
+  .chk label{display:flex; gap:11px; align-items:flex-start; padding:9px 0; font-size:15px;
+    cursor:pointer; border-bottom:1px solid var(--line)}
+  .chk label:last-child{border-bottom:none}
+  .chk input{margin:6px 0 0; width:16px; height:16px; accent-color:var(--good); flex:none; cursor:pointer}
+  .chk input:checked + span{color:var(--muted); text-decoration:line-through}
+  .progressbar{height:6px; background:var(--line); border-radius:999px; overflow:hidden; margin:10px 0 4px}
+  .progressbar i{display:block; height:100%; width:0; background:var(--good); border-radius:999px; transition:width .25s}
+  .progresstxt{font-size:13px; color:var(--muted); margin:0 0 8px}
+
+  footer{margin-top:72px; padding-top:28px; border-top:1px solid var(--line);
+    font-size:13.5px; color:var(--muted); line-height:1.8}
+
+  /* ---- site nav (added for GitHub Pages) ---- */
+  .sitenav{position:sticky; top:0; z-index:60; background:var(--page);
+    border-bottom:1px solid var(--line)}
+  @supports (backdrop-filter: blur(8px)){
+    .sitenav{background:color-mix(in srgb, var(--page) 86%, transparent); backdrop-filter:saturate(1.5) blur(10px)}
+  }
+  .sitenav .inner{max-width:920px; margin:0 auto; padding:0 20px; display:flex; gap:2px;
+    align-items:center; overflow-x:auto; scrollbar-width:none}
+  .sitenav .inner::-webkit-scrollbar{display:none}
+  .sitenav a{flex:none; font-size:12.5px; color:var(--ink-2); text-decoration:none;
+    padding:12px 11px; border-bottom:2px solid transparent; white-space:nowrap; line-height:1.2}
+  .sitenav a:hover{color:var(--ink)}
+  .sitenav a.cur{color:var(--line1); border-bottom-color:var(--line1); font-weight:700}
+  .sitenav .home{font-weight:700; color:var(--ink); margin-right:8px; padding-right:14px;
+    border-right:1px solid var(--line); border-bottom:none}
+  .sitenav .home:hover{color:var(--line1)}
+  .sitenav .themetoggle{position:static; margin-left:auto; flex:none; box-shadow:none;
+    padding:5px 11px; font-size:11.5px}
+  header.hero{padding-top:44px}
+</style>
+
+<style>
+  .md h2{font-size:clamp(20px,3.2vw,25px); margin:54px 0 10px; letter-spacing:-.01em; scroll-margin-top:60px}
+  .md h3{font-size:17px; margin:30px 0 8px}
+  .md p{margin:0 0 14px}
+  .md ul,.md ol{padding-left:22px; margin:10px 0 16px}
+  .md li{margin:7px 0}
+  .md hr{border:none; border-top:1px solid var(--line); margin:44px 0 0}
+  .md a{color:var(--line1)}
+  .md table{margin:18px 0}
+  .md > p:first-child{margin-top:0}
+  .toclist{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
+    padding:20px 24px; margin:30px 0 0; box-shadow:var(--shadow)}
+  .toclist h2{font-size:13px; letter-spacing:.1em; color:var(--muted); margin:0 0 12px; text-transform:uppercase}
+  .toclist ol{margin:0; padding-left:20px; columns:2; column-gap:32px}
+  .toclist li{margin:5px 0; break-inside:avoid}
+  .toclist a{color:var(--ink-2); text-decoration:none}
+  .toclist a:hover{color:var(--ink)}
+  @media (max-width:640px){.toclist ol{columns:1}}
+</style>
+
+</head>
+<body>
+<nav class="sitenav"><div class="inner">
+<a class="home" href="index.html">FX学習ノート</a>
+<a class="cur" href="basics.html">基礎</a>
+<a href="intro.html">入門</a>
+<a href="lines.html">線の意味</a>
+<a href="structure.html">相場の構造</a>
+<button class="themetoggle" id="themeBtn" type="button">◐ 表示切替</button>
+</div></nav>
+<div class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">FX Study Notes — 基礎編</p>
+  <h1>FX学習ガイド<br>テクニカル分析とファンダメンタルズ分析</h1>
+  <p class="lede">
+    FXを始めるにあたって必要な知識を、学ぶ順番に沿って整理したものです。
+    2つの分析手法の役割分担、初心者向けの通貨ペアの選び方、主要な経済指標が過去にどちら方向の値動きをもたらしたかの検証、
+    そして現実的な目標設定までを扱います。
+  </p>
+  <p class="meta">想定スタイル:デイトレード・短期トレード(数時間〜1日程度で決済) ／ 米ドル/円</p>
+</header>
+
+<nav class="toclist"><h2>もくじ</h2><ol><li><a href="#s1">まず前提として</a></li><li><a href="#s2">全体像:2つの分析の役割分担</a></li><li><a href="#s3">初心者向けの通貨ペアの選び方</a></li><li><a href="#s4">テクニカル分析で学ぶべきこと</a></li><li><a href="#s5">ファンダメンタルズ分析で学ぶべきこと</a></li><li><a href="#s6">主要指標・要因の意味と過去の値動き検証(USD/JPY基準)</a></li><li><a href="#s7">テクニカルとファンダメンタルズを組み合わせる考え方</a></li><li><a href="#s8">学習の進め方(ロードマップ)</a></li><li><a href="#s9">参考にすべき情報源のジャンル(具体名は変化するため、種類で紹介)</a></li><li><a href="#s10">目標設定:5万円を10万円にするために</a></li><li><a href="#s11">最後に:再現性を高めるための3つの習慣</a></li></ol></nav>
+
+<div class="md">
+
+
+<hr />
+<h2 id="s1">0. まず前提として</h2>
+<p>FXは証拠金取引(レバレッジ取引)であり、元本保証はありません。この資料は学習の道しるべであり、投資助言ではありません。実際の取引は必ず自己判断・自己責任で、まずはデモ口座や少額資金で検証してから行ってください。</p>
+<p>デイトレードは短期間で判断を繰り返すぶん、<strong>「なんとなく」ではなく再現可能なルール</strong>を持つことが特に重要です。このガイドは、テクニカル分析・ファンダメンタルズ分析それぞれについて「何を学べば、根拠のある売買判断ができるようになるか」を順序立てて整理したものです。</p>
+<hr />
+<h2 id="s2">1. 全体像:2つの分析の役割分担</h2>
+<table>
+<thead>
+<tr>
+<th>分析手法</th>
+<th>主に答える問い</th>
+<th>デイトレードでの使い方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>テクニカル分析</td>
+<td>「いつ・どこで」買う/売るか</td>
+<td>エントリー・決済・損切りのタイミングを具体的に決める</td>
+</tr>
+<tr>
+<td>ファンダメンタルズ分析</td>
+<td>「なぜ・どちら方向に」動くか</td>
+<td>今日は買い有利か売り有利か、地合いを把握し、危険な時間帯を避ける</td>
+</tr>
+</tbody>
+</table>
+<p>短期トレードでは「ファンダメンタルズで大まかな方向・警戒すべき時間を把握し、テクニカルで具体的な売買ポイントを決める」という組み合わせ方が基本になります。</p>
+<hr />
+<h2 id="s3">2. 初心者向けの通貨ペアの選び方</h2>
+<p>通貨ペアを絞ることは、学習効率とリスク管理の両面で理にかなっています。値動きの癖や重要な発表のタイミングを1〜2ペア分だけ集中して覚えるほうが、テクニカル・ファンダメンタルズ両方の再現性が高まります。</p>
+<h3>2-1. 「取引しやすさ」を決める3つの基準</h3>
+<ul>
+<li><strong>流動性(取引量)が高いこと</strong>:参加者が多いほど値動きが素直になりやすく、極端な急変動が起きにくい</li>
+<li><strong>スプレッド(売買コスト)が狭いこと</strong>:短期トレードは取引回数が多くなるため、コストの差が積み重なりやすい</li>
+<li><strong>情報の入手しやすさ</strong>:関連する経済指標やニュースを日本語でも追いやすいこと</li>
+</ul>
+<h3>2-2. 初心者・デイトレード向けとされる代表的な通貨ペア</h3>
+<ul>
+<li><strong>米ドル/円(USD/JPY)</strong>:日本の証券会社で最もスプレッドが狭く扱われることが多く、日銀・FRBという2つの中心的な中央銀行の動きが直接反映されるため、日本語の情報も豊富。値動きの癖も比較的つかみやすく、初心者の最初の1ペアとして挙げられることが多い</li>
+<li><strong>ユーロ/米ドル(EUR/USD)</strong>:世界で最も取引量が多い通貨ペアで、スプレッドが非常に狭く、値動きが比較的素直な傾向がある。ただしメインの値動きはヨーロッパ〜米国時間(日本時間の夜)に出やすい点は考慮が必要</li>
+</ul>
+<p>この2ペアは「主要通貨(メジャー通貨)同士の組み合わせ」であり、FX全体の中でも情報量・取引量が特に多いグループに属します。</p>
+<h3>2-3. 初心者のうちは避けたほうが無難なペア</h3>
+<ul>
+<li><strong>ポンド絡みのペア(GBP/JPY、GBP/USDなど)</strong>:値動きが大きく、短時間で急変動しやすいため「値幅が大きすぎて資金管理が難しい」と言われやすい</li>
+<li><strong>資源国通貨・新興国通貨(トルコリラ/円、南アフリカランド/円、メキシコペソ/円など)</strong>:政治・経済的な要因で急変動しやすく、スワップ狙いの高金利にも大きな価格変動リスクが伴う</li>
+<li><strong>マイナー・エキゾチック通貨ペア</strong>:取引量が少なくスプレッドが広くなりがちで、想定外の値動きも起きやすい</li>
+</ul>
+<h3>2-4. 進め方の目安</h3>
+<ol>
+<li>まずは<strong>米ドル/円1本</strong>に絞り、値動きの癖・主要な時間帯・関連する経済指標(日米の金融政策・雇用統計など)を集中的に学ぶ</li>
+<li>米ドル/円である程度ルールが安定して機能するようになってから、<strong>ユーロ/米ドルなど2ペア目</strong>を試す</li>
+<li>ポンド系・資源国通貨・マイナー通貨は、値動きに慣れ資金管理に自信が持てるようになってから検討する</li>
+</ol>
+<hr />
+<h2 id="s4">3. テクニカル分析で学ぶべきこと</h2>
+<h3>3-1. 土台:チャートの読み方</h3>
+<ul>
+<li><strong>ローソク足の基本</strong>:実体・ヒゲの意味、陽線・陰線、代表的な形(包み足、はらみ足、ピンバー、トウバ/カラカサなど)</li>
+<li><strong>時間足の種類と使い分け</strong>:1分足・5分足・15分足・1時間足・日足。デイトレードでは「上位足(1時間〜日足)で方向感を掴み、下位足(1〜15分)でタイミングを取る」マルチタイムフレーム分析が基本</li>
+<li><strong>ダウ理論</strong>:高値・安値の切り上げ/切り下げでトレンドを定義する考え方。すべてのテクニカル分析の土台になる</li>
+</ul>
+<h3>3-2. トレンド系指標(方向性を見る)</h3>
+<ul>
+<li><strong>移動平均線(SMA/EMA)</strong>:ゴールデンクロス/デッドクロス、グランビルの法則、移動平均線からの乖離</li>
+<li><strong>一目均衡表</strong>:雲(抵抗帯)、基準線・転換線、三役好転/逆転(日本発の指標で短期トレーダーにも人気)</li>
+<li><strong>MACD</strong>:トレンドの勢いと転換の初動を捉える</li>
+<li><strong>ボリンジャーバンド</strong>:バンドウォーク(トレンド継続のサイン)とスクイーズ(値動きが縮小し、次の大きな動きの前兆)</li>
+</ul>
+<h3>3-3. オシレーター系指標(過熱感・反転を見る)</h3>
+<ul>
+<li><strong>RSI</strong>:買われすぎ/売られすぎの判断、ダイバージェンス(価格とRSIの逆行=転換シグナル)</li>
+<li><strong>ストキャスティクス</strong>:RSIより敏感で、短期の反転狙いに使われやすい</li>
+<li><strong>注意点</strong>:オシレーターは強いトレンド中は「買われすぎのまま上昇し続ける」ことが多く、トレンド系指標と組み合わせて使うのが基本</li>
+</ul>
+<h3>3-4. 水平線とチャートパターン</h3>
+<ul>
+<li><strong>サポート/レジスタンス(支持線・抵抗線)</strong>:過去に何度も反発した価格帯を見つける力</li>
+<li><strong>トレンドライン</strong>:切り上げ安値・切り下げ高値を結ぶ</li>
+<li><strong>代表的なパターン</strong>:ダブルトップ/ボトム、ヘッド&amp;ショルダー、三角保ち合い、レンジ相場とブレイクアウト</li>
+<li><strong>キリ番</strong>:100.00円や1.1000など心理的節目もサポレジとして機能しやすい</li>
+</ul>
+<h3>3-5. デイトレード特有の知識</h3>
+<ul>
+<li><strong>値幅(ボラティリティ)の把握</strong>:ATR(平均真の値幅)で、その通貨ペア・時間帯にどの程度動くかを知る</li>
+<li><strong>取引時間帯(セッション)の特性</strong>:東京時間(比較的静か)、ロンドン時間(値動き活発化)、NY時間(ロンドン・NY重複時間帯が最も活発)。デイトレードでは「いつ取引するか」自体が重要な判断</li>
+<li><strong>スプレッドとスリッページ</strong>:短期売買では取引コストの影響が相対的に大きく、通貨ペアやブローカーによる違いを理解しておく必要がある</li>
+</ul>
+<h3>3-6. 「再現可能な分析」にするための知識(ここが今一番の課題部分)</h3>
+<p>テクニカル指標を知っているだけでは再現性は生まれません。以下を学ぶことで「毎回同じ基準で判断できる」ようになります。</p>
+<ul>
+<li><strong>売買ルールの明文化</strong>:エントリー条件・決済条件・損切り条件を、誰が見ても同じ判断になるレベルまで具体的に言語化する(例:「上位足が上昇トレンド、かつ5分足でRSIが30を下抜けてから上抜けたら買い」など)</li>
+<li><strong>リスク・資金管理</strong>:1トレードあたりの許容損失(資金の1〜2%程度が一般的な目安)、損切り幅とロット数の関係、リスクリワード比率(利益幅÷損失幅)</li>
+<li><strong>トレード記録(トレード日誌)</strong>:エントリー根拠・結果・心理状態を毎回記録し、後で振り返る習慣</li>
+<li><strong>検証(バックテスト・デモトレード)</strong>:過去チャートやデモ口座でルールを繰り返し試し、勝率・平均損益・最大ドローダウンなどの数値で自分のルールを評価する</li>
+<li><strong>メンタル・トレード心理</strong>:損失を取り返そうとする「リベンジトレード」やルール逸脱を防ぐための知識(これも広義の「手法」の一部)</li>
+</ul>
+<hr />
+<h2 id="s5">4. ファンダメンタルズ分析で学ぶべきこと</h2>
+<h3>4-1. 為替を動かす基本構造</h3>
+<ul>
+<li><strong>金利差(内外金利差)</strong>:高金利通貨は買われやすく、低金利通貨は売られやすい傾向(スワップポイントの源泉でもある)</li>
+<li><strong>中央銀行と金融政策</strong>:米FRB(FOMC)、日銀(BOJ)、欧州ECB、英BOE、豪RBA、加BOCなど、主要国の中央銀行が政策金利や金融政策方針を決定する仕組み</li>
+<li><strong>リスクオン/リスクオフ</strong>:市場心理が楽観的な時は高金利通貨・株式などリスク資産が買われ(リスクオン)、悲観的な時は円やドル、スイスフランなど安全資産に資金が向かう(リスクオフ)傾向</li>
+</ul>
+<h3>4-2. 短期トレードで特に重要な経済指標</h3>
+<p>デイトレードでは「いつ、どの指標が出るか」を事前に知っているだけで、無駄なリスクを避けられます。</p>
+<ul>
+<li><strong>米雇用統計(NFP・非農業部門雇用者数)</strong>:毎月第1金曜(米国時間)発表、FX市場で最も値動きが大きくなりやすい指標のひとつ</li>
+<li><strong>消費者物価指数(CPI)</strong>:インフレ動向を示し、中央銀行の利上げ/利下げ判断に直結</li>
+<li><strong>FOMC・日銀金融政策決定会合などの中央銀行イベント</strong>:政策金利発表そのものに加え、記者会見・声明文の表現(ハト派/タカ派)で相場が動く</li>
+<li><strong>GDP、小売売上高、PMI(購買担当者景気指数)、雇用統計以外の雇用関連指標</strong>なども中程度の影響力</li>
+</ul>
+<h3>4-3. 情報の集め方</h3>
+<ul>
+<li><strong>経済指標カレンダー</strong>:発表日時・重要度・市場予想と結果が一覧できるサイト(証券会社の提供するツールや経済指標カレンダーサイトなど)を日々チェックする習慣</li>
+<li><strong>中央銀行の公式発表</strong>:各中央銀行のウェブサイトで政策金利発表資料や議事録(議事要旨)を確認する</li>
+<li><strong>要人発言</strong>:中央銀行総裁や財務大臣などの発言も相場に影響するため、カレンダーに含まれることが多い</li>
+</ul>
+<h3>4-4. デイトレードにおけるファンダメンタルズの使い方</h3>
+<ul>
+<li>短期トレードでは、ファンダメンタルズを「深く分析する」よりも「今日は何時に何の発表があるか」を把握し、<strong>指標発表前後の急変動を避ける/利用する</strong>というリスク管理的な使い方が中心になる</li>
+<li>重要指標発表の直前・直後はスプレッド拡大やスリッページが大きくなりやすく、テクニカルの「セオリー通りの反応」が起きにくい時間帯でもある</li>
+</ul>
+<hr />
+<h2 id="s6">5. 主要指標・要因の意味と過去の値動き検証(USD/JPY基準)</h2>
+<p>前の章で挙げた指標・要因について、それぞれの意味と、過去に実際どちら方向に値動きをもたらしたかを、米ドル/円を基準に具体例で検証します。2024〜2025年の実例を中心に、Web検索で確認できた情報をもとにまとめています(特定の値幅・値段は速報記事ベースのため、正確な数値は改めてチャートで確認することをおすすめします)。</p>
+<h3>5-1. 米雇用統計(NFP・非農業部門雇用者数)</h3>
+<p><strong>意味</strong>:米国の労働市場の強さを示す代表的指標。FRBの利上げ/利下げ判断に直結するため、月1回(原則第1金曜)の発表はFX市場全体で最も注目度が高い指標のひとつ。</p>
+<p><strong>基本ルール</strong>:予想より強い(良い)→ドル高・円安(USD/JPY上昇)/予想より弱い→ドル安・円高(下落)</p>
+<p><strong>過去の実例</strong>:
+- 2022年2月4日:実際46.7万人(予想約15万人)と大幅な上振れ。USD/JPYは114.9円台から115.38円付近まで上昇、米10年債利回りも1.91%まで上昇
+- 2023年6月2日:予想を上回る内容で、USD/JPYは139.50円を上抜け
+- 2024年8月2日:市場予想より弱い内容(失業率上昇、いわゆる「サームルール」に抵触)となり、その後8月5日に起きる円急騰(キャリートレード巻き戻し)の引き金のひとつとなった</p>
+<h3>5-2. 米CPI(消費者物価指数)</h3>
+<p><strong>意味</strong>:インフレの強さを示す指標で、FRBが利上げ・利下げを判断する最重要材料のひとつ。</p>
+<p><strong>基本ルール</strong>:予想より高い(強い)→通常はドル高・円安/予想より低い→ドル安・円高。ただし<strong>「事前に織り込まれていた」場合は逆方向に動くこともある</strong>点に注意。</p>
+<p><strong>過去の実例</strong>:
+- 2022年1月12日:CPIが前年比7.0%(予想6.8%)と41年ぶりの高水準だったが、事前に十分織り込まれていたため米10年債利回りはむしろ低下(1.727%)。USD/JPYは115.29円から114.60円付近まで<strong>下落</strong>(「強い数字=必ず上昇」ではない好例)
+- 2022年を通じ、複数回のCPI上振れがFRBの大幅利上げ観測を強め、USD/JPYを135〜145円台まで押し上げる要因になった</p>
+<h3>5-3. FOMC(米連邦公開市場委員会)・パウエル議長会見</h3>
+<p><strong>意味</strong>:FRBの政策金利発表の場。声明文・政策金利見通し(ドットチャート)・記者会見での発言トーンの3つが材料になる。</p>
+<p><strong>基本ルール</strong>:タカ派サプライズ(利下げ幅縮小・利上げ継続など)→USD/JPY上昇/ハト派サプライズ→下落。<strong>声明発表直後と記者会見中で反応が変わる(二段階の反応になる)ことが多い</strong>。</p>
+<p><strong>過去の実例</strong>:
+- 2022年の連続大幅利上げ局面(0.75%刻みの利上げなど):USD/JPYは2022年1月の115円台から同年10月に151円台まで大幅上昇
+- 2024年9月18日:利下げサイクル開始となる0.5%の大幅利下げを決定。声明直後はUSD/JPYが140円台前半まで急落したが、パウエル議長会見が「景気後退のサインではない」とのタカ派寄りのトーンだったため142.50円付近まで戻す展開に
+- 2024年12月FOMC:利下げは実施したが2025年の利下げ回数見通しを引き下げる「タカ派的利下げ」となり、USD/JPYは154〜155円台まで上昇(1986年以来の高値圏)</p>
+<h3>5-4. 米GDP・ISM/PMI景況感指数</h3>
+<p><strong>意味</strong>:GDPは経済成長率そのもの、PMI(購買担当者景気指数)は企業の景況感をいち早く示す先行指標。</p>
+<p><strong>基本ルール</strong>:予想より強い→USD/JPY上昇/予想より弱い→下落。ただし<strong>同時発表される物価関連の数値(コアPCEなど)に反応が支配されることもある</strong>。</p>
+<p><strong>過去の実例</strong>:
+- 2023年4月27日:1-3月期GDPが市場予想を大きく下回った(1.1% vs 予想2.0%)にもかかわらず、同時発表のコアPCE物価指数が高かったため、USD/JPYはむしろ上昇し134.00円付近まで上げた。<strong>「見出しの数字だけで判断しない」ことの重要性を示す例</strong></p>
+<h3>5-5. 米長期金利(10年債利回り)とUSD/JPYの相関</h3>
+<p><strong>意味</strong>:日米の金利差(特に米10年債利回りと日本国債利回りの差)は、USD/JPYの方向性を説明する上で最も頻繁に参照される要因のひとつ。米金利が上がれば日米金利差が拡大し円安要因、下がれば縮小し円高要因になりやすい。上記5-1・5-2の実例でも、米10年債利回りの動きとUSD/JPYの方向は概ね連動していた。</p>
+<h3>5-6. 日銀金融政策決定会合・植田総裁会見</h3>
+<p><strong>意味</strong>:日本の金融政策を決める会合。長年の金融緩和からの転換過程にあるため、2024年以降は特に相場への影響が大きくなっている。</p>
+<p><strong>基本ルール</strong>:利上げ・引き締めサプライズ→円高(USD/JPY下落)/緩和維持→円安(上昇)。ただし<strong>「利上げ済み」「織り込み済み」の場合はむしろ逆方向(円安)に動くこともある</strong>(米CPIの例と同様の注意点)。</p>
+<p><strong>過去の実例</strong>:
+- 2024年3月19日:8年ぶりにマイナス金利を解除し、YCC(長短金利操作)も撤廃という歴史的決定。しかし日銀が緩和的な姿勢を維持する考えを示したため、USD/JPYはむしろ<strong>上昇(円安)</strong>した
+- 2024年7月31日:0.25%への追加利上げを決定し、追加引き締めも示唆。USD/JPYはその日だけで約1.5%下落し、7月上旬の161円台から150円台まで下げた
+- 2024年8月5日:上記の利上げに、弱い米雇用統計、円キャリートレードの巻き戻しが重なり、USD/JPYは150円台から141〜142円付近まで急落。日経平均は1987年のブラックマンデー以来の下落率を記録
+- 2025年1月24日:0.5%へ追加利上げ(2008年以来の高水準)
+- 2025年12月19日:0.75%へ追加利上げ(約30年ぶりの高水準)。しかし「実質金利はなお大幅マイナス」「緩やかなペースで進める」との説明から、USD/JPYはむしろ157.48円まで<strong>上昇(円安)</strong>。「利上げでも材料出尽くしで逆方向に動く」典型例</p>
+<h3>5-7. 為替介入(財務省・日銀)</h3>
+<p><strong>意味</strong>:急激な円安・円高が行き過ぎたと政府が判断した場合、財務省の指示で日銀が為替市場に直接介入し、円を売買する。</p>
+<p><strong>基本ルール</strong>:円買い介入→短時間でUSD/JPYが急落。ただし<strong>効果が長続きしないことも多い</strong>(金融政策の裏付けがないと戻りやすい)。</p>
+<p><strong>過去の実例</strong>:
+- 2022年9月22日:1998年以来となる円買い介入。USD/JPYは24年ぶり高値145.90円から140.31円まで急落
+- 2022年10月:1日で当時過去最大規模(約6.3兆円)の介入、152円接近時に実施
+- 2024年4月29日・5月1日:2日間で合計約9.79兆円の介入。34年ぶり安値160.245円から一時反発したが、その後7月には161.76円まで再び円安が進行し、<strong>介入単独では効果が長続きしにくい</strong>ことを示した
+- 2024年7月11〜12日:追加で約368億ドル相当の介入(7月31日の利上げ発表と連動して実施)</p>
+<h3>5-8. リスクオン/リスクオフ</h3>
+<p><strong>意味</strong>:世界的な株安・金融危機・地政学リスクが高まると、投資家はリスク資産を手放し、資金調達通貨として使われてきた円を買い戻す動きが強まりやすい(円は伝統的な「安全資産」的性格を持つとされる)。</p>
+<p><strong>過去の実例</strong>:
+- 2024年8月5日:世界的な株安(日経平均-12.4%、米国株も急落)の中、円キャリートレードの巻き戻しが重なり、円はほぼ全通貨に対して急騰。USD/JPYも大きく下落した(日銀の利上げ・弱い米雇用統計と複合的に発生した点には注意)</p>
+<h3>5-9. 日本のCPI・春闘(賃金交渉)</h3>
+<p><strong>意味</strong>:日本の物価上昇率と、毎年春に行われる春闘(賃金交渉)の結果は、日銀が「賃金と物価の好循環」が実現しているかを判断する材料になる。賃金・物価が強ければ日銀の利上げ観測が強まりやすく円高要因、弱ければ円安要因になりやすい。</p>
+<h3>5-10. この検証から得られる教訓</h3>
+<ul>
+<li>「強い指標=自国通貨高」という単純な図式が<strong>必ずしも成り立たない</strong>(2022年1月の米CPI、2024年3月・2025年12月の日銀決定はいずれも「良い/タカ派の数字なのに逆方向に動いた」例)。<strong>市場がどこまで織り込み済みかを確認する視点が重要</strong></li>
+<li>単一の指標だけでなく、<strong>複数の要因が重なったとき</strong>に最も大きな値動きが起きやすい(2024年8月5日は「日銀利上げ+弱い米雇用統計+キャリートレード巻き戻し」が同時に発生した典型例)</li>
+<li>為替介入のように、<strong>効果が一時的な要因と、金融政策のように持続的な要因を区別する</strong>ことも重要</li>
+</ul>
+<h3>参考にした情報源</h3>
+<ul>
+<li><a href="https://www.fxstreet.com/news/usd-jpy-jumps-toward-11340-after-nfp-amid-a-stronger-dollar-202202041442">FXStreet: USD/JPY jumps toward 113.40 after NFP (2022/2/4)</a></li>
+<li><a href="https://www.fxstreet.com/news/usd-jpy-surges-above-13950-following-us-nfp-figures-202306021628">FXStreet: USD/JPY surges above 139.50 following US NFP (2023/6/2)</a></li>
+<li><a href="https://www.fxstreet.com/news/usd-jpy-collapses-below-11500-after-hot-us-cpi-figures-amid-falling-us-t-bond-yields-202201121904">FXStreet: USD/JPY collapses below 115.00 after hot US CPI (2022/1/12)</a></li>
+<li><a href="https://www.fxstreet.com/news/usdjpy-plunges-after-fed-delivers-50-bps-rate-cut-202409181818">FXStreet: USD/JPY plunges after Fed delivers 50bps rate cut (2024/9/18)</a></li>
+<li><a href="https://www.bis.org/publ/bisbull90.pdf">BIS Bulletin No. 90: The market turbulence and carry trade unwind of August 2024</a></li>
+<li><a href="https://www.fxstreet.com/news/usd-jpy-tests-15500-as-hawkish-fomc-meets-rising-boj-hike-bets-202602192340">FXStreet: USD/JPY tests 155.00 as hawkish FOMC meets rising BoJ hike bets</a></li>
+<li><a href="https://www.fxstreet.com/news/usd-jpy-spikes-to-13400-mark-fresh-daily-high-post-us-gdp-report-202304271250">FXStreet: USD/JPY spikes to 134.00 post US GDP report (2023/4/27)</a></li>
+<li><a href="https://www.cnbc.com/2024/03/19/bank-of-japan-boj-march-2024-policy-decision-mpm-meeting.html">CNBC: Bank of Japan ends negative rates regime (2024/3/19)</a></li>
+<li><a href="https://www.ig.com/en/news-and-trade-ideas/_bank-of-japan-calls-time-on-negative-rates--but-usd-jpy-and-nik-240319">IG International: BOJ calls time on negative rates, but USD/JPY and Nikkei rally</a></li>
+<li><a href="https://www.fxstreet.com/news/usd-jpy-plunged-to-15000-after-surprise-rate-hike-from-boj-202407311729">FXStreet: USD/JPY plunged to 150.00 after surprise BOJ rate hike (2024/7/31)</a></li>
+<li><a href="https://www.cnbc.com/2024/07/31/japan-confirms-36point8-billion-yen-intervention-as-boj-hikes-rates.html">CNBC: Japan confirms $36.8B intervention as BOJ hikes rates (2024/7/31)</a></li>
+<li><a href="https://www.cnbc.com/2024/08/05/asia-markets.html">CNBC: Nikkei logs worst day since 1987 (2024/8/5)</a></li>
+<li><a href="https://www.cnbc.com/2024/08/05/carry-trades-a-major-unwinding-is-underway-amid-a-stock-sell-off.html">CNBC: Carry trades — a major unwinding underway (2024/8/5)</a></li>
+<li><a href="https://www.cnbc.com/2025/01/24/bank-of-japan-hikes-policy-rates-by-25-basis-points-to-highest-since-2008.html">CNBC: Bank of Japan hikes policy rate to highest since 2008 (2025/1/24)</a></li>
+<li><a href="https://www.cnbc.com/2025/12/19/bank-of-japan-boj-rate-cpi-inflation-takaichi-ueda.html">CNBC: BOJ raises benchmark rate to 30-year high (2025/12/19)</a></li>
+<li><a href="https://www.fxstreet.com/news/usd-jpy-jumps-to-one-month-high-as-yen-slides-after-boj-rate-hike-202512191842">FXStreet: USD/JPY jumps to one-month high as yen slides after BOJ hike (2025/12/19)</a></li>
+<li><a href="https://www.business-standard.com/article/international/yen-soars-after-japan-intervenes-in-forex-market-for-first-time-since-1998-122092300031_1.html">Business Standard: Yen soars after Japan intervenes for first time since 1998 (2022/9)</a></li>
+<li><a href="https://www.nippon.com/en/japan-data/h01492/">Nippon.com: Japan spends record amount on yen-buying intervention (2022/10)</a></li>
+<li><a href="https://investing.com/news/economy-news/japans-april-yenbuying-intervention-sets-new-daily-record-3558243">Investing.com: Japan's April yen-buying intervention sets new daily record (2024/4-5)</a></li>
+<li><a href="https://www.cnbc.com/2024/03/14/japan-2024-shunto-spring-wage-negotiations.html">CNBC: Why Japan's shunto wage negotiations are important (2024/3/14)</a></li>
+</ul>
+<p><strong>注意</strong>:上記の値幅・具体的な価格水準は速報記事の記述に基づくものが中心で、一部(特に2025〜2026年の介入関連の詳細)は執筆時点で完全には裏取りできていません。実際の売買判断に使う場合は、証券会社のチャートで改めて確認してください。また、過去に一定の傾向があったからといって、次回も同じ方向に動くとは限らない点にも注意してください。</p>
+<hr />
+<h2 id="s7">6. テクニカルとファンダメンタルズを組み合わせる考え方</h2>
+<ol>
+<li>その日の重要指標・イベントをカレンダーで確認し、警戒すべき時間帯を把握する</li>
+<li>上位足でファンダメンタルズも踏まえた大まかなトレンド方向を確認する</li>
+<li>下位足でテクニカル分析による具体的なエントリー・決済ポイントを、事前に決めたルールに沿って判断する</li>
+<li>トレード後に記録・検証し、ルールを改善する</li>
+</ol>
+<hr />
+<h2 id="s8">7. 学習の進め方(ロードマップ)</h2>
+<ol>
+<li><strong>基礎用語とチャートの見方</strong>:ローソク足、時間足、ロット・pips・スワップなどの基本用語を理解する</li>
+<li><strong>ダウ理論とトレンド系指標</strong>を1〜2個に絞って集中的に学ぶ(最初から多くの指標を使おうとしないのがコツ)</li>
+<li><strong>資金管理・リスク管理のルールを先に決める</strong>(手法より先に「いくら失ってよいか」を決めるのが実は重要)</li>
+<li><strong>デモ口座で売買ルールを明文化し、繰り返し試す</strong></li>
+<li><strong>トレード記録をつけ、週単位・月単位で振り返る</strong></li>
+<li>慣れてきたら、<strong>ファンダメンタルズ(経済指標カレンダー)を組み合わせて</strong>、指標発表を避ける/利用する判断を加える</li>
+<li>一つの手法である程度の期間(最低でも数十〜百トレード規模)検証してから、資金を増やす・手法を追加するかを検討する</li>
+</ol>
+<hr />
+<h2 id="s9">8. 参考にすべき情報源のジャンル(具体名は変化するため、種類で紹介)</h2>
+<ul>
+<li>経済指標カレンダー(証券会社提供のツールなど)</li>
+<li>各国中央銀行の公式サイト(政策金利発表資料、議事録)</li>
+<li>主要通貨ペアのチャート分析ツール(証券会社のツールやチャート専用サービス)</li>
+<li>テクニカル分析・ファンダメンタルズ分析の入門書(ダウ理論、ローソク足分析、一目均衡表などを体系的に扱う書籍)</li>
+<li>各証券会社が提供するデモトレード環境</li>
+</ul>
+<hr />
+<h2 id="s10">9. 目標設定:5万円を10万円にするために</h2>
+<p>当初「5万円を5日間で10万円にしたい」という目標が挙がりましたが、これは資金を5日間で+100%にするという意味です。ガイド内で紹介した「1トレードあたりの許容損失は資金の1〜2%程度」という資金管理を守った場合、これを実現するのは現実的にはほぼ不可能です。5日間で数回のトレードだけで資金を倍にしようとすると、1回あたり数%〜10%以上のリスクを取る必要があり、これは通常の資金管理の目安を大きく超える水準です。当たれば大きく増える一方、外れれば資金の大部分・全部を失う可能性が高く、再現性のある手法の構築とは相容れません。</p>
+<p>そのため、目標そのものは残しつつ、達成までの期間と道のりを現実的なものに置き換えることをおすすめします。</p>
+<h3>最終ゴール</h3>
+<ul>
+<li>5万円 → 10万円(資金+100%)</li>
+</ul>
+<h3>期間の目安(資金管理を守った場合)</h3>
+<p>短期トレードで安定して勝てるようになったトレーダーでも、月利5〜10%を継続できれば十分優秀とされます(これは平均的な目安であり、保証された数字ではありません)。この前提で複利計算すると、資金を倍にするまでの期間はおおよそ以下のようになります。</p>
+<table>
+<thead>
+<tr>
+<th>想定月利</th>
+<th>資金を倍にするまでの期間の目安</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>月利3%</td>
+<td>約24ヶ月</td>
+</tr>
+<tr>
+<td>月利5%</td>
+<td>約14ヶ月</td>
+</tr>
+<tr>
+<td>月利10%</td>
+<td>約7ヶ月</td>
+</tr>
+</tbody>
+</table>
+<p>「5日」という当初の目標と比べるとかなり長く感じるかもしれませんが、これが資金管理を守りながら現実的に狙える速度感です。逆に言えば、これより大幅に短い期間で倍を狙う手法は、原則としてハイリスク・低再現性の賭けになっていると考えてください。</p>
+<h3>段階的な目標設定(フェーズ分け)</h3>
+<p>最初から金額の目標を追うのではなく、まずは「資金を守りながらルールを検証するフェーズ」を挟むことをおすすめします。</p>
+<ol>
+<li><strong>フェーズ0(目安:最初の1〜2ヶ月)</strong>:デモ口座または最小ロットで、売買ルールの検証に専念する。この段階のゴールは利益額ではなく「決めたルール通りに取引できたか」「資金を大きく減らさなかったか」</li>
+<li><strong>フェーズ1(目安:3〜4ヶ月目)</strong>:実弾での取引を始め、月次目標は控えめに設定する(例:月利3〜5%、または「資金を減らさないこと」を優先)</li>
+<li><strong>フェーズ2(5ヶ月目以降)</strong>:それまでの実績(勝率・損益比・最大ドローダウンなど)をもとに、目標水準を調整しながら10万円到達を目指す</li>
+</ol>
+<h3>目標を追う上での注意</h3>
+<ul>
+<li>金額や期限を先に固定すると、それに合わせて無理なリスクを取りがちになります。<strong>目標は「金額」より先に「守るべき資金管理ルール」を固定し、その制約の中でどこまで速く到達できるかを追う</strong>、という順序がおすすめです</li>
+<li>「〇日で倍」のような極端に短い期限を設定した取引は、通常のFXトレードというより投機的な賭けに近くなります。もしこの5日という期限に特別な事情(例:この期間内にどうしても資金が必要など)がある場合、それはFXでの資金運用ではなく別の手段で対応すべき問題である可能性が高い点にも留意してください</li>
+</ul>
+<hr />
+<h2 id="s11">10. 最後に:再現性を高めるための3つの習慣</h2>
+<ul>
+<li>売買ルールを<strong>紙またはドキュメントに書き出す</strong>(頭の中だけで判断しない)</li>
+<li><strong>すべてのトレードを記録</strong>し、根拠と結果をセットで振り返る</li>
+<li>ルールは<strong>一度に一つずつ検証・改善</strong>する(同時に複数のルールを変えると、何が効いたのか分からなくなる)</li>
+</ul>
+<p>この3つを続けることが、「なんとなくのテクニカル分析」から「再現可能な分析」へ移行する最短ルートです。</p>
+</div>
+
+<footer>
+  <p><strong>この資料について</strong><br>
+  FXは証拠金取引であり、元本は保証されません。この資料は学習用のまとめであり、投資助言ではありません。
+  実際の取引は必ずご自身の判断と責任で、デモ口座や少額での検証を経てから行ってください。</p>
+  <p><a href="index.html" style="color:var(--line1)">← 目次に戻る</a></p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var btn = document.getElementById('themeBtn');
+  if(!btn) return;
+  btn.addEventListener('click', function(){
+    var root = document.documentElement, cur = root.getAttribute('data-theme');
+    if(!cur){ cur = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+    root.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+  });
+})();
+</script>
+</body>
+</html>

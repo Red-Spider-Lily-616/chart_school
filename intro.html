@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>テクニカル分析 やさしい入門と学習ロードマップ</title>
+<style>
+  :root{
+    color-scheme: light;
+    --page:#f9f9f7;
+    --surface:#fcfcfb;
+    --ink:#0b0b0b;
+    --ink-2:#52514e;
+    --muted:#898781;
+    --line:#e1e0d9;
+    --axis:#c3c2b7;
+    --up:#e34948;      /* 陽線・上昇 */
+    --down:#2a78d6;    /* 陰線・下降 */
+    --accent:#eb6834; --line1:#eb6834;  /* 補助・強調 */
+    --good:#0ca30c;
+    --ring:rgba(11,11,11,0.10);
+    --shadow:0 1px 2px rgba(11,11,11,.04), 0 8px 24px rgba(11,11,11,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:where(:not([data-theme="light"])){
+      color-scheme: dark;
+      --page:#0d0d0d;
+      --surface:#1a1a19;
+      --ink:#ffffff;
+      --ink-2:#c3c2b7;
+      --muted:#898781;
+      --line:#2c2c2a;
+      --axis:#383835;
+      --up:#e66767;
+      --down:#3987e5;
+      --accent:#d95926; --line1:#d95926;
+      --good:#0ca30c;
+      --ring:rgba(255,255,255,0.10);
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7;
+    --muted:#898781; --line:#2c2c2a; --axis:#383835;
+    --up:#e66767; --down:#3987e5; --accent:#d95926; --line1:#d95926; --good:#0ca30c;
+    --ring:rgba(255,255,255,0.10);
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--page); color:var(--ink);
+    font-family: system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", Meiryo, sans-serif;
+    line-height:1.85; font-size:16px;
+    text-rendering:optimizeLegibility;
+  }
+  .wrap{max-width:900px; margin:0 auto; padding:0 20px 96px}
+
+  /* ---------- header ---------- */
+  header.hero{
+    padding:64px 0 40px; border-bottom:1px solid var(--line); margin-bottom:8px;
+  }
+  .eyebrow{
+    font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--muted); font-weight:600; margin:0 0 14px;
+  }
+  h1{
+    font-size:clamp(28px,5vw,42px); line-height:1.3; margin:0 0 18px; letter-spacing:-.01em;
+  }
+  .lede{font-size:17px; color:var(--ink-2); margin:0; max-width:62ch}
+  .meta{margin-top:22px; font-size:13px; color:var(--muted)}
+
+  .themetoggle{
+    position:fixed; top:14px; right:14px; z-index:50;
+    background:var(--surface); color:var(--ink-2); border:1px solid var(--ring);
+    border-radius:999px; padding:7px 14px; font-size:12px; cursor:pointer;
+    font-family:inherit; box-shadow:var(--shadow);
+  }
+  .themetoggle:hover{color:var(--ink)}
+
+  /* ---------- toc ---------- */
+  nav.toc{
+    background:var(--surface); border:1px solid var(--ring); border-radius:14px;
+    padding:20px 24px; margin:32px 0 8px; box-shadow:var(--shadow);
+  }
+  nav.toc h2{font-size:13px; letter-spacing:.1em; color:var(--muted); margin:0 0 12px; text-transform:uppercase}
+  nav.toc ol{margin:0; padding-left:20px; columns:2; column-gap:32px}
+  nav.toc li{margin:5px 0; break-inside:avoid}
+  nav.toc a{color:var(--ink-2); text-decoration:none; border-bottom:1px solid transparent}
+  nav.toc a:hover{color:var(--ink); border-bottom-color:var(--axis)}
+  @media (max-width:640px){ nav.toc ol{columns:1} }
+
+  /* ---------- sections ---------- */
+  section{padding-top:56px; scroll-margin-top:20px}
+  h2.sec{
+    font-size:clamp(21px,3.4vw,27px); margin:0 0 8px; letter-spacing:-.01em;
+    display:flex; align-items:baseline; gap:12px;
+  }
+  h2.sec .num{
+    font-size:13px; font-weight:700; color:var(--accent);
+    letter-spacing:.08em; flex:none;
+  }
+  .sec-sub{color:var(--ink-2); margin:0 0 28px; font-size:15.5px; max-width:64ch}
+  h3{font-size:18px; margin:36px 0 10px; letter-spacing:-.005em}
+  p{margin:0 0 14px}
+
+  .card{
+    background:var(--surface); border:1px solid var(--ring); border-radius:14px;
+    padding:24px 26px; margin:20px 0; box-shadow:var(--shadow);
+  }
+  .card > :first-child{margin-top:0}
+  .card > :last-child{margin-bottom:0}
+
+  /* analogy callout */
+  .analogy{
+    background:var(--surface); border:1px solid var(--ring);
+    border-left:3px solid var(--accent);
+    border-radius:0 12px 12px 0; padding:18px 22px; margin:18px 0;
+  }
+  .analogy .tag{
+    display:block; font-size:11.5px; font-weight:700; letter-spacing:.1em;
+    color:var(--accent); margin-bottom:6px;
+  }
+  .analogy p{margin:0; font-size:15.5px}
+
+  .note{
+    font-size:14.5px; color:var(--ink-2); background:var(--surface);
+    border:1px dashed var(--axis); border-radius:12px; padding:14px 18px; margin:18px 0;
+  }
+  .note strong{color:var(--ink)}
+
+  ul.plain{margin:10px 0 14px; padding-left:22px}
+  ul.plain li{margin:6px 0}
+
+  /* ---------- roadmap ---------- */
+  .steps{margin:24px 0 0; position:relative}
+  .step{
+    position:relative; padding-left:64px; padding-bottom:34px;
+  }
+  .step:last-child{padding-bottom:0}
+  .step::before{ /* connector */
+    content:""; position:absolute; left:21px; top:44px; bottom:0; width:2px;
+    background:var(--line);
+  }
+  .step:last-child::before{display:none}
+  .badge{
+    position:absolute; left:0; top:2px; width:44px; height:44px; border-radius:12px;
+    background:var(--surface); border:1px solid var(--ring); box-shadow:var(--shadow);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    line-height:1;
+  }
+  .badge .b1{font-size:9px; letter-spacing:.08em; color:var(--muted); font-weight:700}
+  .badge .b2{font-size:17px; font-weight:700; color:var(--accent); margin-top:2px}
+  .step h3{margin:4px 0 4px; font-size:17.5px}
+  .step .dur{font-size:12.5px; color:var(--muted); margin:0 0 10px; font-weight:600}
+  .step .body{
+    background:var(--surface); border:1px solid var(--ring); border-radius:12px;
+    padding:16px 20px; box-shadow:var(--shadow);
+  }
+  .step .body p{margin:0 0 10px; font-size:15px}
+  .step .body p:last-child{margin-bottom:0}
+  .lbl{
+    display:inline-block; font-size:11px; font-weight:700; letter-spacing:.07em;
+    padding:2px 8px; border-radius:999px; margin-right:8px; vertical-align:1.5px;
+    background:var(--page); border:1px solid var(--ring); color:var(--ink-2);
+  }
+  .lbl.goal{color:var(--good); border-color:color-mix(in srgb, var(--good) 35%, transparent)}
+
+  /* ---------- figures ---------- */
+  figure{
+    margin:22px 0; background:var(--surface); border:1px solid var(--ring);
+    border-radius:14px; padding:20px 20px 14px; box-shadow:var(--shadow);
+  }
+  figure svg{display:block; width:100%; height:auto}
+  figcaption{
+    font-size:13.5px; color:var(--ink-2); margin-top:12px; padding-top:12px;
+    border-top:1px solid var(--line); line-height:1.7;
+  }
+  .legend{display:flex; flex-wrap:wrap; gap:16px; margin:0 0 12px; font-size:13px; color:var(--ink-2)}
+  .legend span{display:inline-flex; align-items:center; gap:7px}
+  .sw{width:11px; height:11px; border-radius:3px; flex:none}
+
+  /* svg text defaults */
+  .t{font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
+  .t-lbl{font-size:12px; fill:var(--ink-2)}
+  .t-mut{font-size:11px; fill:var(--muted)}
+  .t-key{font-size:12.5px; font-weight:700}
+
+  /* ---------- quiz ---------- */
+  .q{
+    background:var(--surface); border:1px solid var(--ring); border-radius:14px;
+    padding:22px 24px; margin:18px 0; box-shadow:var(--shadow);
+  }
+  .q .qh{display:flex; gap:10px; align-items:baseline; margin-bottom:6px}
+  .q .qn{font-size:12px; font-weight:700; color:var(--accent); letter-spacing:.06em; flex:none}
+  .q .qt{font-size:16px; font-weight:600; margin:0}
+  .q figure{margin:14px 0; padding:14px 14px 10px}
+  .opts{display:flex; flex-direction:column; gap:8px; margin:14px 0 0}
+  .opt{
+    text-align:left; font:inherit; font-size:15px; cursor:pointer;
+    background:var(--page); color:var(--ink); border:1px solid var(--ring);
+    border-radius:10px; padding:11px 15px; transition:border-color .12s, background .12s;
+  }
+  .opt:hover:not(:disabled){border-color:var(--axis)}
+  .opt:disabled{cursor:default}
+  .opt.correct{border-color:var(--good); background:color-mix(in srgb, var(--good) 9%, var(--page))}
+  .opt.wrong{border-color:var(--up); background:color-mix(in srgb, var(--up) 9%, var(--page))}
+  .opt .mark{font-weight:700; margin-right:8px}
+  .fb{
+    margin:14px 0 0; font-size:14.5px; color:var(--ink-2); line-height:1.75;
+    border-left:3px solid var(--good); padding:2px 0 2px 14px; display:none;
+  }
+  .fb.show{display:block}
+  .score{
+    background:var(--surface); border:1px solid var(--ring); border-radius:14px;
+    padding:18px 24px; margin:22px 0 0; box-shadow:var(--shadow);
+    font-size:15px; display:flex; justify-content:space-between; align-items:center; gap:16px;
+  }
+  .score b{font-size:24px; font-variant-numeric:tabular-nums}
+
+  /* ---------- checklist ---------- */
+  .chk{
+    background:var(--surface); border:1px solid var(--ring); border-radius:14px;
+    padding:8px 24px 16px; margin:18px 0; box-shadow:var(--shadow);
+  }
+  .chk h3{font-size:16px; margin:20px 0 4px}
+  .chk h3 .stepno{font-size:11.5px; color:var(--accent); font-weight:700; letter-spacing:.07em; margin-right:8px}
+  .chk label{
+    display:flex; gap:11px; align-items:flex-start; padding:8px 0;
+    font-size:15px; cursor:pointer; border-bottom:1px solid var(--line);
+  }
+  .chk label:last-child{border-bottom:none}
+  .chk input{margin:6px 0 0; width:16px; height:16px; accent-color:var(--good); flex:none; cursor:pointer}
+  .chk input:checked + span{color:var(--muted); text-decoration:line-through}
+  .progressbar{height:6px; background:var(--line); border-radius:999px; overflow:hidden; margin:10px 0 4px}
+  .progressbar i{display:block; height:100%; width:0; background:var(--good); border-radius:999px; transition:width .25s}
+  .progresstxt{font-size:13px; color:var(--muted); margin:0 0 8px}
+
+  table{
+    width:100%; border-collapse:collapse; margin:16px 0; font-size:14.5px;
+    background:var(--surface); border:1px solid var(--ring); border-radius:12px; overflow:hidden;
+  }
+  th,td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
+  th{font-size:12.5px; letter-spacing:.05em; color:var(--muted); font-weight:700; background:var(--page)}
+  tr:last-child td{border-bottom:none}
+
+  footer{
+    margin-top:72px; padding-top:28px; border-top:1px solid var(--line);
+    font-size:13.5px; color:var(--muted); line-height:1.8;
+  }
+  hr.div{border:none; border-top:1px solid var(--line); margin:0}
+
+  /* ---- site nav (added for GitHub Pages) ---- */
+  .sitenav{position:sticky; top:0; z-index:60; background:var(--page);
+    border-bottom:1px solid var(--line)}
+  @supports (backdrop-filter: blur(8px)){
+    .sitenav{background:color-mix(in srgb, var(--page) 86%, transparent); backdrop-filter:saturate(1.5) blur(10px)}
+  }
+  .sitenav .inner{max-width:920px; margin:0 auto; padding:0 20px; display:flex; gap:2px;
+    align-items:center; overflow-x:auto; scrollbar-width:none}
+  .sitenav .inner::-webkit-scrollbar{display:none}
+  .sitenav a{flex:none; font-size:12.5px; color:var(--ink-2); text-decoration:none;
+    padding:12px 11px; border-bottom:2px solid transparent; white-space:nowrap; line-height:1.2}
+  .sitenav a:hover{color:var(--ink)}
+  .sitenav a.cur{color:var(--line1); border-bottom-color:var(--line1); font-weight:700}
+  .sitenav .home{font-weight:700; color:var(--ink); margin-right:8px; padding-right:14px;
+    border-right:1px solid var(--line); border-bottom:none}
+  .sitenav .home:hover{color:var(--line1)}
+  .sitenav .themetoggle{position:static; margin-left:auto; flex:none; box-shadow:none;
+    padding:5px 11px; font-size:11.5px}
+  header.hero{padding-top:44px}
+</style>
+</head>
+<body>
+<nav class="sitenav"><div class="inner">
+<a class="home" href="index.html">FX学習ノート</a>
+<a href="basics.html">基礎</a>
+<a class="cur" href="intro.html">入門</a>
+<a href="lines.html">線の意味</a>
+<a href="structure.html">相場の構造</a>
+<button class="themetoggle" id="themeBtn" type="button">◐ 表示切替</button>
+</div></nav>
+<div class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">FX Technical Analysis</p>
+  <h1>テクニカル分析<br>やさしい入門と学習ロードマップ</h1>
+  <p class="lede">
+    むずかしい言葉をぜんぶ「たとえ話」と「図」に置きかえて説明します。
+    上から順に読んで、練習問題を解けば、チャートの見かたが自分の言葉で説明できるようになります。
+  </p>
+  <p class="meta">対象:米ドル/円のデイトレード・短期トレードを学びはじめる人 ／ 2026年8月</p>
+</header>
+
+<nav class="toc">
+  <h2>もくじ</h2>
+  <ol>
+    <li><a href="#what">テクニカル分析ってなに?</a></li>
+    <li><a href="#roadmap">学習ロードマップ(全6ステップ)</a></li>
+    <li><a href="#l1">レッスン1:ローソク足</a></li>
+    <li><a href="#l2">レッスン2:トレンド(階段)</a></li>
+    <li><a href="#l3">レッスン3:サポートとレジスタンス</a></li>
+    <li><a href="#l4">レッスン4:移動平均線</a></li>
+    <li><a href="#l5">レッスン5:レンジとブレイク</a></li>
+    <li><a href="#l6">レッスン6:RSI(いきぎれメーター)</a></li>
+    <li><a href="#quiz">練習問題(6問)</a></li>
+    <li><a href="#checklist">習得チェックリスト</a></li>
+  </ol>
+</nav>
+
+<!-- ================= 1. WHAT ================= -->
+<section id="what">
+  <h2 class="sec"><span class="num">01</span>テクニカル分析ってなに?</h2>
+  <p class="sec-sub">まずは「これは何をするための道具なのか」を一言でつかみます。</p>
+
+  <div class="analogy">
+    <span class="tag">たとえ話</span>
+    <p><strong>テクニカル分析は「天気予報」です。</strong>
+    天気予報の人は、空の写真や気温の記録など<em>過去のデータ</em>を見て「明日は雨がふりそう」と予想します。
+    テクニカル分析も同じで、<em>過去の値段の動き</em>だけを見て「これから上がりそう / 下がりそう」を予想します。</p>
+  </div>
+
+  <p>だから、テクニカル分析を勉強するというのは、<strong>「値段の動きのグラフ(チャート)を読む練習をする」</strong>ということです。ニュースや会社の業績は見ません。見るのはグラフだけです。</p>
+
+  <div class="card">
+    <h3 style="margin-top:0">大事なこと:天気予報は「はずれる」</h3>
+    <p>天気予報でも「降水確率70%」と言われた日に、雨がふらないことがありますよね。テクニカル分析もまったく同じで、<strong>100%当たることはありません</strong>。</p>
+    <p style="margin-bottom:0">だからテクニカル分析の本当のゴールは「必ず当てること」ではなく、<strong>「当たりやすい場面だけをえらんで、はずれたときの被害を小さくすること」</strong>です。ここを勘ちがいすると、いくら指標を覚えても勝てるようになりません。</p>
+  </div>
+
+  <h3>チャートを読むための「3つの目」</h3>
+  <p>これから学ぶことは、全部この3つのどれかに当てはまります。迷子になったら、ここに戻ってきてください。</p>
+
+  <table>
+    <thead>
+      <tr><th style="width:23%">3つの目</th><th style="width:34%">やさしく言うと</th><th>これに当たる道具</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>① 向きの目</strong></td>
+        <td>いま上に向かってる?下に向かってる?</td>
+        <td>ローソク足、ダウ理論、移動平均線</td>
+      </tr>
+      <tr>
+        <td><strong>② 場所の目</strong></td>
+        <td>いまの値段は「高いところ」?「安いところ」?</td>
+        <td>サポート/レジスタンス、レンジ</td>
+      </tr>
+      <tr>
+        <td><strong>③ 勢いの目</strong></td>
+        <td>その動きにまだ元気はある?つかれてきた?</td>
+        <td>RSI、MACD</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    <strong>覚えかたのコツ:</strong>
+    指標(インジケーター)をたくさん覚えても強くなりません。①②③を<strong>それぞれ1個ずつ</strong>使えるようになれば十分です。この先のロードマップも、そのために組み立ててあります。
+  </div>
+</section>
+
+<!-- ================= 2. ROADMAP ================= -->
+<section id="roadmap">
+  <h2 class="sec"><span class="num">02</span>学習ロードマップ(全6ステップ)</h2>
+  <p class="sec-sub">
+    上から順にやってください。<strong>前のステップの「卒業条件」をクリアするまで、次に進まないこと。</strong>
+    これが「なんとなくの分析」から「反復できる分析」へ変わる、いちばん確実な道です。期間はあくまで目安で、卒業条件が満たせていれば早くても遅くてもかまいません。
+  </p>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="badge"><span class="b1">STEP</span><span class="b2">0</span></div>
+      <h3>道具をそろえる・チャートに慣れる</h3>
+      <p class="dur">目安:1週間 ／ 1日15分</p>
+      <div class="body">
+        <p><span class="lbl">やること</span>証券会社のデモ口座を開き、米ドル/円のチャートを毎日開く。時間足(1分・5分・15分・1時間・日足)を切り替えて、見た目がどう変わるかを体で覚える。用語は「pips」「ロット」「スプレッド」「始値・終値・高値・安値」の5つだけでOK。</p>
+        <p><span class="lbl goal">卒業条件</span>チャートを開いて、時間足を切り替え、「今日の米ドル/円は昨日より高いか安いか」を10秒で答えられる。</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="badge"><span class="b1">STEP</span><span class="b2">1</span></div>
+      <h3>ローソク足を1本ずつ読む</h3>
+      <p class="dur">目安:2週間 ／ 1日15分 ・ 下の<a href="#l1">レッスン1</a></p>
+      <div class="body">
+        <p><span class="lbl">やること</span>ローソク足1本の意味(実体・ヒゲ・陽線・陰線)を理解する。毎日、日足チャートの直近の1本を見て「この1本の中で何が起きたか」を口に出して説明する練習を10本ぶん。</p>
+        <p><span class="lbl goal">卒業条件</span>知らないローソク足を見せられて、始値・終値・高値・安値がどこか、迷わず指させる。長い上ヒゲを見て「上がったけど押し戻された」と言える。</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="badge"><span class="b1">STEP</span><span class="b2">2</span></div>
+      <h3>トレンドを見分ける(ダウ理論)</h3>
+      <p class="dur">目安:2週間 ／ 1日20分 ・ 下の<a href="#l2">レッスン2</a></p>
+      <div class="body">
+        <p><span class="lbl">やること</span>ここが<strong>最重要ステップ</strong>。高値と安値が切り上がっていれば上昇、切り下がっていれば下降。1時間足のチャートに、山(高値)と谷(安値)へ実際に印をつける作業を毎日やる。</p>
+        <p><span class="lbl goal">卒業条件</span>ランダムに開いたチャートを見て、「上昇トレンド・下降トレンド・レンジ(どちらでもない)」の3択を、その理由(どの高値・安値を見たか)つきで即答できる。<strong>これができないうちは指標を増やさないこと。</strong></p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="badge"><span class="b1">STEP</span><span class="b2">3</span></div>
+      <h3>水平線を引く(サポート・レジスタンス)</h3>
+      <p class="dur">目安:2週間 ／ 1日20分 ・ 下の<a href="#l3">レッスン3</a></p>
+      <div class="body">
+        <p><span class="lbl">やること</span>過去に何回もはね返された値段に、横線を引く練習。1日1回、米ドル/円の1時間足に線を3本だけ引く。翌日、その線で本当に反応したかを答え合わせする。</p>
+        <p><span class="lbl goal">卒業条件</span>自分で引いた線について「なぜここに引いたか」を説明でき、1週間ぶんの答え合わせで「反応した/しなかった」を記録できている。</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="badge"><span class="b1">STEP</span><span class="b2">4</span></div>
+      <h3>移動平均線を1本だけ足す</h3>
+      <p class="dur">目安:3週間 ／ 1日20分 ・ 下の<a href="#l4">レッスン4</a>・<a href="#l6">レッスン6</a></p>
+      <div class="body">
+        <p><span class="lbl">やること</span>移動平均線(まずは20期間だけ)をチャートに表示し、値段が線の上にあるか下にあるかで場面を分ける。慣れたら勢いを見るRSIを1つだけ足す。<strong>指標はここまで。3つ以上は増やさない。</strong></p>
+        <p><span class="lbl goal">卒業条件</span>「移動平均線の上か下か」「トレンドはどっちか」の2つを組み合わせて、そのチャートが買い場面か売り場面か様子見かを言える。</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="badge"><span class="b1">STEP</span><span class="b2">5</span></div>
+      <h3>ルールを紙に書いて、検証する</h3>
+      <p class="dur">目安:ここから先はずっと続ける</p>
+      <div class="body">
+        <p><span class="lbl">やること</span>ステップ1〜4で学んだことを、<strong>他人が読んでも同じ判断になる文章</strong>にする。「エントリー条件・損切り条件・利確条件・1回で失ってよい金額」の4つを必ず書く。そのルールでデモトレードを最低30回。1回ごとに記録をつける。</p>
+        <p><span class="lbl goal">卒業条件</span>30回ぶんの記録から、勝率・平均利益・平均損失・最大の連敗数を計算できる。ルールを破った回数が5回以下。</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="note" style="margin-top:28px">
+    <strong>よくある失敗:</strong> ステップ2(トレンドの見分け)をとばして、ステップ4の指標に飛びつくこと。指標は「向き」がわかっている人が精度を上げる道具であって、向きを教えてくれる道具ではありません。急がば回れです。
+  </div>
+</section>
+
+<!-- ================= LESSON 1 ================= -->
+<section id="l1">
+  <h2 class="sec"><span class="num">03</span>レッスン1:ローソク足</h2>
+  <p class="sec-sub">チャートに並んでいる小さな棒。これが読めることが、すべての出発点です。</p>
+
+  <div class="analogy">
+    <span class="tag">たとえ話</span>
+    <p><strong>ローソク足1本は「その時間の日記」です。</strong>
+    たとえば1時間足なら、その1時間のあいだに値段が「どこから始まって(始値)、どこで終わって(終値)、いちばん高いところと安いところはどこまで行ったか(高値・安値)」を、たった1本の棒にまとめたものです。</p>
+  </div>
+
+  <figure>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--up)"></i>陽線(上がった)</span>
+      <span><i class="sw" style="background:var(--down)"></i>陰線(下がった)</span>
+    </div>
+    <svg viewBox="0 0 640 330" role="img" aria-label="ローソク足1本の各部位の名前を示した図">
+      <!-- candle: bullish -->
+      <line x1="200" y1="45" x2="200" y2="290" stroke="var(--up)" stroke-width="2"/>
+      <rect x="170" y="105" width="60" height="130" rx="4" fill="var(--up)" stroke="var(--surface)" stroke-width="2"/>
+
+      <!-- left leaders -->
+      <line x1="162" y1="75" x2="197" y2="75" stroke="var(--axis)" stroke-width="1" stroke-dasharray="3 3"/>
+      <text class="t t-key" x="155" y="79" text-anchor="end" fill="var(--ink)">上ヒゲ</text>
+      <line x1="150" y1="170" x2="167" y2="170" stroke="var(--axis)" stroke-width="1" stroke-dasharray="3 3"/>
+      <text class="t t-key" x="143" y="174" text-anchor="end" fill="var(--ink)">実体</text>
+      <line x1="162" y1="262" x2="197" y2="262" stroke="var(--axis)" stroke-width="1" stroke-dasharray="3 3"/>
+      <text class="t t-key" x="155" y="266" text-anchor="end" fill="var(--ink)">下ヒゲ</text>
+
+      <!-- right leaders -->
+      <line x1="205" y1="45" x2="248" y2="45" stroke="var(--axis)" stroke-width="1"/>
+      <text class="t t-key" x="256" y="42" fill="var(--ink)">高値</text>
+      <text class="t t-mut" x="256" y="59">いちばん高かった値段</text>
+
+      <line x1="234" y1="105" x2="248" y2="105" stroke="var(--axis)" stroke-width="1"/>
+      <text class="t t-key" x="256" y="102" fill="var(--ink)">終値(おわりね)</text>
+      <text class="t t-mut" x="256" y="119">その時間の最後の値段</text>
+
+      <line x1="234" y1="235" x2="248" y2="235" stroke="var(--axis)" stroke-width="1"/>
+      <text class="t t-key" x="256" y="232" fill="var(--ink)">始値(はじめね)</text>
+      <text class="t t-mut" x="256" y="249">その時間の最初の値段</text>
+
+      <line x1="205" y1="290" x2="248" y2="290" stroke="var(--axis)" stroke-width="1"/>
+      <text class="t t-key" x="256" y="287" fill="var(--ink)">安値</text>
+      <text class="t t-mut" x="256" y="304">いちばん安かった値段</text>
+
+      <text class="t t-mut" x="200" y="322" text-anchor="middle">↑ この1本が「陽線」</text>
+    </svg>
+    <figcaption>
+      ヒゲ(細い線)は「行ったけど、戻ってきた」あと。実体(太い四角)は「始まりと終わりの差」。
+      <strong>ヒゲが長い＝そっちに行こうとしたけど押し返された</strong>、という意味になります。
+    </figcaption>
+  </figure>
+
+  <h3>陽線と陰線 ― 色でわかる「勝ち負け」</h3>
+
+  <figure>
+    <svg viewBox="0 0 640 290" role="img" aria-label="陽線と陰線の比較図">
+      <!-- 陽線 -->
+      <line x1="160" y1="45" x2="160" y2="250" stroke="var(--up)" stroke-width="2"/>
+      <rect x="130" y="95" width="60" height="115" rx="4" fill="var(--up)" stroke="var(--surface)" stroke-width="2"/>
+      <line x1="118" y1="210" x2="98" y2="210" stroke="var(--axis)" stroke-width="1"/>
+      <text class="t t-lbl" x="92" y="214" text-anchor="end">始値</text>
+      <line x1="118" y1="95" x2="98" y2="95" stroke="var(--axis)" stroke-width="1"/>
+      <text class="t t-lbl" x="92" y="99" text-anchor="end">終値</text>
+      <path d="M212 205 L212 105" stroke="var(--up)" stroke-width="2" fill="none" marker-end="url(#arrUp)"/>
+      <text class="t t-lbl" x="222" y="159" fill="var(--up)">上がった</text>
+      <text class="t" x="160" y="275" text-anchor="middle" font-size="14" font-weight="700" fill="var(--up)">陽線(ようせん)</text>
+
+      <!-- divider -->
+      <line x1="330" y1="40" x2="330" y2="255" stroke="var(--line)" stroke-width="1"/>
+
+      <!-- 陰線 -->
+      <line x1="450" y1="45" x2="450" y2="250" stroke="var(--down)" stroke-width="2"/>
+      <rect x="420" y="95" width="60" height="115" rx="4" fill="var(--down)" stroke="var(--surface)" stroke-width="2"/>
+      <line x1="408" y1="95" x2="388" y2="95" stroke="var(--axis)" stroke-width="1"/>
+      <text class="t t-lbl" x="382" y="99" text-anchor="end">始値</text>
+      <line x1="408" y1="210" x2="388" y2="210" stroke="var(--axis)" stroke-width="1"/>
+      <text class="t t-lbl" x="382" y="214" text-anchor="end">終値</text>
+      <path d="M502 105 L502 205" stroke="var(--down)" stroke-width="2" fill="none" marker-end="url(#arrDn)"/>
+      <text class="t t-lbl" x="512" y="159" fill="var(--down)">下がった</text>
+      <text class="t" x="450" y="275" text-anchor="middle" font-size="14" font-weight="700" fill="var(--down)">陰線(いんせん)</text>
+
+      <defs>
+        <marker id="arrUp" markerWidth="9" markerHeight="9" refX="4.5" refY="0" orient="0">
+          <path d="M0,7 L4.5,0 L9,7 Z" fill="var(--up)"/>
+        </marker>
+        <marker id="arrDn" markerWidth="9" markerHeight="9" refX="4.5" refY="9" orient="0">
+          <path d="M0,2 L4.5,9 L9,2 Z" fill="var(--down)"/>
+        </marker>
+      </defs>
+    </svg>
+    <figcaption>
+      日本のチャートでは<strong>上がった足を赤(または白)、下がった足を青(または黒)</strong>で表すのが一般的です。
+      海外のツールでは緑と赤のことが多いので、使うツールの色設定を最初に確認しておきましょう。
+    </figcaption>
+  </figure>
+
+  <div class="note">
+    <strong>今日やること:</strong> チャートを開いて、いちばん右のローソク足を1本えらび、「始値はここ、終値はここ、上ヒゲが長いから一度上がって押し戻された」と<strong>声に出して</strong>言ってみてください。これを10本ぶんやれば、レッスン1は卒業です。
+  </div>
+</section>
+
+<!-- ================= LESSON 2 ================= -->
+<section id="l2">
+  <h2 class="sec"><span class="num">04</span>レッスン2:トレンド(いちばん大事)</h2>
+  <p class="sec-sub">「いま上に向かっているのか、下に向かっているのか」を見分けます。テクニカル分析の中心はここです。</p>
+
+  <div class="analogy">
+    <span class="tag">たとえ話</span>
+    <p><strong>値段の動きは「階段」です。</strong>
+    まっすぐ上がることはなく、少し上がって、ちょっと戻って、また上がる…をくり返します。
+    このとき<strong>「山がだんだん高くなり、谷もだんだん高くなっている」なら上りの階段(上昇トレンド)</strong>。
+    その逆なら下りの階段(下降トレンド)です。これを見つけるやり方を<strong>ダウ理論</strong>と言います。</p>
+  </div>
+
+  <figure>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--up)"></i>山＝高値</span>
+      <span><i class="sw" style="background:var(--down)"></i>谷＝安値</span>
+    </div>
+    <svg viewBox="0 0 640 300" role="img" aria-label="上昇トレンドで高値と安値が切り上がっていく様子の図">
+      <!-- guides -->
+      <line x1="40" y1="180" x2="600" y2="180" stroke="var(--line)" stroke-width="1" stroke-dasharray="4 4"/>
+      <line x1="40" y1="125" x2="600" y2="125" stroke="var(--line)" stroke-width="1" stroke-dasharray="4 4"/>
+      <line x1="40" y1="70"  x2="600" y2="70"  stroke="var(--line)" stroke-width="1" stroke-dasharray="4 4"/>
+
+      <!-- price path -->
+      <polyline points="40,255 120,180 180,215 270,125 330,165 430,70 490,110 600,48"
+                fill="none" stroke="var(--ink-2)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+      <!-- peaks -->
+      <circle cx="120" cy="180" r="6" fill="var(--up)" stroke="var(--surface)" stroke-width="2"/>
+      <circle cx="270" cy="125" r="6" fill="var(--up)" stroke="var(--surface)" stroke-width="2"/>
+      <circle cx="430" cy="70"  r="6" fill="var(--up)" stroke="var(--surface)" stroke-width="2"/>
+      <text class="t t-lbl" x="120" y="168" text-anchor="middle" fill="var(--up)">山①</text>
+      <text class="t t-lbl" x="270" y="113" text-anchor="middle" fill="var(--up)">山②</text>
+      <text class="t t-lbl" x="430" y="58"  text-anchor="middle" fill="var(--up)">山③</text>
+
+      <!-- troughs -->
+      <circle cx="180" cy="215" r="6" fill="var(--down)" stroke="var(--surface)" stroke-width="2"/>
+      <circle cx="330" cy="165" r="6" fill="var(--down)" stroke="var(--surface)" stroke-width="2"/>
+      <circle cx="490" cy="110" r="6" fill="var(--down)" stroke="var(--surface)" stroke-width="2"/>
+      <text class="t t-lbl" x="180" y="235" text-anchor="middle" fill="var(--down)">谷①</text>
+      <text class="t t-lbl" x="330" y="185" text-anchor="middle" fill="var(--down)">谷②</text>
+      <text class="t t-lbl" x="490" y="130" text-anchor="middle" fill="var(--down)">谷③</text>
+
+      <text class="t" x="40" y="288" font-size="13.5" font-weight="700" fill="var(--ink)">山①&lt;山②&lt;山③ かつ 谷①&lt;谷②&lt;谷③ → 上昇トレンド</text>
+    </svg>
+    <figcaption>
+      この形が見えているあいだは「買いの目線」でチャートを見ます。
+      逆に<strong>谷が前の谷を下に割ったら、上りの階段が壊れたサイン</strong>。ここがトレンドの終わりを疑う最初のポイントです。
+    </figcaption>
+  </figure>
+
+  <h3>3つの状態を見分ける</h3>
+
+  <figure>
+    <svg viewBox="0 0 640 250" role="img" aria-label="上昇トレンド・下降トレンド・レンジの3つの比較図">
+      <!-- panel 1 -->
+      <rect x="14" y="14" width="188" height="160" rx="10" fill="none" stroke="var(--line)" stroke-width="1"/>
+      <polyline points="34,150 68,108 90,128 128,80 150,100 184,50" fill="none" stroke="var(--up)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <text class="t" x="108" y="200" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">上昇トレンド</text>
+      <text class="t t-mut" x="108" y="221" text-anchor="middle">山も谷も切り上がる</text>
+      <text class="t t-mut" x="108" y="238" text-anchor="middle">→ 買い目線</text>
+
+      <!-- panel 2 -->
+      <rect x="226" y="14" width="188" height="160" rx="10" fill="none" stroke="var(--line)" stroke-width="1"/>
+      <polyline points="246,50 280,92 302,72 340,120 362,100 396,150" fill="none" stroke="var(--down)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <text class="t" x="320" y="200" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">下降トレンド</text>
+      <text class="t t-mut" x="320" y="221" text-anchor="middle">山も谷も切り下がる</text>
+      <text class="t t-mut" x="320" y="238" text-anchor="middle">→ 売り目線</text>
+
+      <!-- panel 3 -->
+      <rect x="438" y="14" width="188" height="160" rx="10" fill="none" stroke="var(--line)" stroke-width="1"/>
+      <line x1="452" y1="62" x2="612" y2="62" stroke="var(--axis)" stroke-width="1.5" stroke-dasharray="4 4"/>
+      <line x1="452" y1="130" x2="612" y2="130" stroke="var(--axis)" stroke-width="1.5" stroke-dasharray="4 4"/>
+      <polyline points="458,125 490,66 522,127 554,64 586,126 612,90" fill="none" stroke="var(--muted)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <text class="t" x="532" y="200" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">レンジ(横ばい)</text>
+      <text class="t t-mut" x="532" y="221" text-anchor="middle">同じ幅を行ったり来たり</text>
+      <text class="t t-mut" x="532" y="238" text-anchor="middle">→ 初心者は様子見</text>
+    </svg>
+    <figcaption>
+      チャートを開いたら、まず<strong>この3つのどれか</strong>を決める。それだけで「今日は手を出さない」という正しい判断ができるようになります。
+      レンジは値動きの方向が読みにくいので、慣れるまでは見送りが安全です。
+    </figcaption>
+  </figure>
+
+  <div class="note">
+    <strong>今日やること:</strong> 米ドル/円の1時間足を開いて、目立つ山と谷に印をつけ、「山も谷も切り上がっているか?」を確認してください。これを毎日1回、2週間続ければ、チャートの形が自然に目に入るようになります。
+  </div>
+</section>
+
+<!-- ================= LESSON 3 ================= -->
+<section id="l3">
+  <h2 class="sec"><span class="num">05</span>レッスン3:サポートとレジスタンス</h2>
+  <p class="sec-sub">「値段が引っかかりやすい場所」を見つけます。ここが分かると、買う場所・損切りする場所が決まります。</p>
+
+  <div class="analogy">
+    <span class="tag">たとえ話</span>
+    <p><strong>部屋の「床」と「天井」だと思ってください。</strong>
+    ボールを部屋の中で投げると、天井に当たれば下に落ち、床に当たれば上に跳ね返ります。
+    値段にも同じような見えない天井と床があって、<strong>天井＝レジスタンス(抵抗線)、床＝サポート(支持線)</strong>と呼びます。</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 640 300" role="img" aria-label="サポートとレジスタンスの間で価格が跳ね返る様子の図">
+      <!-- resistance -->
+      <line x1="30" y1="72" x2="560" y2="72" stroke="var(--up)" stroke-width="2"/>
+      <text class="t" x="568" y="69" font-size="13" font-weight="700" fill="var(--up)">天井</text>
+      <text class="t t-mut" x="568" y="86">レジスタンス</text>
+      <!-- support -->
+      <line x1="30" y1="226" x2="560" y2="226" stroke="var(--down)" stroke-width="2"/>
+      <text class="t" x="568" y="223" font-size="13" font-weight="700" fill="var(--down)">床</text>
+      <text class="t t-mut" x="568" y="240">サポート</text>
+
+      <!-- price -->
+      <polyline points="30,180 90,76 140,150 200,222 260,110 310,76 360,160 420,222 470,150 520,78 560,120"
+                fill="none" stroke="var(--ink-2)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <!-- touch markers -->
+      <circle cx="90"  cy="76"  r="5.5" fill="var(--up)" stroke="var(--surface)" stroke-width="2"/>
+      <circle cx="310" cy="76"  r="5.5" fill="var(--up)" stroke="var(--surface)" stroke-width="2"/>
+      <circle cx="520" cy="78"  r="5.5" fill="var(--up)" stroke="var(--surface)" stroke-width="2"/>
+      <circle cx="200" cy="222" r="5.5" fill="var(--down)" stroke="var(--surface)" stroke-width="2"/>
+      <circle cx="420" cy="222" r="5.5" fill="var(--down)" stroke="var(--surface)" stroke-width="2"/>
+
+      <text class="t t-mut" x="90"  y="60" text-anchor="middle">はね返された</text>
+      <text class="t t-mut" x="310" y="60" text-anchor="middle">また、はね返された</text>
+      <text class="t t-mut" x="200" y="248" text-anchor="middle">支えられた</text>
+      <text class="t t-mut" x="420" y="248" text-anchor="middle">また、支えられた</text>
+
+      <text class="t" x="30" y="288" font-size="13.5" font-weight="700" fill="var(--ink)">同じ値段で何回もはね返る＝そこに多くの人が注目している</text>
+    </svg>
+    <figcaption>
+      線は「タッチした回数が多いほど強い」と考えます。1回しか当たっていない線より、3回はね返された線のほうが信頼できます。
+    </figcaption>
+  </figure>
+
+  <div class="card">
+    <h3 style="margin-top:0">なぜ「見えない天井」ができるの?</h3>
+    <p>魔法ではありません。<strong>大勢の人が同じ値段を見ているから</strong>です。</p>
+    <p style="margin-bottom:0">「前に150円まで上がって落ちたな。今度も150円になったら売ろう」と考える人がたくさんいると、150円に売り注文が集まります。だからそこで値段が止まりやすくなる ― ただそれだけの話です。<strong>キリのいい数字(150.00円など)も同じ理由で天井や床になりやすい</strong>です。</p>
+  </div>
+
+  <div class="note">
+    <strong>今日やること:</strong> 1時間足に線を<strong>3本だけ</strong>引いてください(引きすぎると意味がなくなります)。翌日チャートを開いて、その線で本当に止まったか答え合わせをしましょう。
+  </div>
+</section>
+
+<!-- ================= LESSON 4 ================= -->
+<section id="l4">
+  <h2 class="sec"><span class="num">06</span>レッスン4:移動平均線</h2>
+  <p class="sec-sub">ギザギザした値動きを「なめらか」にして、向きを見やすくする道具です。</p>
+
+  <div class="analogy">
+    <span class="tag">たとえ話</span>
+    <p><strong>テストの「平均点」とまったく同じ考え方です。</strong>
+    1回のテストは、たまたま良かったり悪かったりでガタガタしますよね。でも<strong>「直近5回の平均点」</strong>を出すと、ガタガタが消えて「最近この子は伸びているな」という流れが見えます。
+    移動平均線は、これを値段でやったもの。直近◯本の終値を平均して、線でつないだだけです。</p>
+  </div>
+
+  <figure>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--muted)"></i>実際の値段(ギザギザ)</span>
+      <span><i class="sw" style="background:var(--accent)"></i>移動平均線(なめらか)</span>
+    </div>
+    <svg viewBox="0 0 640 250" role="img" aria-label="実際の値動きと移動平均線を重ねた図">
+      <line x1="28" y1="215" x2="600" y2="215" stroke="var(--axis)" stroke-width="1"/>
+      <polyline points="28.0,183.1 49.7,173.8 71.5,186.2 93.2,164.4 115.0,151.9 136.7,161.2 158.4,142.5 180.2,126.9 201.9,139.4 223.7,120.6 245.4,108.1 267.1,123.8 288.9,133.1 310.6,114.4 332.3,98.8 354.1,86.2 375.8,95.6 397.6,76.9 419.3,64.4 441.0,80.0 462.8,70.6 484.5,55.0 506.3,67.5 528.0,48.8"
+                fill="none" stroke="var(--muted)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <polyline points="115.0,171.9 136.7,167.5 158.4,161.2 180.2,149.4 201.9,144.4 223.7,138.1 245.4,127.5 267.1,123.8 288.9,125.0 310.6,120.0 332.3,115.6 354.1,111.2 375.8,105.6 397.6,94.4 419.3,84.4 441.0,80.6 462.8,77.5 484.5,69.4 506.3,67.5 528.0,64.4"
+                fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+      <circle cx="528" cy="48.8" r="4" fill="var(--muted)" stroke="var(--surface)" stroke-width="2"/>
+      <circle cx="528" cy="64.4" r="4.5" fill="var(--accent)" stroke="var(--surface)" stroke-width="2"/>
+      <line x1="534" y1="48.8" x2="548" y2="44" stroke="var(--axis)" stroke-width="1"/>
+      <text class="t t-lbl" x="553" y="47" fill="var(--muted)">実際の値段</text>
+      <line x1="534" y1="64.4" x2="548" y2="76" stroke="var(--axis)" stroke-width="1"/>
+      <text class="t t-lbl" x="553" y="80" fill="var(--accent)">移動平均線</text>
+
+      <text class="t t-mut" x="28" y="234">時間 →</text>
+      <text class="t" x="600" y="234" text-anchor="end" font-size="13" font-weight="700" fill="var(--ink)">線が上向き＝上昇の流れ</text>
+    </svg>
+    <figcaption>
+      オレンジの線は、ギザギザの値段の「まん中」を通りながら、全体の向きを示しています。
+      <strong>線が上を向いていれば上昇の流れ、下を向いていれば下降の流れ</strong>。それだけで十分に使えます。
+    </figcaption>
+  </figure>
+
+  <h3>2つの使いかた(これだけ覚える)</h3>
+  <div class="card">
+    <p><strong>① 線の向きで、流れを見る</strong><br>
+    右上がりなら上昇、右下がりなら下降、横ばいならレンジ。レッスン2のトレンド判断の答え合わせに使えます。</p>
+    <p style="margin-bottom:0"><strong>② 値段が線の上か下かで、場面を分ける</strong><br>
+    値段が線より上にあるあいだは「買い目線」、下にあるあいだは「売り目線」。これだけで、逆方向に飛びついてしまうミスがかなり減ります。</p>
+  </div>
+
+  <div class="note">
+    <strong>設定は「20」から。</strong> 何本ぶんの平均をとるかは自由に決められますが、まずは<strong>20期間</strong>の1本だけを表示してください。
+    複数本を同時に出すと、判断がぶれて再現性が下がります。慣れてから2本目(たとえば75や200)を検討しましょう。
+  </div>
+
+  <div class="note">
+    <strong>弱点も知っておく:</strong> 移動平均線は「過去の平均」なので、<strong>実際の値動きよりワンテンポ遅れます</strong>(上の図でもオレンジの線が少し後ろをついてきています)。
+    急な反転にはついていけないので、これ1本で全部を決めないこと。
+  </div>
+</section>
+
+<!-- ================= LESSON 5 ================= -->
+<section id="l5">
+  <h2 class="sec"><span class="num">07</span>レッスン5:レンジとブレイク</h2>
+  <p class="sec-sub">値段が「動かない時間」と、そこから「飛び出す瞬間」の話です。</p>
+
+  <div class="analogy">
+    <span class="tag">たとえ話</span>
+    <p><strong>閉じこもった部屋から、ドアを突き破って出ていくイメージです。</strong>
+    しばらく同じ部屋(天井と床のあいだ)を行ったり来たりしていた値段が、ある瞬間に天井を突き破って外に出る。これを<strong>ブレイク(ブレイクアウト)</strong>と言います。
+    ためこんだエネルギーが一気に出るので、ブレイクの直後は大きく動きやすいのが特徴です。</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 640 290" role="img" aria-label="レンジからの上方向へのブレイクアウトを示す図">
+      <!-- range box -->
+      <rect x="30" y="120" width="330" height="110" rx="6" fill="var(--muted)" fill-opacity="0.07" stroke="none"/>
+      <line x1="30" y1="120" x2="440" y2="120" stroke="var(--up)" stroke-width="2" stroke-dasharray="6 4"/>
+      <line x1="30" y1="230" x2="440" y2="230" stroke="var(--down)" stroke-width="2" stroke-dasharray="6 4"/>
+      <text class="t t-mut" x="230" y="112" text-anchor="middle">天井(レジスタンス)</text>
+      <text class="t t-mut" x="230" y="248" text-anchor="middle">床(サポート)</text>
+      <text class="t" x="30" y="54" font-size="14" font-weight="700" fill="var(--ink-2)">レンジ ＝ 部屋の中</text>
+      <line x1="78" y1="64" x2="78" y2="116" stroke="var(--axis)" stroke-width="1" stroke-dasharray="3 3"/>
+
+      <!-- price inside range then breakout -->
+      <polyline points="30,200 70,128 110,222 150,126 190,224 230,132 270,215 310,124 350,190 380,124 400,86 440,58 480,74 520,42 560,60 600,30"
+                fill="none" stroke="var(--ink-2)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+      <!-- breakout marker -->
+      <circle cx="400" cy="86" r="8" fill="none" stroke="var(--up)" stroke-width="2.5"/>
+      <line x1="396" y1="79" x2="372" y2="55" stroke="var(--up)" stroke-width="1"/>
+      <text class="t" x="366" y="50" text-anchor="end" font-size="13.5" font-weight="700" fill="var(--up)">ブレイク!</text>
+      <text class="t t-mut" x="366" y="68" text-anchor="end">天井を突き破った</text>
+
+      <text class="t t-mut" x="530" y="128" text-anchor="middle">出たあとは大きく動きやすい</text>
+      <path d="M530 118 L530 86" stroke="var(--up)" stroke-width="1.5" fill="none" marker-end="url(#arrUp2)"/>
+
+      <text class="t" x="30" y="278" font-size="13.5" font-weight="700" fill="var(--ink)">静か(レンジ)が長いほど、出たときの動きは大きくなりやすい</text>
+      <defs>
+        <marker id="arrUp2" markerWidth="9" markerHeight="9" refX="4.5" refY="0" orient="0">
+          <path d="M0,7 L4.5,0 L9,7 Z" fill="var(--up)"/>
+        </marker>
+      </defs>
+    </svg>
+    <figcaption>
+      レンジのあいだは方向が読めないので初心者は様子見。<strong>ブレイクしてトレンドが生まれてから乗る</strong>ほうが、判断の根拠がはっきりします。
+    </figcaption>
+  </figure>
+
+  <div class="note">
+    <strong>気をつけること(だまし):</strong> 天井を少しだけ超えて、すぐ部屋の中に戻ってしまうことがよくあります。これを<strong>「だまし」</strong>と言います。
+    対策はかんたんで、<strong>ヒゲだけで超えた瞬間ではなく、ローソク足が天井の外で確定するまで待つ</strong>こと。1本待つだけでだましをかなり避けられます。
+  </div>
+</section>
+
+<!-- ================= LESSON 6 ================= -->
+<section id="l6">
+  <h2 class="sec"><span class="num">08</span>レッスン6:RSI(いきぎれメーター)</h2>
+  <p class="sec-sub">「その動きに、まだ元気は残っているか?」を数字で見る道具です。</p>
+
+  <div class="analogy">
+    <span class="tag">たとえ話</span>
+    <p><strong>全力ダッシュしたあとの「息切れ」を測るメーターです。</strong>
+    ずっと全力で走り続けられる人はいませんよね。値段も同じで、上がり続けたあとは一度休みたくなります。
+    RSIは0〜100の数字で、<strong>70より上なら「上げすぎて息切れ気味(買われすぎ)」、30より下なら「下げすぎて息切れ気味(売られすぎ)」</strong>と教えてくれます。</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 640 210" role="img" aria-label="RSIの0から100までの目盛りと買われすぎ・売られすぎのゾーンを示すメーター図">
+      <!-- track -->
+      <rect x="40" y="70" width="168" height="30" rx="6" fill="var(--down)" fill-opacity="0.85"/>
+      <rect x="212" y="70" width="216" height="30" fill="var(--muted)" fill-opacity="0.28"/>
+      <rect x="432" y="70" width="168" height="30" rx="6" fill="var(--up)" fill-opacity="0.85"/>
+      <rect x="204" y="70" width="8" height="30" fill="var(--surface)"/>
+      <rect x="428" y="70" width="4" height="30" fill="var(--surface)"/>
+
+      <!-- ticks -->
+      <text class="t t-mut" x="40"  y="120">0</text>
+      <text class="t t-mut" x="208" y="120" text-anchor="middle">30</text>
+      <text class="t t-mut" x="432" y="120" text-anchor="middle">70</text>
+      <text class="t t-mut" x="600" y="120" text-anchor="end">100</text>
+
+      <!-- zone labels -->
+      <text class="t" x="124" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="var(--down)">売られすぎ</text>
+      <text class="t t-mut" x="124" y="38" text-anchor="middle">下げて息切れ</text>
+      <text class="t" x="320" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink-2)">ふつう</text>
+      <text class="t t-mut" x="320" y="38" text-anchor="middle">まだ元気がある</text>
+      <text class="t" x="516" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="var(--up)">買われすぎ</text>
+      <text class="t t-mut" x="516" y="38" text-anchor="middle">上げて息切れ</text>
+
+      <!-- needle -->
+      <path d="M466 138 L458 152 L474 152 Z" fill="var(--ink)"/>
+      <line x1="466" y1="138" x2="466" y2="104" stroke="var(--ink)" stroke-width="2"/>
+      <text class="t" x="466" y="172" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink)">いまここ(RSI 76)</text>
+      <text class="t t-mut" x="466" y="192" text-anchor="middle">＝上げ続けて、そろそろ息切れ気味</text>
+    </svg>
+    <figcaption>
+      数字が70を超えたら「上がりすぎかも」、30を割ったら「下がりすぎかも」。ただし<strong>これは「そろそろ休むかも」というヒントであって、売買のサインそのものではありません。</strong>
+    </figcaption>
+  </figure>
+
+  <div class="note">
+    <strong>いちばんやりがちな失敗:</strong>
+    「RSIが70を超えたから売る」。これは<strong>強い上昇トレンドではまず通用しません</strong>。マラソン選手は息が上がってもまだまだ走り続けます。
+    値段も同じで、<strong>RSIが70以上に貼りついたまま、何時間も上がり続けることがよくあります</strong>。
+    RSIは「レンジのとき」か「トレンドの向きに合わせて押し目を探すとき」に使い、トレンドに逆らう理由には使わないでください。
+  </div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section id="quiz">
+  <h2 class="sec"><span class="num">09</span>練習問題(6問)</h2>
+  <p class="sec-sub">
+    えらぶと、すぐに答えと解説が出ます。<strong>まちがえた問題のレッスンに戻る</strong>のがいちばん効率のいい復習です。
+  </p>
+
+  <div class="q" data-q data-answer="1">
+    <div class="qh"><span class="qn">Q1</span><p class="qt">この1本のローソク足では、何が起きたと考えられますか?</p></div>
+    <figure>
+      <svg viewBox="0 0 480 210" role="img" aria-label="上ヒゲが長い陰線のローソク足">
+        <line x1="240" y1="18" x2="240" y2="186" stroke="var(--down)" stroke-width="2"/>
+        <rect x="212" y="112" width="56" height="40" rx="4" fill="var(--down)" stroke="var(--surface)" stroke-width="2"/>
+        <line x1="248" y1="18" x2="292" y2="18" stroke="var(--axis)" stroke-width="1"/>
+        <text class="t t-mut" x="298" y="22">高値</text>
+        <line x1="272" y1="112" x2="292" y2="112" stroke="var(--axis)" stroke-width="1"/>
+        <text class="t t-mut" x="298" y="116">始値</text>
+        <line x1="272" y1="152" x2="292" y2="152" stroke="var(--axis)" stroke-width="1"/>
+        <text class="t t-mut" x="298" y="156">終値</text>
+        <line x1="248" y1="186" x2="292" y2="186" stroke="var(--axis)" stroke-width="1"/>
+        <text class="t t-mut" x="298" y="190">安値</text>
+        <text class="t t-mut" x="150" y="70" text-anchor="end">とても長い上ヒゲ</text>
+        <line x1="158" y1="66" x2="234" y2="66" stroke="var(--axis)" stroke-width="1" stroke-dasharray="3 3"/>
+      </svg>
+    </figure>
+    <div class="opts">
+      <button class="opt" type="button" data-i="0">ずっと勢いよく上がり続けた</button>
+      <button class="opt" type="button" data-i="1">一度大きく上がったが、押し戻されて始値より下で終わった</button>
+      <button class="opt" type="button" data-i="2">まったく値動きがなかった</button>
+    </div>
+    <p class="fb"><strong>正解:</strong> 上ヒゲがとても長く、実体が小さいですね。これは「買われて高値まで行ったのに、売り手に押し返されて戻ってきた」形です。さらに終値が始値より下(陰線)なので、最終的には売り手が勝った1本ということになります。上昇の途中でこの形が出たら、勢いがにぶってきたサインとして警戒します。<br><span style="color:var(--muted)">→ 復習は<a href="#l1">レッスン1</a></span></p>
+  </div>
+
+  <div class="q" data-q data-answer="1">
+    <div class="qh"><span class="qn">Q2</span><p class="qt">このチャートの状態は、次のどれですか?</p></div>
+    <figure>
+      <svg viewBox="0 0 480 190" role="img" aria-label="高値と安値が切り下がっていくジグザグのチャート">
+        <polyline points="30,35 100,88 140,62 215,118 255,92 330,148 370,124 450,172"
+                  fill="none" stroke="var(--ink-2)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="140" cy="62" r="5" fill="var(--up)" stroke="var(--surface)" stroke-width="2"/>
+        <circle cx="255" cy="92" r="5" fill="var(--up)" stroke="var(--surface)" stroke-width="2"/>
+        <circle cx="370" cy="124" r="5" fill="var(--up)" stroke="var(--surface)" stroke-width="2"/>
+        <circle cx="100" cy="88" r="5" fill="var(--down)" stroke="var(--surface)" stroke-width="2"/>
+        <circle cx="215" cy="118" r="5" fill="var(--down)" stroke="var(--surface)" stroke-width="2"/>
+        <circle cx="330" cy="148" r="5" fill="var(--down)" stroke="var(--surface)" stroke-width="2"/>
+        <text class="t t-mut" x="30" y="185">赤＝山(高値) ／ 青＝谷(安値)</text>
+      </svg>
+    </figure>
+    <div class="opts">
+      <button class="opt" type="button" data-i="0">上昇トレンド</button>
+      <button class="opt" type="button" data-i="1">下降トレンド</button>
+      <button class="opt" type="button" data-i="2">レンジ(横ばい)</button>
+    </div>
+    <p class="fb"><strong>正解:</strong> 山(赤)を左から見ていくとだんだん低くなり、谷(青)もだんだん低くなっています。「山も谷も切り下がっている」＝下りの階段なので下降トレンドです。この状態のときは<strong>売り目線</strong>でチャートを見ます。<br><span style="color:var(--muted)">→ 復習は<a href="#l2">レッスン2</a></span></p>
+  </div>
+
+  <div class="q" data-q data-answer="0">
+    <div class="qh"><span class="qn">Q3</span><p class="qt">点線で示した値段は、何と呼ばれますか?</p></div>
+    <figure>
+      <svg viewBox="0 0 480 190" role="img" aria-label="上から3回はね返されている水平線">
+        <line x1="30" y1="48" x2="450" y2="48" stroke="var(--up)" stroke-width="2" stroke-dasharray="6 4"/>
+        <polyline points="30,150 110,52 165,120 250,50 300,132 385,52 450,140"
+                  fill="none" stroke="var(--ink-2)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="110" cy="52" r="5" fill="var(--up)" stroke="var(--surface)" stroke-width="2"/>
+        <circle cx="250" cy="50" r="5" fill="var(--up)" stroke="var(--surface)" stroke-width="2"/>
+        <circle cx="385" cy="52" r="5" fill="var(--up)" stroke="var(--surface)" stroke-width="2"/>
+        <text class="t t-mut" x="30" y="185">3回とも、この値段で止まって下に落ちている</text>
+      </svg>
+    </figure>
+    <div class="opts">
+      <button class="opt" type="button" data-i="0">レジスタンス(天井)</button>
+      <button class="opt" type="button" data-i="1">サポート(床)</button>
+      <button class="opt" type="button" data-i="2">移動平均線</button>
+    </div>
+    <p class="fb"><strong>正解:</strong> 値段が下から上がってきて、この線ではね返されて落ちています。つまり「天井」として働いているので<strong>レジスタンス(抵抗線)</strong>です。3回もタッチしているぶん、多くの人が意識している信頼できる線と考えられます。<br><span style="color:var(--muted)">→ 復習は<a href="#l3">レッスン3</a></span></p>
+  </div>
+
+  <div class="q" data-q data-answer="1">
+    <div class="qh"><span class="qn">Q4</span><p class="qt">オレンジが移動平均線です。いまはどちらの目線で見るべきですか?</p></div>
+    <figure>
+      <svg viewBox="0 0 480 190" role="img" aria-label="下向きの移動平均線の下で推移する価格">
+        <polyline points="30,52 75,72 120,58 165,88 210,76 255,104 300,94 345,124 390,112 450,142"
+                  fill="none" stroke="var(--muted)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+        <polyline points="30,38 120,50 210,68 300,88 390,106 450,122"
+                  fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <text class="t t-lbl" x="450" y="160" text-anchor="end" fill="var(--accent)">オレンジ＝移動平均線</text>
+        <text class="t t-lbl" x="30" y="180" fill="var(--muted)">グレー＝実際の値段</text>
+      </svg>
+    </figure>
+    <div class="opts">
+      <button class="opt" type="button" data-i="0">買い目線(上がりそう)</button>
+      <button class="opt" type="button" data-i="1">売り目線(下がりそう)</button>
+      <button class="opt" type="button" data-i="2">移動平均線だけでは何も分からない</button>
+    </div>
+    <p class="fb"><strong>正解:</strong> ポイントは2つ。①移動平均線が<strong>右下がり</strong>＝下降の流れ。②値段が線の<strong>下</strong>にある。どちらも下方向を示しているので、売り目線でチャートを見る場面です。ここで「安くなったから買おう」と逆らうのが、初心者がいちばん損をしやすいパターンです。<br><span style="color:var(--muted)">→ 復習は<a href="#l4">レッスン4</a></span></p>
+  </div>
+
+  <div class="q" data-q data-answer="2">
+    <div class="qh"><span class="qn">Q5</span><p class="qt">レンジの天井をヒゲで少しだけ超えました。「だまし」を避けるには?</p></div>
+    <div class="opts">
+      <button class="opt" type="button" data-i="0">超えた瞬間にすぐ買う</button>
+      <button class="opt" type="button" data-i="1">RSIが70を超えるまで待つ</button>
+      <button class="opt" type="button" data-i="2">ローソク足が天井の外側で確定(その足が終わる)するまで待つ</button>
+    </div>
+    <p class="fb"><strong>正解:</strong> ヒゲはまだ「行ってみただけ」の状態で、確定していません。その足が終わるまで待って、<strong>終値が天井の外側に残っているか</strong>を確認します。1本待つだけで、だましにひっかかる回数はかなり減ります。「乗り遅れる」ことより「だましで損切りする」ほうが、金額としては痛いことが多いです。<br><span style="color:var(--muted)">→ 復習は<a href="#l5">レッスン5</a></span></p>
+  </div>
+
+  <div class="q" data-q data-answer="1">
+    <div class="qh"><span class="qn">Q6</span><p class="qt">強い上昇トレンドの最中に、RSIが75になりました。どうしますか?</p></div>
+    <div class="opts">
+      <button class="opt" type="button" data-i="0">買われすぎなので、すぐに売り(逆張り)を入れる</button>
+      <button class="opt" type="button" data-i="1">トレンドは上なので売らない。押し目(一時的な下げ)を待って買う方向で考える</button>
+      <button class="opt" type="button" data-i="2">RSIが100になるまで待つ</button>
+    </div>
+    <p class="fb"><strong>正解:</strong> 強い上昇トレンドでは、RSIが70以上に貼りついたまま何時間も上がり続けることがあります(これを「張り付き」と呼びます)。RSIの数字だけを理由にトレンドへ逆らうのは、初心者がもっとも損をしやすい行動のひとつです。<strong>まずトレンドの向き、次にRSI</strong>という優先順位を必ず守ってください。<br><span style="color:var(--muted)">→ 復習は<a href="#l6">レッスン6</a></span></p>
+  </div>
+
+  <div class="score">
+    <span id="scoreTxt">まだ解答していません</span>
+    <span><b id="scoreNum">0</b><span style="color:var(--muted); font-size:14px"> / 6問正解</span></span>
+  </div>
+</section>
+
+<!-- ================= CHECKLIST ================= -->
+<section id="checklist">
+  <h2 class="sec"><span class="num">10</span>習得チェックリスト</h2>
+  <p class="sec-sub">
+    ロードマップの各ステップの「卒業条件」をチェック項目にしました。
+    <strong>全部にチェックが入ってから、実際のお金でのトレードを検討してください。</strong>
+  </p>
+
+  <div class="progressbar"><i id="bar"></i></div>
+  <p class="progresstxt" id="progTxt">0 / 18 項目 完了</p>
+
+  <div class="chk" id="chkbox">
+    <h3><span class="stepno">STEP 0</span>道具をそろえる</h3>
+    <label><input type="checkbox"><span>デモ口座を開いて、米ドル/円のチャートを表示できた</span></label>
+    <label><input type="checkbox"><span>時間足(1分・5分・15分・1時間・日足)を自分で切り替えられる</span></label>
+    <label><input type="checkbox"><span>pips・ロット・スプレッドが何のことか説明できる</span></label>
+
+    <h3><span class="stepno">STEP 1</span>ローソク足</h3>
+    <label><input type="checkbox"><span>始値・終値・高値・安値の位置を、迷わず指させる</span></label>
+    <label><input type="checkbox"><span>陽線と陰線を色を見ずに(実体の位置関係で)判別できる</span></label>
+    <label><input type="checkbox"><span>長いヒゲを見て「押し戻された」と説明できる</span></label>
+
+    <h3><span class="stepno">STEP 2</span>トレンド判断</h3>
+    <label><input type="checkbox"><span>チャートの山(高値)と谷(安値)に自分で印をつけられる</span></label>
+    <label><input type="checkbox"><span>上昇・下降・レンジの3択を、理由つきで即答できる</span></label>
+    <label><input type="checkbox"><span>「谷が前の谷を割った＝上昇トレンドが崩れた」と判断できる</span></label>
+
+    <h3><span class="stepno">STEP 3</span>サポート・レジスタンス</h3>
+    <label><input type="checkbox"><span>1時間足に、根拠を説明できる水平線を3本引ける</span></label>
+    <label><input type="checkbox"><span>引いた線が翌日効いたかどうか、1週間ぶん答え合わせした</span></label>
+    <label><input type="checkbox"><span>キリのいい数字(150.00円など)も意識されると知っている</span></label>
+
+    <h3><span class="stepno">STEP 4</span>移動平均線とRSI</h3>
+    <label><input type="checkbox"><span>20期間の移動平均線を1本だけ表示して使っている</span></label>
+    <label><input type="checkbox"><span>線の向き＋値段が線の上か下か、で場面を分けられる</span></label>
+    <label><input type="checkbox"><span>強いトレンド中はRSIの逆張りが効きにくいと理解している</span></label>
+
+    <h3><span class="stepno">STEP 5</span>ルール化と検証</h3>
+    <label><input type="checkbox"><span>エントリー・損切り・利確・1回の許容損失額を紙に書いた</span></label>
+    <label><input type="checkbox"><span>そのルールでデモトレードを30回やった</span></label>
+    <label><input type="checkbox"><span>30回の記録から勝率・平均損益・最大連敗数を計算した</span></label>
+  </div>
+
+  <div class="note">
+    <strong>ブラウザを閉じるとチェックは消えます。</strong> 長く残したい場合は、ノートアプリや紙に同じ項目を書き写して管理してください。
+  </div>
+</section>
+
+<footer>
+  <p><strong>この資料について</strong><br>
+  FXは証拠金取引であり、元本は保証されません。この資料は学習用のまとめであり、投資助言ではありません。
+  記載した手法や数値は「よく使われる一般的な考え方」であって、勝ちを保証するものではありません。
+  実際の取引は必ずご自身の判断と責任で、デモ口座や少額での検証を経てから行ってください。</p>
+  <p>作成:2026年8月 ／ 対象:米ドル/円のデイトレード・短期トレード入門</p>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  // ---- theme toggle ----
+  var btn = document.getElementById('themeBtn');
+  btn.addEventListener('click', function(){
+    var root = document.documentElement;
+    var cur = root.getAttribute('data-theme');
+    if(!cur){
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      cur = prefersDark ? 'dark' : 'light';
+    }
+    root.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+  });
+
+  // ---- quiz ----
+  var correctCount = 0, answeredCount = 0;
+  var qs = document.querySelectorAll('[data-q]');
+  var total = qs.length;
+  var scoreTxt = document.getElementById('scoreTxt');
+  var scoreNum = document.getElementById('scoreNum');
+
+  qs.forEach(function(q){
+    var answer = parseInt(q.getAttribute('data-answer'), 10);
+    var opts = q.querySelectorAll('.opt');
+    var fb = q.querySelector('.fb');
+    opts.forEach(function(opt){
+      opt.addEventListener('click', function(){
+        if(q.dataset.done) return;
+        q.dataset.done = '1';
+        var picked = parseInt(opt.getAttribute('data-i'), 10);
+        answeredCount++;
+        if(picked === answer) correctCount++;
+        opts.forEach(function(o){
+          var i = parseInt(o.getAttribute('data-i'), 10);
+          o.disabled = true;
+          if(i === answer){
+            o.classList.add('correct');
+            o.insertAdjacentHTML('afterbegin', '<span class="mark">正解</span>');
+          } else if(i === picked){
+            o.classList.add('wrong');
+            o.insertAdjacentHTML('afterbegin', '<span class="mark">不正解</span>');
+          }
+        });
+        fb.classList.add('show');
+        scoreNum.textContent = correctCount;
+        if(answeredCount < total){
+          scoreTxt.textContent = '解答中… 残り ' + (total - answeredCount) + ' 問';
+        } else if(correctCount === total){
+          scoreTxt.textContent = '全問正解。レッスンの内容は身についています。';
+        } else if(correctCount >= 4){
+          scoreTxt.textContent = 'あと少し。まちがえた問題のレッスンに戻りましょう。';
+        } else {
+          scoreTxt.textContent = 'レッスン1から、図を見ながらもう一度読み直してみましょう。';
+        }
+      });
+    });
+  });
+
+  // ---- checklist progress ----
+  var boxes = document.querySelectorAll('#chkbox input[type="checkbox"]');
+  var bar = document.getElementById('bar');
+  var progTxt = document.getElementById('progTxt');
+  function update(){
+    var done = 0;
+    boxes.forEach(function(b){ if(b.checked) done++; });
+    var pct = boxes.length ? (done / boxes.length * 100) : 0;
+    bar.style.width = pct + '%';
+    progTxt.textContent = done + ' / ' + boxes.length + ' 項目 完了'
+      + (done === boxes.length ? ' — おつかれさまでした!' : '');
+  }
+  boxes.forEach(function(b){ b.addEventListener('change', update); });
+  update();
+})();
+</script>
+</body>
+</html>
