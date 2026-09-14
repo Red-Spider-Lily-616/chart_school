@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>プライバシーポリシー - FX学習ノート</title>
+<link rel="canonical" href="https://red-spider-lily-616.github.io/chart_school/privacy.html">
+<meta name="description" content="FX学習ノートのプライバシーポリシー。広告配信におけるCookieの利用、アクセス解析、免責事項、著作権について記載しています。">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#fcfcfb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a19" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="FX学習ノート">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="プライバシーポリシー - FX学習ノート">
+<meta property="og:description" content="FX学習ノートのプライバシーポリシー。広告配信におけるCookieの利用、アクセス解析、免責事項、著作権について記載しています。">
+<meta property="og:url" content="https://red-spider-lily-616.github.io/chart_school/privacy.html">
+<meta property="og:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root{
+    color-scheme: light;
+    --page:#f9f9f7; --surface:#fcfcfb;
+    --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781;
+    --line:#e1e0d9; --axis:#c3c2b7;
+    --up:#e34948; --down:#2a78d6;
+    --line1:#eb6834; --line2:#4a3aa7; --line3:#1baf7a;
+    --good:#0ca30c; --crit:#d03b3b;
+    --ring:rgba(11,11,11,0.10);
+    --shadow:0 1px 2px rgba(11,11,11,.04), 0 8px 24px rgba(11,11,11,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:where(:not([data-theme="light"])){
+      color-scheme: dark;
+      --page:#0d0d0d; --surface:#1a1a19;
+      --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
+      --line:#2c2c2a; --axis:#383835;
+      --up:#e66767; --down:#3987e5;
+      --line1:#d95926; --line2:#9085e9; --line3:#199e70;
+      --good:#0ca30c; --crit:#d03b3b;
+      --ring:rgba(255,255,255,0.10);
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
+    --line:#2c2c2a; --axis:#383835; --up:#e66767; --down:#3987e5;
+    --line1:#d95926; --line2:#9085e9; --line3:#199e70; --good:#0ca30c; --crit:#d03b3b;
+    --ring:rgba(255,255,255,0.10);
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0; background:var(--page); color:var(--ink);
+    font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",Meiryo,sans-serif;
+    line-height:1.85; font-size:16px; text-rendering:optimizeLegibility;}
+  .wrap{max-width:920px; margin:0 auto; padding:0 20px 96px}
+
+  header.hero{padding:64px 0 40px; border-bottom:1px solid var(--line)}
+  .eyebrow{font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--line1); font-weight:700; margin:0 0 14px}
+  h1{font-size:clamp(27px,4.8vw,40px); line-height:1.32; margin:0 0 18px; letter-spacing:-.01em}
+  .lede{font-size:17px; color:var(--ink-2); margin:0; max-width:64ch}
+  .meta{margin-top:22px; font-size:13px; color:var(--muted)}
+  .themetoggle{position:fixed; top:14px; right:14px; z-index:50; background:var(--surface);
+    color:var(--ink-2); border:1px solid var(--ring); border-radius:999px; padding:7px 14px;
+    font-size:12px; cursor:pointer; font-family:inherit; box-shadow:var(--shadow)}
+  .themetoggle:hover{color:var(--ink)}
+
+  nav.toc{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
+    padding:20px 24px; margin:32px 0 8px; box-shadow:var(--shadow)}
+  nav.toc h2{font-size:13px; letter-spacing:.1em; color:var(--muted); margin:0 0 12px; text-transform:uppercase}
+  nav.toc ol{margin:0; padding-left:20px; columns:2; column-gap:32px}
+  nav.toc li{margin:5px 0; break-inside:avoid}
+  nav.toc a{color:var(--ink-2); text-decoration:none; border-bottom:1px solid transparent}
+  nav.toc a:hover{color:var(--ink); border-bottom-color:var(--axis)}
+  @media (max-width:640px){nav.toc ol{columns:1}}
+
+  section{padding-top:58px; scroll-margin-top:20px}
+  h2.sec{font-size:clamp(21px,3.4vw,27px); margin:0 0 8px; letter-spacing:-.01em; display:flex; align-items:baseline; gap:12px}
+  h2.sec .num{font-size:13px; font-weight:700; color:var(--line1); letter-spacing:.08em; flex:none}
+  .sec-sub{color:var(--ink-2); margin:0 0 26px; font-size:15.5px; max-width:66ch}
+  h3{font-size:18px; margin:36px 0 10px; letter-spacing:-.005em}
+  h4{font-size:15.5px; margin:22px 0 6px}
+  p{margin:0 0 14px}
+  strong{font-weight:700}
+
+  .card{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
+    padding:22px 26px; margin:20px 0; box-shadow:var(--shadow)}
+  .card > :first-child{margin-top:0}
+  .card > :last-child{margin-bottom:0}
+
+  .key{background:var(--surface); border:1px solid var(--ring); border-left:3px solid var(--line1);
+    border-radius:0 12px 12px 0; padding:18px 22px; margin:18px 0}
+  .key .tag{display:block; font-size:11.5px; font-weight:700; letter-spacing:.1em; color:var(--line1); margin-bottom:6px}
+  .key p{margin:0; font-size:15.5px}
+  .key p + p{margin-top:10px}
+
+  .warn{background:var(--surface); border:1px solid var(--ring); border-left:3px solid var(--crit);
+    border-radius:0 12px 12px 0; padding:18px 22px; margin:18px 0}
+  .warn .tag{display:block; font-size:11.5px; font-weight:700; letter-spacing:.1em; color:var(--crit); margin-bottom:6px}
+  .warn p{margin:0; font-size:15.5px}
+
+  .note{font-size:14.5px; color:var(--ink-2); background:var(--surface);
+    border:1px dashed var(--axis); border-radius:12px; padding:14px 18px; margin:18px 0}
+  .note strong{color:var(--ink)}
+  ul.plain{margin:10px 0 14px; padding-left:22px}
+  ul.plain li{margin:7px 0}
+  ol.steps2{margin:10px 0 14px; padding-left:22px}
+  ol.steps2 li{margin:8px 0}
+
+  figure{margin:22px 0; background:var(--surface); border:1px solid var(--ring);
+    border-radius:14px; padding:20px 20px 14px; box-shadow:var(--shadow)}
+  figure svg{display:block; width:100%; height:auto}
+  figcaption{font-size:13.5px; color:var(--ink-2); margin-top:12px; padding-top:12px;
+    border-top:1px solid var(--line); line-height:1.75}
+  .legend{display:flex; flex-wrap:wrap; gap:16px; margin:0 0 12px; font-size:12.5px; color:var(--ink-2)}
+  .legend span{display:inline-flex; align-items:center; gap:7px}
+  .sw{width:12px; height:3px; border-radius:2px; flex:none}
+  .sw.box{height:11px; width:11px; border-radius:3px}
+  .figrow{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+  @media (max-width:700px){.figrow{grid-template-columns:1fr}}
+  .figrow figure{margin:0}
+
+  .t{font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
+  .t-lbl{font-size:12px; fill:var(--ink-2)}
+  .t-mut{font-size:11px; fill:var(--muted)}
+
+  table{width:100%; border-collapse:collapse; margin:16px 0; font-size:14.5px;
+    background:var(--surface); border:1px solid var(--ring); border-radius:12px; overflow:hidden}
+  th,td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
+  th{font-size:12.5px; letter-spacing:.05em; color:var(--muted); font-weight:700; background:var(--page)}
+  tr:last-child td{border-bottom:none}
+  td.rank{font-weight:700; color:var(--line1); white-space:nowrap}
+
+  .q{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
+    padding:22px 24px; margin:18px 0; box-shadow:var(--shadow)}
+  .q .qh{display:flex; gap:10px; align-items:baseline; margin-bottom:6px}
+  .q .qn{font-size:12px; font-weight:700; color:var(--line1); letter-spacing:.06em; flex:none}
+  .q .qt{font-size:16px; font-weight:600; margin:0}
+  .q figure{margin:14px 0; padding:14px 14px 10px}
+  .opts{display:flex; flex-direction:column; gap:8px; margin:14px 0 0}
+  .opt{text-align:left; font:inherit; font-size:15px; cursor:pointer; background:var(--page);
+    color:var(--ink); border:1px solid var(--ring); border-radius:10px; padding:11px 15px;
+    transition:border-color .12s, background .12s}
+  .opt:hover:not(:disabled){border-color:var(--axis)}
+  .opt:disabled{cursor:default}
+  .opt.correct{border-color:var(--good); background:color-mix(in srgb, var(--good) 9%, var(--page))}
+  .opt.wrong{border-color:var(--crit); background:color-mix(in srgb, var(--crit) 9%, var(--page))}
+  .opt .mark{font-weight:700; margin-right:8px}
+  .fb{margin:14px 0 0; font-size:14.5px; color:var(--ink-2); line-height:1.75;
+    border-left:3px solid var(--good); padding:2px 0 2px 14px; display:none}
+  .fb.show{display:block}
+  .score{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
+    padding:18px 24px; margin:22px 0 0; box-shadow:var(--shadow); font-size:15px;
+    display:flex; justify-content:space-between; align-items:center; gap:16px}
+  .score b{font-size:24px; font-variant-numeric:tabular-nums}
+
+  .chk{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
+    padding:8px 24px 16px; margin:18px 0; box-shadow:var(--shadow)}
+  .chk label{display:flex; gap:11px; align-items:flex-start; padding:9px 0; font-size:15px;
+    cursor:pointer; border-bottom:1px solid var(--line)}
+  .chk label:last-child{border-bottom:none}
+  .chk input{margin:6px 0 0; width:16px; height:16px; accent-color:var(--good); flex:none; cursor:pointer}
+  .chk input:checked + span{color:var(--muted); text-decoration:line-through}
+  .progressbar{height:6px; background:var(--line); border-radius:999px; overflow:hidden; margin:10px 0 4px}
+  .progressbar i{display:block; height:100%; width:0; background:var(--good); border-radius:999px; transition:width .25s}
+  .progresstxt{font-size:13px; color:var(--muted); margin:0 0 8px}
+
+  footer{margin-top:72px; padding-top:28px; border-top:1px solid var(--line);
+    font-size:13.5px; color:var(--muted); line-height:1.8}
+
+  /* ---- site nav (added for GitHub Pages) ---- */
+  .sitenav{position:sticky; top:0; z-index:60; background:var(--page);
+    border-bottom:1px solid var(--line)}
+  @supports (backdrop-filter: blur(8px)){
+    .sitenav{background:color-mix(in srgb, var(--page) 86%, transparent); backdrop-filter:saturate(1.5) blur(10px)}
+  }
+  .sitenav .inner{max-width:920px; margin:0 auto; padding:0 20px; display:flex; gap:2px;
+    align-items:center; overflow-x:auto; scrollbar-width:none}
+  .sitenav .inner::-webkit-scrollbar{display:none}
+  .sitenav a{flex:none; font-size:12.5px; color:var(--ink-2); text-decoration:none;
+    padding:12px 11px; border-bottom:2px solid transparent; white-space:nowrap; line-height:1.2}
+  .sitenav a:hover{color:var(--ink)}
+  .sitenav a.cur{color:var(--line1); border-bottom-color:var(--line1); font-weight:700}
+  .sitenav .home{font-weight:700; color:var(--ink); margin-right:8px; padding-right:14px;
+    border-right:1px solid var(--line); border-bottom:none}
+  .sitenav .home:hover{color:var(--line1)}
+  .sitenav .themetoggle{position:static; margin-left:auto; flex:none; box-shadow:none;
+    padding:5px 11px; font-size:11.5px}
+  header.hero{padding-top:44px}
+</style>
+<style>
+  .doc h2{font-size:clamp(19px,3vw,23px); margin:50px 0 10px; letter-spacing:-.01em}
+  .doc h3{font-size:16.5px; margin:28px 0 8px}
+  .doc p{margin:0 0 14px}
+  .doc ul{padding-left:22px; margin:10px 0 16px}
+  .doc li{margin:7px 0}
+  .doc a{color:var(--line1)}
+  .fill{background:color-mix(in srgb, var(--line1) 12%, var(--surface));
+    border:1px dashed var(--line1); border-radius:8px; padding:2px 8px; font-size:14px}
+  .ad-slot{display:none}
+</style>
+</head>
+<body>
+<nav class="sitenav"><div class="inner">
+<a class="home" href="index.html">FX学習ノート</a>
+<a href="basics.html">基礎</a>
+<a href="intro.html">入門</a>
+<a href="lines.html">線の意味</a>
+<a href="structure.html">相場の構造</a>
+<button class="themetoggle" id="themeBtn" type="button">◐ 表示切替</button>
+</div></nav>
+<div class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">FX Study Notes</p>
+  <h1>プライバシーポリシー</h1>
+  <p class="lede">当サイト「FX学習ノート」における、個人情報の取り扱い・広告配信・免責事項についてご説明します。</p>
+  <p class="meta">最終更新:2026年9月14日</p>
+</header>
+
+<div class="doc">
+
+<h2>広告の配信について</h2>
+<p>当サイトでは、第三者配信の広告サービスを利用する場合があります。</p>
+<p>このような広告配信事業者は、利用者の興味に応じた広告を表示するために <strong>Cookie(クッキー)</strong> を使用することがあります。Cookieには、当サイトや他サイトへのアクセス情報が含まれますが、氏名・住所・メールアドレス・電話番号などの個人を特定する情報は含まれません。</p>
+
+<h3>Googleによる広告配信について</h3>
+<p>当サイトがGoogleアドセンスを利用する場合、Googleを含む第三者配信事業者はCookieを使用して、ユーザーの過去のアクセス情報に基づいた広告を配信します。</p>
+<ul>
+  <li>パーソナライズ広告は、<a href="https://myadcenter.google.com/" target="_blank" rel="noopener">Googleの広告設定</a>から無効にできます</li>
+  <li>第三者配信事業者の広告全般については、<a href="https://optout.aboutads.info/" target="_blank" rel="noopener">aboutads.info</a> からオプトアウトできます</li>
+  <li>Googleの広告における情報の使用方法は、<a href="https://policies.google.com/technologies/ads?hl=ja" target="_blank" rel="noopener">Googleのポリシーと規約</a>をご確認ください</li>
+</ul>
+
+<h3>アフィリエイトプログラムについて</h3>
+<p>当サイトは、第三者が運営するアフィリエイトプログラムに参加し、商品・サービスを紹介する場合があります。その際、広告主から紹介料を受け取ることがあります。</p>
+<p>広告・アフィリエイトリンクを掲載する場合は、<strong>該当箇所に「広告」「PR」等を明示します</strong>(景品表示法の指定告示に基づく対応)。</p>
+
+<h2>アクセス解析ツールについて</h2>
+<p>当サイトでは、サイトの利用状況を把握するためにアクセス解析ツールを利用する場合があります。これらのツールはCookieを使用してトラフィックデータを収集しますが、このデータは匿名で収集されており、個人を特定するものではありません。</p>
+<p>Cookieの無効化により収集を拒否することができます。設定方法はご利用のブラウザをご確認ください。</p>
+
+<h2>免責事項</h2>
+<p><strong>当サイトは、FXおよびテクニカル分析・ファンダメンタルズ分析に関する学習用の情報を提供するものであり、投資助言・投資勧誘を目的としたものではありません。</strong></p>
+<ul>
+  <li>FXは証拠金取引であり、元本は保証されません。相場の変動により損失が生じる可能性があります</li>
+  <li>掲載している手法・概念・数値は市場で広く使われている一般的な考え方であり、将来の利益を保証するものではありません</li>
+  <li>相場の4局面、流動性、エリオット波動などは市場を解釈するためのモデルであり、証明された法則ではありません</li>
+  <li>掲載しているチャート図はすべて解説用に作成した模式図であり、実際の相場データではありません</li>
+  <li>情報の正確性には努めていますが、その完全性・最新性を保証するものではありません</li>
+</ul>
+<p>当サイトの情報を利用して行った投資判断・取引によって生じたいかなる損害についても、当サイトは一切の責任を負いません。<strong>実際の取引は必ずご自身の判断と責任において行ってください。</strong></p>
+
+<h2>外部リンクについて</h2>
+<p>当サイトからリンクやバナーなどによって他サイトへ移動した場合、移動先サイトで提供される情報・サービス等について、当サイトは一切の責任を負いません。</p>
+
+<h2>著作権について</h2>
+<p>当サイトに掲載されている文章・図版の著作権は、当サイト運営者に帰属します。無断での複製・転載・再配布はご遠慮ください。引用の範囲内でご利用いただく場合は、出典として当サイトへのリンクを明記してください。</p>
+
+<h2>お問い合わせ</h2>
+<p>当サイトに関するお問い合わせは、下記までご連絡ください。</p>
+<p><span class="fill">※ここに連絡先(メールアドレスまたはお問い合わせフォームのURL)を記入してください</span></p>
+
+<h2>本ポリシーの変更</h2>
+<p>当サイトは、必要に応じて本プライバシーポリシーの内容を変更することがあります。変更後の内容は、当ページに掲載した時点から適用されます。</p>
+
+</div>
+
+<footer>
+  <p><a href="index.html" style="color:var(--line1)">← FX学習ノート トップに戻る</a></p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var btn=document.getElementById('themeBtn'); if(!btn) return;
+  btn.addEventListener('click',function(){
+    var r=document.documentElement,c=r.getAttribute('data-theme');
+    if(!c){c=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+    r.setAttribute('data-theme',c==='dark'?'light':'dark');
+  });
+})();
+</script>
+</body>
+</html>

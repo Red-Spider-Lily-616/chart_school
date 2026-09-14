@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://red-spider-lily-616.github.io/chart_school/sitemap.xml

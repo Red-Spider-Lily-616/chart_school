@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>テクニカル分析 実践編 ― 「線」の意味を理解する</title>
+<title>トレンドラインと「線」の意味 - テクニカル分析 実践編</title>
 <style>
   :root{
     color-scheme: light;
@@ -178,6 +178,50 @@
     padding:5px 11px; font-size:11.5px}
   header.hero{padding-top:44px}
 </style>
+<link rel="canonical" href="https://red-spider-lily-616.github.io/chart_school/lines.html">
+<meta name="description" content="トレンドライン、水平線、フィボナッチ、ネックラインは何を表しているのか。線が効く原理、3点目で有効になる理由、押し安値の特定手順、ロールリバーサル、だましの構造、損切り位置の決め方を図解します。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#fcfcfb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a19" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="FX学習ノート">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="トレンドラインと「線」の意味 - テクニカル分析 実践編">
+<meta property="og:description" content="トレンドライン、水平線、フィボナッチ、ネックラインは何を表しているのか。線が効く原理、3点目で有効になる理由、押し安値の特定手順、ロールリバーサル、だましの構造、損切り位置の決め方を図解します。">
+<meta property="og:url" content="https://red-spider-lily-616.github.io/chart_school/lines.html">
+<meta property="og:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="FX学習ノート — テクニカル分析とファンダメンタルズ分析を図解で">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="トレンドラインと「線」の意味 - テクニカル分析 実践編">
+<meta name="twitter:description" content="トレンドライン、水平線、フィボナッチ、ネックラインは何を表しているのか。線が効く原理、3点目で有効になる理由、押し安値の特定手順、ロールリバーサル、だましの構造、損切り位置の決め方を図解します。">
+<meta name="twitter:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FX学習ノート", "item": "https://red-spider-lily-616.github.io/chart_school/"}, {"@type": "ListItem", "position": 2, "name": "実践編", "item": "https://red-spider-lily-616.github.io/chart_school/lines.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "トレンドラインと「線」の意味 - テクニカル分析 実践編", "description": "トレンドライン、水平線、フィボナッチ、ネックラインは何を表しているのか。線が効く原理、3点目で有効になる理由、押し安値の特定手順、ロールリバーサル、だましの構造、損切り位置の決め方を図解します。", "inLanguage": "ja", "url": "https://red-spider-lily-616.github.io/chart_school/lines.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://red-spider-lily-616.github.io/chart_school/lines.html"}, "image": "https://red-spider-lily-616.github.io/chart_school/og.png", "datePublished": "2026-09-13", "dateModified": "2026-09-14", "author": {"@type": "Person", "name": "FX学習ノート"}, "publisher": {"@type": "Organization", "name": "FX学習ノート", "logo": {"@type": "ImageObject", "url": "https://red-spider-lily-616.github.io/chart_school/og.png"}}, "isPartOf": {"@type": "WebSite", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/"}}</script>
+<style>
+  /* ---- ad slots (populated by ads.js; hidden until configured) ---- */
+  .ad-slot{display:none; margin:40px 0; text-align:center}
+  html.ad-ready .ad-slot{display:block}
+  .ad-slot .ad-label{display:block; font-size:10.5px; letter-spacing:.12em;
+    color:var(--muted); margin-bottom:8px; text-transform:uppercase}
+  .ad-slot .ad-body{min-height:100px; display:flex; align-items:center;
+    justify-content:center; overflow:hidden}
+  .ad-slot .ad-body > *{max-width:100%}
+  /* ---- prev / next ---- */
+  .pager{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:56px 0 0}
+  @media (max-width:600px){.pager{grid-template-columns:1fr}}
+  .pager a{display:block; text-decoration:none; color:inherit; background:var(--surface);
+    border:1px solid var(--ring); border-radius:14px; padding:16px 20px;
+    box-shadow:var(--shadow); transition:border-color .14s}
+  .pager a:hover{border-color:var(--line1)}
+  .pager .dir{display:block; font-size:11px; letter-spacing:.1em; color:var(--muted);
+    font-weight:700; margin-bottom:5px}
+  .pager .ttl{font-size:15px; font-weight:700; color:var(--ink)}
+  .pager a.next{text-align:right}
+</style>
+<script src="ads.js" defer></script>
 </head>
 <body>
 <nav class="sitenav"><div class="inner">
@@ -200,6 +244,8 @@
   </p>
   <p class="meta">前提:入門編(ローソク足・トレンド・サポレジ・移動平均線・RSI)を理解していること ／ 米ドル/円 デイトレード・短期トレード向け</p>
 </header>
+<div class="ad-slot" data-ad="top"><span class="ad-label">スポンサーリンク</span><div class="ad-body"></div></div>
+
 
 <nav class="toc">
   <h2>もくじ</h2>
@@ -1644,6 +1690,7 @@
 </section>
 
 <!-- ============ 07 NECKLINE ============ -->
+<div class="ad-slot" data-ad="mid"><span class="ad-label">スポンサーリンク</span><div class="ad-body"></div></div>
 <section id="neckline">
   <h2 class="sec"><span class="num">07</span>ネックライン</h2>
   <p class="sec-sub">チャートパターンに付随する水平線で、<strong>「そのパターンが完成したかどうかを判定する境界線」</strong>です。</p>
@@ -2299,6 +2346,14 @@
   </div>
 </section>
 
+
+<div class="ad-slot" data-ad="bottom"><span class="ad-label">スポンサーリンク</span><div class="ad-body"></div></div>
+
+<nav class="pager">
+<a class="prev" href="intro.html"><span class="dir">← 前の編</span><span class="ttl">入門編 やさしい入門</span></a>
+<a class="next" href="structure.html"><span class="dir">次の編 →</span><span class="ttl">上級編 相場の構造</span></a>
+</nav>
+
 <footer>
   <p><strong>この資料について</strong><br>
   FXは証拠金取引であり、元本は保証されません。この資料は学習用のまとめであり、投資助言ではありません。
@@ -2306,6 +2361,7 @@
   チャート図はすべて解説のために作成した模式図であり、実際の相場データではありません。
   実際の取引は必ずご自身の判断と責任で、デモ口座や少額での検証を経てから行ってください。</p>
   <p>Vol.2 実践編 ／ 作成:2026年8月 ／ 対象:米ドル/円 デイトレード・短期トレード</p>
+<p style="margin-top:14px"><a href="privacy.html" style="color:var(--muted)">プライバシーポリシー・免責事項</a></p>
 </footer>
 
 </div>
