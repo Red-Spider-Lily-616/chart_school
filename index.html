@@ -3,205 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FX学習ノート | テクニカル分析とファンダメンタルズ分析を図解で</title>
-<style>
-  :root{
-    color-scheme: light;
-    --page:#f9f9f7; --surface:#fcfcfb;
-    --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781;
-    --line:#e1e0d9; --axis:#c3c2b7;
-    --up:#e34948; --down:#2a78d6;
-    --line1:#eb6834; --line2:#4a3aa7; --line3:#1baf7a;
-    --good:#0ca30c; --crit:#d03b3b;
-    --ring:rgba(11,11,11,0.10);
-    --shadow:0 1px 2px rgba(11,11,11,.04), 0 8px 24px rgba(11,11,11,.05);
-  }
-  @media (prefers-color-scheme: dark){
-    :root:where(:not([data-theme="light"])){
-      color-scheme: dark;
-      --page:#0d0d0d; --surface:#1a1a19;
-      --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
-      --line:#2c2c2a; --axis:#383835;
-      --up:#e66767; --down:#3987e5;
-      --line1:#d95926; --line2:#9085e9; --line3:#199e70;
-      --good:#0ca30c; --crit:#d03b3b;
-      --ring:rgba(255,255,255,0.10);
-      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
-    }
-  }
-  :root[data-theme="dark"]{
-    color-scheme: dark;
-    --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
-    --line:#2c2c2a; --axis:#383835; --up:#e66767; --down:#3987e5;
-    --line1:#d95926; --line2:#9085e9; --line3:#199e70; --good:#0ca30c; --crit:#d03b3b;
-    --ring:rgba(255,255,255,0.10);
-    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
-  }
-
-  *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  <meta name="google-site-verification" content="BtkNcozNamVBY5bWrSWNf7DhDs6Ch9HB-xxhTrj3Rro" />
-  body{margin:0; background:var(--page); color:var(--ink);
-    font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",Meiryo,sans-serif;
-    line-height:1.85; font-size:16px; text-rendering:optimizeLegibility;}
-  .wrap{max-width:920px; margin:0 auto; padding:0 20px 96px}
-
-  header.hero{padding:64px 0 40px; border-bottom:1px solid var(--line)}
-  .eyebrow{font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--line1); font-weight:700; margin:0 0 14px}
-  h1{font-size:clamp(27px,4.8vw,40px); line-height:1.32; margin:0 0 18px; letter-spacing:-.01em}
-  .lede{font-size:17px; color:var(--ink-2); margin:0; max-width:64ch}
-  .meta{margin-top:22px; font-size:13px; color:var(--muted)}
-  .themetoggle{position:fixed; top:14px; right:14px; z-index:50; background:var(--surface);
-    color:var(--ink-2); border:1px solid var(--ring); border-radius:999px; padding:7px 14px;
-    font-size:12px; cursor:pointer; font-family:inherit; box-shadow:var(--shadow)}
-  .themetoggle:hover{color:var(--ink)}
-
-  nav.toc{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
-    padding:20px 24px; margin:32px 0 8px; box-shadow:var(--shadow)}
-  nav.toc h2{font-size:13px; letter-spacing:.1em; color:var(--muted); margin:0 0 12px; text-transform:uppercase}
-  nav.toc ol{margin:0; padding-left:20px; columns:2; column-gap:32px}
-  nav.toc li{margin:5px 0; break-inside:avoid}
-  nav.toc a{color:var(--ink-2); text-decoration:none; border-bottom:1px solid transparent}
-  nav.toc a:hover{color:var(--ink); border-bottom-color:var(--axis)}
-  @media (max-width:640px){nav.toc ol{columns:1}}
-
-  section{padding-top:58px; scroll-margin-top:20px}
-  h2.sec{font-size:clamp(21px,3.4vw,27px); margin:0 0 8px; letter-spacing:-.01em; display:flex; align-items:baseline; gap:12px}
-  h2.sec .num{font-size:13px; font-weight:700; color:var(--line1); letter-spacing:.08em; flex:none}
-  .sec-sub{color:var(--ink-2); margin:0 0 26px; font-size:15.5px; max-width:66ch}
-  h3{font-size:18px; margin:36px 0 10px; letter-spacing:-.005em}
-  h4{font-size:15.5px; margin:22px 0 6px}
-  p{margin:0 0 14px}
-  strong{font-weight:700}
-
-  .card{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
-    padding:22px 26px; margin:20px 0; box-shadow:var(--shadow)}
-  .card > :first-child{margin-top:0}
-  .card > :last-child{margin-bottom:0}
-
-  .key{background:var(--surface); border:1px solid var(--ring); border-left:3px solid var(--line1);
-    border-radius:0 12px 12px 0; padding:18px 22px; margin:18px 0}
-  .key .tag{display:block; font-size:11.5px; font-weight:700; letter-spacing:.1em; color:var(--line1); margin-bottom:6px}
-  .key p{margin:0; font-size:15.5px}
-  .key p + p{margin-top:10px}
-
-  .warn{background:var(--surface); border:1px solid var(--ring); border-left:3px solid var(--crit);
-    border-radius:0 12px 12px 0; padding:18px 22px; margin:18px 0}
-  .warn .tag{display:block; font-size:11.5px; font-weight:700; letter-spacing:.1em; color:var(--crit); margin-bottom:6px}
-  .warn p{margin:0; font-size:15.5px}
-
-  .note{font-size:14.5px; color:var(--ink-2); background:var(--surface);
-    border:1px dashed var(--axis); border-radius:12px; padding:14px 18px; margin:18px 0}
-  .note strong{color:var(--ink)}
-  ul.plain{margin:10px 0 14px; padding-left:22px}
-  ul.plain li{margin:7px 0}
-  ol.steps2{margin:10px 0 14px; padding-left:22px}
-  ol.steps2 li{margin:8px 0}
-
-  figure{margin:22px 0; background:var(--surface); border:1px solid var(--ring);
-    border-radius:14px; padding:20px 20px 14px; box-shadow:var(--shadow)}
-  figure svg{display:block; width:100%; height:auto}
-  figcaption{font-size:13.5px; color:var(--ink-2); margin-top:12px; padding-top:12px;
-    border-top:1px solid var(--line); line-height:1.75}
-  .legend{display:flex; flex-wrap:wrap; gap:16px; margin:0 0 12px; font-size:12.5px; color:var(--ink-2)}
-  .legend span{display:inline-flex; align-items:center; gap:7px}
-  .sw{width:12px; height:3px; border-radius:2px; flex:none}
-  .sw.box{height:11px; width:11px; border-radius:3px}
-  .figrow{display:grid; grid-template-columns:1fr 1fr; gap:16px}
-  @media (max-width:700px){.figrow{grid-template-columns:1fr}}
-  .figrow figure{margin:0}
-
-  .t{font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
-  .t-lbl{font-size:12px; fill:var(--ink-2)}
-  .t-mut{font-size:11px; fill:var(--muted)}
-
-  table{width:100%; border-collapse:collapse; margin:16px 0; font-size:14.5px;
-    background:var(--surface); border:1px solid var(--ring); border-radius:12px; overflow:hidden}
-  th,td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
-  th{font-size:12.5px; letter-spacing:.05em; color:var(--muted); font-weight:700; background:var(--page)}
-  tr:last-child td{border-bottom:none}
-  td.rank{font-weight:700; color:var(--line1); white-space:nowrap}
-
-  .q{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
-    padding:22px 24px; margin:18px 0; box-shadow:var(--shadow)}
-  .q .qh{display:flex; gap:10px; align-items:baseline; margin-bottom:6px}
-  .q .qn{font-size:12px; font-weight:700; color:var(--line1); letter-spacing:.06em; flex:none}
-  .q .qt{font-size:16px; font-weight:600; margin:0}
-  .q figure{margin:14px 0; padding:14px 14px 10px}
-  .opts{display:flex; flex-direction:column; gap:8px; margin:14px 0 0}
-  .opt{text-align:left; font:inherit; font-size:15px; cursor:pointer; background:var(--page);
-    color:var(--ink); border:1px solid var(--ring); border-radius:10px; padding:11px 15px;
-    transition:border-color .12s, background .12s}
-  .opt:hover:not(:disabled){border-color:var(--axis)}
-  .opt:disabled{cursor:default}
-  .opt.correct{border-color:var(--good); background:color-mix(in srgb, var(--good) 9%, var(--page))}
-  .opt.wrong{border-color:var(--crit); background:color-mix(in srgb, var(--crit) 9%, var(--page))}
-  .opt .mark{font-weight:700; margin-right:8px}
-  .fb{margin:14px 0 0; font-size:14.5px; color:var(--ink-2); line-height:1.75;
-    border-left:3px solid var(--good); padding:2px 0 2px 14px; display:none}
-  .fb.show{display:block}
-  .score{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
-    padding:18px 24px; margin:22px 0 0; box-shadow:var(--shadow); font-size:15px;
-    display:flex; justify-content:space-between; align-items:center; gap:16px}
-  .score b{font-size:24px; font-variant-numeric:tabular-nums}
-
-  .chk{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
-    padding:8px 24px 16px; margin:18px 0; box-shadow:var(--shadow)}
-  .chk label{display:flex; gap:11px; align-items:flex-start; padding:9px 0; font-size:15px;
-    cursor:pointer; border-bottom:1px solid var(--line)}
-  .chk label:last-child{border-bottom:none}
-  .chk input{margin:6px 0 0; width:16px; height:16px; accent-color:var(--good); flex:none; cursor:pointer}
-  .chk input:checked + span{color:var(--muted); text-decoration:line-through}
-  .progressbar{height:6px; background:var(--line); border-radius:999px; overflow:hidden; margin:10px 0 4px}
-  .progressbar i{display:block; height:100%; width:0; background:var(--good); border-radius:999px; transition:width .25s}
-  .progresstxt{font-size:13px; color:var(--muted); margin:0 0 8px}
-
-  footer{margin-top:72px; padding-top:28px; border-top:1px solid var(--line);
-    font-size:13.5px; color:var(--muted); line-height:1.8}
-
-  /* ---- site nav (added for GitHub Pages) ---- */
-  .sitenav{position:sticky; top:0; z-index:60; background:var(--page);
-    border-bottom:1px solid var(--line)}
-  @supports (backdrop-filter: blur(8px)){
-    .sitenav{background:color-mix(in srgb, var(--page) 86%, transparent); backdrop-filter:saturate(1.5) blur(10px)}
-  }
-  .sitenav .inner{max-width:920px; margin:0 auto; padding:0 20px; display:flex; gap:2px;
-    align-items:center; overflow-x:auto; scrollbar-width:none}
-  .sitenav .inner::-webkit-scrollbar{display:none}
-  .sitenav a{flex:none; font-size:12.5px; color:var(--ink-2); text-decoration:none;
-    padding:12px 11px; border-bottom:2px solid transparent; white-space:nowrap; line-height:1.2}
-  .sitenav a:hover{color:var(--ink)}
-  .sitenav a.cur{color:var(--line1); border-bottom-color:var(--line1); font-weight:700}
-  .sitenav .home{font-weight:700; color:var(--ink); margin-right:8px; padding-right:14px;
-    border-right:1px solid var(--line); border-bottom:none}
-  .sitenav .home:hover{color:var(--line1)}
-  .sitenav .themetoggle{position:static; margin-left:auto; flex:none; box-shadow:none;
-    padding:5px 11px; font-size:11.5px}
-  header.hero{padding-top:44px}
-</style>
-
-<style>
-  .cards{display:grid; gap:18px; margin:34px 0 0}
-  .pcard{display:block; text-decoration:none; color:inherit; background:var(--surface);
-    border:1px solid var(--ring); border-radius:16px; padding:26px 28px; box-shadow:var(--shadow);
-    transition:border-color .14s, transform .14s}
-  .pcard:hover{border-color:var(--line1); transform:translateY(-2px)}
-  .pcard .top{display:flex; align-items:baseline; gap:14px; margin-bottom:8px; flex-wrap:wrap}
-  .pcard .no{font-size:11.5px; font-weight:700; letter-spacing:.12em; color:var(--line1); flex:none}
-  .pcard h3{font-size:20px; margin:0; letter-spacing:-.01em}
-  .pcard .lead{color:var(--ink-2); font-size:15px; margin:0 0 14px}
-  .pcard .tags{display:flex; flex-wrap:wrap; gap:7px; margin:0}
-  .pcard .tags span{font-size:11.5px; color:var(--ink-2); background:var(--page);
-    border:1px solid var(--ring); border-radius:999px; padding:3px 10px; line-height:1.6}
-  .pcard .go{display:inline-block; margin-top:14px; font-size:13px; font-weight:700; color:var(--line1)}
-  .howto{background:var(--surface); border:1px solid var(--ring); border-left:3px solid var(--line1);
-    border-radius:0 12px 12px 0; padding:18px 22px; margin:30px 0 0}
-  .howto p{margin:0; font-size:15px}
-  .howto p + p{margin-top:10px}
-</style>
-
+<title>FXの勉強は何から？ゼロから中級者まで順に学ぶ｜FX学習ノート</title>
 <link rel="canonical" href="https://red-spider-lily-616.github.io/chart_school/">
-<meta name="description" content="米ドル/円のデイトレード向けに、テクニカル分析とファンダメンタルズ分析を基礎から上級まで4部構成で解説。ローソク足・トレンドライン・移動平均線・RSIから相場の構造まで、図解40点以上と練習問題つきで学べます。">
+<meta name="description" content="FXの勉強を何から始めればいいか迷う人のための学習サイトです。FXの始め方、チャートの見方、トレンドラインの引き方、資金管理と損切りまでを学ぶ順番に並べています。図解つきの総集編4本を公開中で、個別記事42本を順次追加しています。">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#fcfcfb" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1a1a19" media="(prefers-color-scheme: dark)">
@@ -209,125 +13,184 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="FX学習ノート">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:title" content="FX学習ノート | テクニカル分析とファンダメンタルズ分析を図解で">
-<meta property="og:description" content="米ドル/円のデイトレード向けに、テクニカル分析とファンダメンタルズ分析を基礎から上級まで4部構成で解説。ローソク足・トレンドライン・移動平均線・RSIから相場の構造まで、図解40点以上と練習問題つきで学べます。">
+<meta property="og:title" content="FXの勉強は何から？ゼロから中級者まで順に学ぶ｜FX学習ノート">
+<meta property="og:description" content="FXの勉強を何から始めればいいか迷う人のための学習サイトです。FXの始め方、チャートの見方、トレンドラインの引き方、資金管理と損切りまでを学ぶ順番に並べています。図解つきの総集編4本を公開中で、個別記事42本を順次追加しています。">
 <meta property="og:url" content="https://red-spider-lily-616.github.io/chart_school/">
 <meta property="og:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="FX学習ノート — テクニカル分析とファンダメンタルズ分析を図解で">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="FX学習ノート | テクニカル分析とファンダメンタルズ分析を図解で">
-<meta name="twitter:description" content="米ドル/円のデイトレード向けに、テクニカル分析とファンダメンタルズ分析を基礎から上級まで4部構成で解説。ローソク足・トレンドライン・移動平均線・RSIから相場の構造まで、図解40点以上と練習問題つきで学べます。">
+<meta name="twitter:title" content="FXの勉強は何から？ゼロから中級者まで順に学ぶ｜FX学習ノート">
+<meta name="twitter:description" content="FXの勉強を何から始めればいいか迷う人のための学習サイトです。FXの始め方、チャートの見方、トレンドラインの引き方、資金管理と損切りまでを学ぶ順番に並べています。図解つきの総集編4本を公開中で、個別記事42本を順次追加しています。">
 <meta name="twitter:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FX学習ノート", "item": "https://red-spider-lily-616.github.io/chart_school/"}]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/", "inLanguage": "ja", "description": "米ドル/円のデイトレード向けに、テクニカル分析とファンダメンタルズ分析を基礎から上級まで4部構成で解説。ローソク足・トレンドライン・移動平均線・RSIから相場の構造まで、図解40点以上と練習問題つきで学べます。"}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "FX学習ノート 全4編", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "基礎編 FXの基礎知識", "url": "https://red-spider-lily-616.github.io/chart_school/basics.html"}, {"@type": "ListItem", "position": 2, "name": "入門編 やさしい入門", "url": "https://red-spider-lily-616.github.io/chart_school/intro.html"}, {"@type": "ListItem", "position": 3, "name": "実践編 「線」の意味", "url": "https://red-spider-lily-616.github.io/chart_school/lines.html"}, {"@type": "ListItem", "position": 4, "name": "上級編 相場の構造", "url": "https://red-spider-lily-616.github.io/chart_school/structure.html"}]}</script>
-<style>
-  /* ---- ad slots (populated by ads.js; hidden until configured) ---- */
-  .ad-slot{display:none; margin:40px 0; text-align:center}
-  html.ad-ready .ad-slot{display:block}
-  .ad-slot .ad-label{display:block; font-size:10.5px; letter-spacing:.12em;
-    color:var(--muted); margin-bottom:8px; text-transform:uppercase}
-  .ad-slot .ad-body{min-height:100px; display:flex; align-items:center;
-    justify-content:center; overflow:hidden}
-  .ad-slot .ad-body > *{max-width:100%}
-  /* ---- prev / next ---- */
-  .pager{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:56px 0 0}
-  @media (max-width:600px){.pager{grid-template-columns:1fr}}
-  .pager a{display:block; text-decoration:none; color:inherit; background:var(--surface);
-    border:1px solid var(--ring); border-radius:14px; padding:16px 20px;
-    box-shadow:var(--shadow); transition:border-color .14s}
-  .pager a:hover{border-color:var(--line1)}
-  .pager .dir{display:block; font-size:11px; letter-spacing:.1em; color:var(--muted);
-    font-weight:700; margin-bottom:5px}
-  .pager .ttl{font-size:15px; font-weight:700; color:var(--ink)}
-  .pager a.next{text-align:right}
-</style>
-<script src="ads.js" defer></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "FX学習ノート", "alternateName": "FXの勉強を順番に進める学習サイト", "url": "https://red-spider-lily-616.github.io/chart_school/", "inLanguage": "ja", "description": "FXの勉強を何から始めればいいか迷う人のための学習サイトです。FXの始め方、チャートの見方、トレンドラインの引き方、資金管理と損切りまでを学ぶ順番に並べています。図解つきの総集編4本を公開中で、個別記事42本を順次追加しています。", "publisher": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/", "logo": {"@type": "ImageObject", "url": "https://red-spider-lily-616.github.io/chart_school/og.png"}}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "FX学習ノート カテゴリ一覧", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FXの始め方", "url": "https://red-spider-lily-616.github.io/chart_school/start.html"}, {"@type": "ListItem", "position": 2, "name": "FXチャートの見方", "url": "https://red-spider-lily-616.github.io/chart_school/chart.html"}, {"@type": "ListItem", "position": 3, "name": "ラインの引き方と意味", "url": "https://red-spider-lily-616.github.io/chart_school/method.html"}, {"@type": "ListItem", "position": 4, "name": "経済指標の見方", "url": "https://red-spider-lily-616.github.io/chart_school/fund.html"}, {"@type": "ListItem", "position": 5, "name": "資金管理と損切り", "url": "https://red-spider-lily-616.github.io/chart_school/money.html"}, {"@type": "ListItem", "position": 6, "name": "環境認識と検証", "url": "https://red-spider-lily-616.github.io/chart_school/pro.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "FXの勉強は何から始めればいいですか？", "acceptedAnswer": {"@type": "Answer", "text": "FXの仕組み、証拠金とレバレッジ、pipsとロットの3つが先です。この3つで損益を自分で計算できるようになります。そのあと注文方法を覚えてチャートの見方へ進み、資金管理と損切りは最初の1回の取引をする前に必ず通してください。"}}, {"@type": "Question", "name": "FXは独学でも学べますか？", "acceptedAnswer": {"@type": "Answer", "text": "独学でも学べます。ただし順番を決めずに情報を拾っていくと知識が断片的になりやすいため、学ぶ順番を先に固定して、デモ口座で確かめながら進めるのが現実的です。"}}, {"@type": "Question", "name": "FXの勉強にはどれくらい時間がかかりますか？", "acceptedAnswer": {"@type": "Answer", "text": "デモ口座で1回の取引を完了できる状態までは1日30分で1か月程度、自分の売買ルールを作って検証できる段階までは、さらに3〜6か月が目安です。"}}]}</script>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <nav class="sitenav"><div class="inner">
 <a class="home cur" href="index.html">FX学習ノート</a>
-<a href="basics.html">基礎</a>
-<a href="intro.html">入門</a>
-<a href="lines.html">線の意味</a>
-<a href="structure.html">相場の構造</a>
+<a href="roadmap.html">ロードマップ</a>
+<a href="start.html">はじめて</a>
+<a href="chart.html">チャート</a>
+<a href="method.html">手法</a>
+<a href="fund.html">経済指標</a>
+<a href="money.html">資金管理</a>
+<a href="pro.html">実践</a>
+<a href="glossary.html">用語集</a>
 <button class="themetoggle" id="themeBtn" type="button">◐ 表示切替</button>
 </div></nav>
 <div class="wrap">
 
 <header class="hero">
   <p class="eyebrow">FX Study Notes</p>
-  <h1>FX学習ノート</h1>
+  <h1>FXの勉強を、順番に</h1>
   <p class="lede">
-    米ドル/円のデイトレード・短期トレードを対象に、テクニカル分析とファンダメンタルズ分析を
-    <strong>基礎から上級まで4部構成</strong>で整理した学習ノートです。
-    すべての図はローソク足を生成するコードで描いており、RSI・一目均衡表・ボリンジャーバンドは実際に計算した値を使っています。
+    米ドル/円のデイトレード・短期トレードを対象に、<strong>FXをまったく知らない状態から中級者になるまで</strong>を
+    順を追って学べる学習サイトです。
   </p>
-  <p class="meta">全4編 ／ 図解40点以上 ／ 練習問題16問 ／ チェックリスト47項目</p>
+  <p class="meta">図解つきの総集編4本を公開中 ／ 個別記事42本は順次公開 ／ 図解43点・練習問題と習得チェックリストつき</p>
 </header>
-<div class="ad-slot" data-ad="top"><span class="ad-label">スポンサーリンク</span><div class="ad-body"></div></div>
 
-
-<div class="howto">
-  <p><strong>読む順番について。</strong>上から順に読むのがおすすめです。
-  各編は前の編の内容を前提にしていて、<strong>後の編ほど「前に学んだ道具で同じことを別角度から説明する」</strong>構成になっています。</p>
-  <p>すでにチャートが読めるなら<strong>実践編 Vol.2</strong>から、線の意味まで理解できているなら<strong>上級編 Vol.3</strong>から始めても構いません。</p>
+<div class="note note-legal">
+このページはFXの学習を目的とした一般的な情報で、<strong>投資助言ではありません</strong>。
+特定の売買を勧めるものではなく、将来の利益を保証するものでもありません。
+FXは元本が保証されない取引です。<a href="privacy.html">免責事項</a>をご確認ください。
+<span class="ad-notice">※このページには広告を含む場合があります。</span>
 </div>
 
-<div class="cards">
+
+<div class="ad-slot" data-ad="top"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<div class="cta">
+  <span class="tag">はじめての方へ</span>
+  <p>どこから読めばいいか迷ったら、まず<strong>学習ロードマップ</strong>を見てください。
+  「ゼロから初心者へ」「初心者から中級者へ」の2つのコースに分けて、読む順番と修了の目安をまとめています。</p>
+  <p><a class="btn" href="roadmap.html">学習ロードマップを見る</a></p>
+</div>
+
+<section id="howto">
+  <h2 class="sec"><span class="num">01</span>FXの勉強は何から始めればいいのか</h2>
+  <p>FXの勉強でつまずく原因は、覚えることが多いからではなく、<strong>覚える順番が決まっていない</strong>ことです。
+  ローソク足の見方を調べ、次にRSIを調べ、その次に手法を調べる。ひとつひとつは正しくても、
+  つなぎ方が分からないまま知識だけが増えていきます。</p>
+  <p>このサイトは、その順番を固定することを目的にしています。
+  まず<a href="start.html">FXの始め方</a>で仕組みと用語を押さえ、
+  次に<a href="chart.html">チャートの見方</a>でローソク足とトレンドの判定を覚えます。
+  その直後に<a href="money.html">資金管理と損切り</a>が来ます。
+  損切り位置を決められないと、チャートが読めても取引に進めないからです。</p>
+  <p>ここまでが「ゼロから初心者へ」の範囲です。
+  そのあとに<a href="method.html">トレンドラインの引き方と意味</a>、
+  <a href="fund.html">経済指標の見方</a>、
+  <a href="pro.html">環境認識と検証</a>へ進むと、
+  自分の売買ルールを文章にして検証できる段階まで届きます。</p>
+  <div class="note"><strong>用語が分からないときは:</strong>
+  <a href="glossary.html">FX用語集</a>に112語をまとめてあります。読みながら引けます。</div>
+
+  <div class="note"><strong>この順番の理由:</strong>
+  資金管理をチャートの直後に置いているのは、それが中級者向けの話ではなく、
+  <strong>最初の1回の取引をする前に必要</strong>だからです。
+  くわしくは<a href="roadmap.html">学習ロードマップ</a>に書いています。</div>
+</section>
+
+<section id="cats">
+  <h2 class="sec"><span class="num">02</span>カテゴリから探す</h2>
+  <p class="sec-sub">テーマ別の分類です。順番に読みたい場合は上のロードマップへ。</p>
+  <div class="cards two">
+  <a class="pcard" href="start.html">
+    <div class="top"><span class="no">11記事</span><h3>FXの始め方</h3></div>
+    <p class="lead">FXの仕組み、レバレッジ、pipsとロット、注文方法、FX会社の選び方まで。</p><span class="go">記事を見る →</span>
+  </a>
+  <a class="pcard" href="chart.html">
+    <div class="top"><span class="no">9記事</span><h3>FXチャートの見方</h3></div>
+    <p class="lead">ローソク足の見方、時間足、ダウ理論、サポレジ、移動平均線、RSI、一目均衡表。</p><span class="go">記事を見る →</span>
+  </a>
+  <a class="pcard" href="method.html">
+    <div class="top"><span class="no">6記事</span><h3>ラインの引き方と意味</h3></div>
+    <p class="lead">トレンドラインの引き方と意味、水平線、チャネル、フィボナッチ、だましの構造。</p><span class="go">記事を見る →</span>
+  </a>
+  <a class="pcard" href="fund.html">
+    <div class="top"><span class="no">5記事</span><h3>経済指標の見方</h3></div>
+    <p class="lead">金利と中央銀行、米雇用統計・CPI・FOMC、通貨ペアごとの特徴。</p><span class="go">記事を見る →</span>
+  </a>
+  <a class="pcard" href="money.html">
+    <div class="top"><span class="no">5記事</span><h3>資金管理と損切り</h3></div>
+    <p class="lead">1回のリスク、損切り位置の決め方、ロット計算、期待値、トレード記録。</p><span class="go">記事を見る →</span>
+  </a>
+  <a class="pcard" href="pro.html">
+    <div class="top"><span class="no">6記事</span><h3>環境認識と検証</h3></div>
+    <p class="lead">マルチタイムフレーム分析、相場の4局面、流動性、自分の手法の作り方と検証。</p><span class="go">記事を見る →</span>
+  </a>
+  </div>
+</section>
+
+<div class="ad-slot" data-ad="mid"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<section id="guides">
+  <h2 class="sec"><span class="num">03</span>通して読む総集編</h2>
+  <p class="sec-sub">1ページで最後まで読みたい人向けに、4本の長編ガイドも用意しています。</p>
+  <div class="cards">
   <a class="pcard" href="basics.html">
-    <div class="top"><span class="no">基礎編</span><h3>FX学習ガイド</h3></div>
-    <p class="lead">まず全体像をつかむ。テクニカル分析とファンダメンタルズ分析の役割分担、初心者向けの通貨ペアの選び方、主要な経済指標が過去にどちら方向の値動きをもたらしたかの検証、現実的な目標設定まで。</p>
-    <div class="tags"><span>2つの分析の役割分担</span><span>米ドル/円に絞る理由</span><span>NFP・CPI・FOMC・日銀の実例</span><span>為替介入とリスクオフ</span><span>目標設定とフェーズ分け</span></div>
-    <span class="go">読む →</span>
+    <div class="top"><span class="no">基礎編</span><h3>テクニカルとファンダメンタルズの違い</h3></div>
+    <p class="lead">2つの分析の役割分担、初心者向けの通貨ペアの選び方、主要な経済指標が過去にどちら方向の値動きをもたらしたかの検証。</p><span class="go">読む →</span>
   </a>
   <a class="pcard" href="intro.html">
-    <div class="top"><span class="no">入門編</span><h3>テクニカル分析 やさしい入門</h3></div>
-    <p class="lead">むずかしい言葉をぜんぶ「たとえ話」と「図」に置きかえた入門。全6ステップの学習ロードマップ、図解レッスン6本、練習問題6問、習得チェックリスト18項目。</p>
-    <div class="tags"><span>学習ロードマップ(全6ステップ)</span><span>ローソク足＝その時間の日記</span><span>トレンド＝階段</span><span>サポレジ＝床と天井</span><span>移動平均線＝テストの平均点</span><span>RSI＝いきぎれメーター</span></div>
-    <span class="go">読む →</span>
+    <div class="top"><span class="no">入門編</span><h3>テクニカル分析のやさしい入門</h3></div>
+    <p class="lead">ローソク足・トレンド・サポレジ・移動平均線・RSIを、たとえ話と図解で。練習問題つき。</p><span class="go">読む →</span>
   </a>
   <a class="pcard" href="lines.html">
-    <div class="top"><span class="no">実践編 Vol.2</span><h3>「線」の意味を理解する</h3></div>
-    <p class="lead">線の引き方ではなく「その線が何を表しているか」を扱う。すべての線が同じ一つの原理 ― 注文が置かれている場所 ― で説明できるようになる。</p>
-    <div class="tags"><span>線が効く原理と3種類の人</span><span>トレンドラインは3点目で有効</span><span>直近安値＝押し安値の特定</span><span>ロールリバーサル</span><span>リテストとだましの構造</span><span>フィボナッチ／ネックライン</span><span>線の強さのランキング</span><span>損切り位置の決め方</span></div>
-    <span class="go">読む →</span>
+    <div class="top"><span class="no">実践編</span><h3>押し安値とトレンドラインの意味</h3></div>
+    <p class="lead">線が効く原理、3点目で有効になる理由、押し安値の特定手順、ロールリバーサル、だまし、損切り位置。</p><span class="go">読む →</span>
   </a>
   <a class="pcard" href="structure.html">
-    <div class="top"><span class="no">上級編 Vol.3</span><h3>相場の「構造」を読む</h3></div>
-    <p class="lead">線の外側にある話。時間軸の入れ子構造、大口が仕込む場所、損切りが狩られる仕組み、そして勝率では何も測れないという数学。</p>
-    <div class="tags"><span>マルチタイムフレーム分析</span><span>相場の4局面(蓄積・分散)</span><span>流動性とストップスイープ</span><span>プライスアクションは文脈</span><span>一目均衡表の雲</span><span>ダイバージェンス</span><span>期待値の数学</span><span>執行の技術と上級者の罠</span></div>
-    <span class="go">読む →</span>
+    <div class="top"><span class="no">上級編</span><h3>相場の構造とマルチタイムフレーム分析</h3></div>
+    <p class="lead">MTF分析、相場の4局面、流動性とストップ狩り、一目均衡表、ダイバージェンス、期待値の数学。</p><span class="go">読む →</span>
   </a>
-</div>
+  </div>
+</section>
 
+<section id="faq">
+  <h2 class="sec"><span class="num">04</span>よくある質問</h2>
+  <h3>FXの勉強は何から始めればいいですか？</h3>
+  <p>FXの仕組み、証拠金とレバレッジ、pipsとロットの3つが先です。この3つで損益を自分で計算できるようになります。そのあと注文方法を覚えてチャートの見方へ進み、資金管理と損切りは最初の1回の取引をする前に必ず通してください。</p>
+  <h3>FXは独学でも学べますか？</h3>
+  <p>独学でも学べます。ただし順番を決めずに情報を拾っていくと知識が断片的になりやすいため、学ぶ順番を先に固定して、デモ口座で確かめながら進めるのが現実的です。</p>
+  <h3>FXの勉強にはどれくらい時間がかかりますか？</h3>
+  <p>デモ口座で1回の取引を完了できる状態までは1日30分で1か月程度、自分の売買ルールを作って検証できる段階までは、さらに3〜6か月が目安です。</p>
+</section>
 
-<div class="ad-slot" data-ad="bottom"><span class="ad-label">スポンサーリンク</span><div class="ad-body"></div></div>
+<section id="about">
+  <h2 class="sec"><span class="num">05</span>このサイトについて</h2>
+  <p class="sec-sub">指標のカタログではなく、「なぜそれが機能するのか」を軸にしています。</p>
+  <div class="key">
+    <span class="tag">方針</span>
+    <p>FXの学習でつまずくのは、知識が足りないことよりも<strong>「覚えた指標をどう使えばいいのか分からない」</strong>ことです。</p>
+    <p>トレンドライン、水平線、移動平均線、フィボナッチ ― これらはすべて
+    <strong>「その価格に注文が置かれているから効く」</strong>という一つの原理で説明できると考えられています。
+    この見方に立つと、どの線を信じ、どの線を捨てるかを自分で判断できるようになります。</p>
+  </div>
+  <div class="note"><strong>図について:</strong>
+  掲載しているチャート図はすべてローソク足を生成するコードで描いた模式図で、実際の相場データではありません。
+  ただしRSI・移動平均線・ボリンジャーバンド・一目均衡表の値は、生成した価格データから実際に計算しています。
+  編集方針とデータの扱いは<a href="about.html">運営者情報</a>に書いています。</div>
+</section>
+
+<div class="ad-slot" data-ad="bottom"><span class="ad-label">広告</span><div class="ad-body"></div></div>
 
 <footer>
-  <p><strong>この資料について</strong><br>
-  FXは証拠金取引であり、元本は保証されません。この資料は学習用のまとめであり、投資助言ではありません。
-  紹介している手法・概念・数値はいずれも市場で広く使われている一般的な考え方であって、将来の利益を保証するものではありません。
-  相場の4局面、流動性、エリオット波動などは<strong>市場を解釈するためのモデルであり、証明された法則ではありません</strong>。
-  チャート図はすべて解説のために作成した模式図であり、実際の相場データではありません。
+  <p><strong>ご利用にあたって</strong><br>
+  当サイトはFXの学習を目的とした情報サイトであり、<strong>投資助言ではありません。</strong>
+  運営者は金融商品取引法に基づく投資助言・代理業の登録を受けておらず、特定の売買を勧めるものではありません。
+  FXは元本が保証されない取引で、預託した証拠金を上回る損失が生じる可能性もあります。
+  掲載している情報の正確性・完全性・最新性は保証しません。
+  掲載しているチャート図はすべて解説のために作成した模式図であり、実際の相場データではありません。
   実際の取引は必ずご自身の判断と責任で、デモ口座や少額での検証を経てから行ってください。</p>
-  <p>作成:2026年 ／ 対象:米ドル/円 デイトレード・短期トレード</p>
-<p style="margin-top:14px"><a href="privacy.html" style="color:var(--muted)">プライバシーポリシー・免責事項</a></p>
+  <p class="footlinks"><a href="about.html">運営者情報・編集方針</a> ／ <a href="privacy.html">免責事項・プライバシーポリシー</a> ／ <a href="roadmap.html">学習ロードマップ</a></p>
 </footer>
 
 </div>
-<script>
-(function(){
-  var btn = document.getElementById('themeBtn');
-  if(!btn) return;
-  btn.addEventListener('click', function(){
-    var root = document.documentElement, cur = root.getAttribute('data-theme');
-    if(!cur){ cur = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
-    root.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
-  });
-})();
-</script>
+<script src="site.js" defer></script>
+<script src="ads.js" defer></script>
 </body>
 </html>

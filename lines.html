@@ -3,183 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>トレンドラインと「線」の意味 - テクニカル分析 実践編</title>
-<style>
-  :root{
-    color-scheme: light;
-    --page:#f9f9f7; --surface:#fcfcfb;
-    --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781;
-    --line:#e1e0d9; --axis:#c3c2b7;
-    --up:#e34948; --down:#2a78d6;
-    --line1:#eb6834; --line2:#4a3aa7; --line3:#1baf7a;
-    --good:#0ca30c; --crit:#d03b3b;
-    --ring:rgba(11,11,11,0.10);
-    --shadow:0 1px 2px rgba(11,11,11,.04), 0 8px 24px rgba(11,11,11,.05);
-  }
-  @media (prefers-color-scheme: dark){
-    :root:where(:not([data-theme="light"])){
-      color-scheme: dark;
-      --page:#0d0d0d; --surface:#1a1a19;
-      --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
-      --line:#2c2c2a; --axis:#383835;
-      --up:#e66767; --down:#3987e5;
-      --line1:#d95926; --line2:#9085e9; --line3:#199e70;
-      --good:#0ca30c; --crit:#d03b3b;
-      --ring:rgba(255,255,255,0.10);
-      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
-    }
-  }
-  :root[data-theme="dark"]{
-    color-scheme: dark;
-    --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
-    --line:#2c2c2a; --axis:#383835; --up:#e66767; --down:#3987e5;
-    --line1:#d95926; --line2:#9085e9; --line3:#199e70; --good:#0ca30c; --crit:#d03b3b;
-    --ring:rgba(255,255,255,0.10);
-    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
-  }
-
-  *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  body{margin:0; background:var(--page); color:var(--ink);
-    font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",Meiryo,sans-serif;
-    line-height:1.85; font-size:16px; text-rendering:optimizeLegibility;}
-  .wrap{max-width:920px; margin:0 auto; padding:0 20px 96px}
-
-  header.hero{padding:64px 0 40px; border-bottom:1px solid var(--line)}
-  .eyebrow{font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--line1); font-weight:700; margin:0 0 14px}
-  h1{font-size:clamp(27px,4.8vw,40px); line-height:1.32; margin:0 0 18px; letter-spacing:-.01em}
-  .lede{font-size:17px; color:var(--ink-2); margin:0; max-width:64ch}
-  .meta{margin-top:22px; font-size:13px; color:var(--muted)}
-  .themetoggle{position:fixed; top:14px; right:14px; z-index:50; background:var(--surface);
-    color:var(--ink-2); border:1px solid var(--ring); border-radius:999px; padding:7px 14px;
-    font-size:12px; cursor:pointer; font-family:inherit; box-shadow:var(--shadow)}
-  .themetoggle:hover{color:var(--ink)}
-
-  nav.toc{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
-    padding:20px 24px; margin:32px 0 8px; box-shadow:var(--shadow)}
-  nav.toc h2{font-size:13px; letter-spacing:.1em; color:var(--muted); margin:0 0 12px; text-transform:uppercase}
-  nav.toc ol{margin:0; padding-left:20px; columns:2; column-gap:32px}
-  nav.toc li{margin:5px 0; break-inside:avoid}
-  nav.toc a{color:var(--ink-2); text-decoration:none; border-bottom:1px solid transparent}
-  nav.toc a:hover{color:var(--ink); border-bottom-color:var(--axis)}
-  @media (max-width:640px){nav.toc ol{columns:1}}
-
-  section{padding-top:58px; scroll-margin-top:20px}
-  h2.sec{font-size:clamp(21px,3.4vw,27px); margin:0 0 8px; letter-spacing:-.01em; display:flex; align-items:baseline; gap:12px}
-  h2.sec .num{font-size:13px; font-weight:700; color:var(--line1); letter-spacing:.08em; flex:none}
-  .sec-sub{color:var(--ink-2); margin:0 0 26px; font-size:15.5px; max-width:66ch}
-  h3{font-size:18px; margin:36px 0 10px; letter-spacing:-.005em}
-  h4{font-size:15.5px; margin:22px 0 6px}
-  p{margin:0 0 14px}
-  strong{font-weight:700}
-
-  .card{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
-    padding:22px 26px; margin:20px 0; box-shadow:var(--shadow)}
-  .card > :first-child{margin-top:0}
-  .card > :last-child{margin-bottom:0}
-
-  .key{background:var(--surface); border:1px solid var(--ring); border-left:3px solid var(--line1);
-    border-radius:0 12px 12px 0; padding:18px 22px; margin:18px 0}
-  .key .tag{display:block; font-size:11.5px; font-weight:700; letter-spacing:.1em; color:var(--line1); margin-bottom:6px}
-  .key p{margin:0; font-size:15.5px}
-  .key p + p{margin-top:10px}
-
-  .warn{background:var(--surface); border:1px solid var(--ring); border-left:3px solid var(--crit);
-    border-radius:0 12px 12px 0; padding:18px 22px; margin:18px 0}
-  .warn .tag{display:block; font-size:11.5px; font-weight:700; letter-spacing:.1em; color:var(--crit); margin-bottom:6px}
-  .warn p{margin:0; font-size:15.5px}
-
-  .note{font-size:14.5px; color:var(--ink-2); background:var(--surface);
-    border:1px dashed var(--axis); border-radius:12px; padding:14px 18px; margin:18px 0}
-  .note strong{color:var(--ink)}
-  ul.plain{margin:10px 0 14px; padding-left:22px}
-  ul.plain li{margin:7px 0}
-  ol.steps2{margin:10px 0 14px; padding-left:22px}
-  ol.steps2 li{margin:8px 0}
-
-  figure{margin:22px 0; background:var(--surface); border:1px solid var(--ring);
-    border-radius:14px; padding:20px 20px 14px; box-shadow:var(--shadow)}
-  figure svg{display:block; width:100%; height:auto}
-  figcaption{font-size:13.5px; color:var(--ink-2); margin-top:12px; padding-top:12px;
-    border-top:1px solid var(--line); line-height:1.75}
-  .legend{display:flex; flex-wrap:wrap; gap:16px; margin:0 0 12px; font-size:12.5px; color:var(--ink-2)}
-  .legend span{display:inline-flex; align-items:center; gap:7px}
-  .sw{width:12px; height:3px; border-radius:2px; flex:none}
-  .sw.box{height:11px; width:11px; border-radius:3px}
-  .figrow{display:grid; grid-template-columns:1fr 1fr; gap:16px}
-  @media (max-width:700px){.figrow{grid-template-columns:1fr}}
-  .figrow figure{margin:0}
-
-  .t{font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
-  .t-lbl{font-size:12px; fill:var(--ink-2)}
-  .t-mut{font-size:11px; fill:var(--muted)}
-
-  table{width:100%; border-collapse:collapse; margin:16px 0; font-size:14.5px;
-    background:var(--surface); border:1px solid var(--ring); border-radius:12px; overflow:hidden}
-  th,td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
-  th{font-size:12.5px; letter-spacing:.05em; color:var(--muted); font-weight:700; background:var(--page)}
-  tr:last-child td{border-bottom:none}
-  td.rank{font-weight:700; color:var(--line1); white-space:nowrap}
-
-  .q{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
-    padding:22px 24px; margin:18px 0; box-shadow:var(--shadow)}
-  .q .qh{display:flex; gap:10px; align-items:baseline; margin-bottom:6px}
-  .q .qn{font-size:12px; font-weight:700; color:var(--line1); letter-spacing:.06em; flex:none}
-  .q .qt{font-size:16px; font-weight:600; margin:0}
-  .q figure{margin:14px 0; padding:14px 14px 10px}
-  .opts{display:flex; flex-direction:column; gap:8px; margin:14px 0 0}
-  .opt{text-align:left; font:inherit; font-size:15px; cursor:pointer; background:var(--page);
-    color:var(--ink); border:1px solid var(--ring); border-radius:10px; padding:11px 15px;
-    transition:border-color .12s, background .12s}
-  .opt:hover:not(:disabled){border-color:var(--axis)}
-  .opt:disabled{cursor:default}
-  .opt.correct{border-color:var(--good); background:color-mix(in srgb, var(--good) 9%, var(--page))}
-  .opt.wrong{border-color:var(--crit); background:color-mix(in srgb, var(--crit) 9%, var(--page))}
-  .opt .mark{font-weight:700; margin-right:8px}
-  .fb{margin:14px 0 0; font-size:14.5px; color:var(--ink-2); line-height:1.75;
-    border-left:3px solid var(--good); padding:2px 0 2px 14px; display:none}
-  .fb.show{display:block}
-  .score{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
-    padding:18px 24px; margin:22px 0 0; box-shadow:var(--shadow); font-size:15px;
-    display:flex; justify-content:space-between; align-items:center; gap:16px}
-  .score b{font-size:24px; font-variant-numeric:tabular-nums}
-
-  .chk{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
-    padding:8px 24px 16px; margin:18px 0; box-shadow:var(--shadow)}
-  .chk label{display:flex; gap:11px; align-items:flex-start; padding:9px 0; font-size:15px;
-    cursor:pointer; border-bottom:1px solid var(--line)}
-  .chk label:last-child{border-bottom:none}
-  .chk input{margin:6px 0 0; width:16px; height:16px; accent-color:var(--good); flex:none; cursor:pointer}
-  .chk input:checked + span{color:var(--muted); text-decoration:line-through}
-  .progressbar{height:6px; background:var(--line); border-radius:999px; overflow:hidden; margin:10px 0 4px}
-  .progressbar i{display:block; height:100%; width:0; background:var(--good); border-radius:999px; transition:width .25s}
-  .progresstxt{font-size:13px; color:var(--muted); margin:0 0 8px}
-
-  footer{margin-top:72px; padding-top:28px; border-top:1px solid var(--line);
-    font-size:13.5px; color:var(--muted); line-height:1.8}
-
-  /* ---- site nav (added for GitHub Pages) ---- */
-  .sitenav{position:sticky; top:0; z-index:60; background:var(--page);
-    border-bottom:1px solid var(--line)}
-  @supports (backdrop-filter: blur(8px)){
-    .sitenav{background:color-mix(in srgb, var(--page) 86%, transparent); backdrop-filter:saturate(1.5) blur(10px)}
-  }
-  .sitenav .inner{max-width:920px; margin:0 auto; padding:0 20px; display:flex; gap:2px;
-    align-items:center; overflow-x:auto; scrollbar-width:none}
-  .sitenav .inner::-webkit-scrollbar{display:none}
-  .sitenav a{flex:none; font-size:12.5px; color:var(--ink-2); text-decoration:none;
-    padding:12px 11px; border-bottom:2px solid transparent; white-space:nowrap; line-height:1.2}
-  .sitenav a:hover{color:var(--ink)}
-  .sitenav a.cur{color:var(--line1); border-bottom-color:var(--line1); font-weight:700}
-  .sitenav .home{font-weight:700; color:var(--ink); margin-right:8px; padding-right:14px;
-    border-right:1px solid var(--line); border-bottom:none}
-  .sitenav .home:hover{color:var(--line1)}
-  .sitenav .themetoggle{position:static; margin-left:auto; flex:none; box-shadow:none;
-    padding:5px 11px; font-size:11.5px}
-  header.hero{padding-top:44px}
-</style>
+<title>押し安値の見つけ方とトレンドラインの意味｜FX実践編</title>
 <link rel="canonical" href="https://red-spider-lily-616.github.io/chart_school/lines.html">
-<meta name="description" content="トレンドライン、水平線、フィボナッチ、ネックラインは何を表しているのか。線が効く原理、3点目で有効になる理由、押し安値の特定手順、ロールリバーサル、だましの構造、損切り位置の決め方を図解します。">
+<meta name="description" content="押し安値の見つけ方と、トレンドライン・水平線・フィボナッチが何を表しているのかを解説します。線が効く原理、3点目で有効になる理由、ロールリバーサル、だましの構造、損切り位置の決め方まで。">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#fcfcfb" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1a1a19" media="(prefers-color-scheme: dark)">
@@ -187,64 +13,72 @@
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="FX学習ノート">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:title" content="トレンドラインと「線」の意味 - テクニカル分析 実践編">
-<meta property="og:description" content="トレンドライン、水平線、フィボナッチ、ネックラインは何を表しているのか。線が効く原理、3点目で有効になる理由、押し安値の特定手順、ロールリバーサル、だましの構造、損切り位置の決め方を図解します。">
+<meta property="og:title" content="押し安値の見つけ方とトレンドラインの意味｜FX実践編">
+<meta property="og:description" content="押し安値の見つけ方と、トレンドライン・水平線・フィボナッチが何を表しているのかを解説します。線が効く原理、3点目で有効になる理由、ロールリバーサル、だましの構造、損切り位置の決め方まで。">
 <meta property="og:url" content="https://red-spider-lily-616.github.io/chart_school/lines.html">
 <meta property="og:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="FX学習ノート — テクニカル分析とファンダメンタルズ分析を図解で">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="トレンドラインと「線」の意味 - テクニカル分析 実践編">
-<meta name="twitter:description" content="トレンドライン、水平線、フィボナッチ、ネックラインは何を表しているのか。線が効く原理、3点目で有効になる理由、押し安値の特定手順、ロールリバーサル、だましの構造、損切り位置の決め方を図解します。">
+<meta name="twitter:title" content="押し安値の見つけ方とトレンドラインの意味｜FX実践編">
+<meta name="twitter:description" content="押し安値の見つけ方と、トレンドライン・水平線・フィボナッチが何を表しているのかを解説します。線が効く原理、3点目で有効になる理由、ロールリバーサル、だましの構造、損切り位置の決め方まで。">
 <meta name="twitter:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FX学習ノート", "item": "https://red-spider-lily-616.github.io/chart_school/"}, {"@type": "ListItem", "position": 2, "name": "実践編", "item": "https://red-spider-lily-616.github.io/chart_school/lines.html"}]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "トレンドラインと「線」の意味 - テクニカル分析 実践編", "description": "トレンドライン、水平線、フィボナッチ、ネックラインは何を表しているのか。線が効く原理、3点目で有効になる理由、押し安値の特定手順、ロールリバーサル、だましの構造、損切り位置の決め方を図解します。", "inLanguage": "ja", "url": "https://red-spider-lily-616.github.io/chart_school/lines.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://red-spider-lily-616.github.io/chart_school/lines.html"}, "image": "https://red-spider-lily-616.github.io/chart_school/og.png", "datePublished": "2026-09-13", "dateModified": "2026-09-14", "author": {"@type": "Person", "name": "FX学習ノート"}, "publisher": {"@type": "Organization", "name": "FX学習ノート", "logo": {"@type": "ImageObject", "url": "https://red-spider-lily-616.github.io/chart_school/og.png"}}, "isPartOf": {"@type": "WebSite", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/"}}</script>
-<style>
-  /* ---- ad slots (populated by ads.js; hidden until configured) ---- */
-  .ad-slot{display:none; margin:40px 0; text-align:center}
-  html.ad-ready .ad-slot{display:block}
-  .ad-slot .ad-label{display:block; font-size:10.5px; letter-spacing:.12em;
-    color:var(--muted); margin-bottom:8px; text-transform:uppercase}
-  .ad-slot .ad-body{min-height:100px; display:flex; align-items:center;
-    justify-content:center; overflow:hidden}
-  .ad-slot .ad-body > *{max-width:100%}
-  /* ---- prev / next ---- */
-  .pager{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:56px 0 0}
-  @media (max-width:600px){.pager{grid-template-columns:1fr}}
-  .pager a{display:block; text-decoration:none; color:inherit; background:var(--surface);
-    border:1px solid var(--ring); border-radius:14px; padding:16px 20px;
-    box-shadow:var(--shadow); transition:border-color .14s}
-  .pager a:hover{border-color:var(--line1)}
-  .pager .dir{display:block; font-size:11px; letter-spacing:.1em; color:var(--muted);
-    font-weight:700; margin-bottom:5px}
-  .pager .ttl{font-size:15px; font-weight:700; color:var(--ink)}
-  .pager a.next{text-align:right}
-</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "押し安値の見つけ方とトレンドラインの意味｜FX実践編", "description": "押し安値の見つけ方と、トレンドライン・水平線・フィボナッチが何を表しているのかを解説します。線が効く原理、3点目で有効になる理由、ロールリバーサル、だましの構造、損切り位置の決め方まで。", "inLanguage": "ja", "url": "https://red-spider-lily-616.github.io/chart_school/lines.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://red-spider-lily-616.github.io/chart_school/lines.html"}, "image": "https://red-spider-lily-616.github.io/chart_school/og.png", "datePublished": "2026-09-13", "dateModified": "2026-09-18", "author": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/about.html"}, "publisher": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/", "logo": {"@type": "ImageObject", "url": "https://red-spider-lily-616.github.io/chart_school/og.png"}}, "isPartOf": {"@type": "WebSite", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/"}, "articleSection": "実践編"}</script>
+<script src="site.js" defer></script>
 <script src="ads.js" defer></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "トレンドラインはなぜ3点目で有効になるのですか？", "acceptedAnswer": {"@type": "Answer", "text": "2点なら、どんなチャートでも必ず引けてしまうからです。2点を結ぶ線は無数にあり、偶然と区別がつきません。3点目でその線に反応して、はじめて「多くの人が同じ線を見ている」と判断できる、という考え方です。"}}, {"@type": "Question", "name": "直近安値とは、どの期間の安値のことですか？", "acceptedAnswer": {"@type": "Answer", "text": "期間で決まるのではなく、値動きの構造で決まります。上昇トレンドでは「最後に高値を更新するきっかけになった安値」を指し、これを押し安値と呼びます。ローソク足1本ごとの安値とは別のもので、高値を更新するたびに位置が上がっていきます。"}}, {"@type": "Question", "name": "トレンドラインのブレイクと安値割れは同じことですか？", "acceptedAnswer": {"@type": "Answer", "text": "重なることはありますが、同じではありません。トレンドラインは傾いているため、時間が経つほど水準が動きます（上昇トレンドラインなら切り上がります）。安値割れは水平の価格を下回ることで、トレンドの定義そのものが変わる点でより重い合図とされます。"}}, {"@type": "Question", "name": "ロールリバーサルはなぜ起きるのですか？", "acceptedAnswer": {"@type": "Answer", "text": "その価格を挟んで、参加者が持っているポジションの向きが入れ替わるからだと説明されます。サポートを割ったあと戻ってきた場面では、そこで買っていた人が「戻ってきたら決済したい」と考え、売り注文が出やすくなる、という見方です。"}}, {"@type": "Question", "name": "損切りはどこに置けばいいですか？", "acceptedAnswer": {"@type": "Answer", "text": "「そこを割ったら、自分が買った前提が崩れる」という価格です。金額で決めるのではなく、チャートの構造で決めます。直近安値のすぐ下は損切り注文が集まりやすいため、少し余裕を取るという考え方もあります。損切りを遠ざけるときは、その分ロット数を減らしてリスクを一定に保ちます。"}}]}</script>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <nav class="sitenav"><div class="inner">
 <a class="home" href="index.html">FX学習ノート</a>
-<a href="basics.html">基礎</a>
-<a href="intro.html">入門</a>
-<a class="cur" href="lines.html">線の意味</a>
-<a href="structure.html">相場の構造</a>
+<a href="roadmap.html">ロードマップ</a>
+<a href="start.html">はじめて</a>
+<a href="chart.html">チャート</a>
+<a href="method.html">手法</a>
+<a href="fund.html">経済指標</a>
+<a href="money.html">資金管理</a>
+<a href="pro.html">実践</a>
+<a href="glossary.html">用語集</a>
 <button class="themetoggle" id="themeBtn" type="button">◐ 表示切替</button>
 </div></nav>
 <div class="wrap">
 
+<nav class="crumb"><a href="index.html">ホーム</a> › <span>実践編</span></nav>
+
 <header class="hero">
   <p class="eyebrow">Technical Analysis — Vol.2 実践編</p>
-  <h1>「線」の意味を理解する<br>― 引ける、から、わかるへ</h1>
+  <h1>押し安値とトレンドラインの意味<br>― 引ける、から、わかるへ</h1>
   <p class="lede">
     トレンドライン、チャネル、ネックライン、フィボナッチ。
     どれも引き方は5分で覚えられますが、<strong>「その線が何を表しているのか」</strong>を説明できる人はぐっと少なくなります。
     この資料は、線の引き方ではなく<strong>線の意味</strong>を扱います。意味がわかれば、どの線を信じ、どの線を捨てるかが自分で決められるようになります。
   </p>
-  <p class="meta">前提:入門編(ローソク足・トレンド・サポレジ・移動平均線・RSI)を理解していること ／ 米ドル/円 デイトレード・短期トレード向け</p>
+  <p class="meta">前提:入門編(ローソク足・トレンド・サポレジ・移動平均線・RSI)を理解していること ／ 米ドル/円 デイトレード・短期トレード向け ／ 最終更新: 2026年9月18日</p>
 </header>
-<div class="ad-slot" data-ad="top"><span class="ad-label">スポンサーリンク</span><div class="ad-body"></div></div>
+
+<div class="note note-legal">
+このページはFXの学習を目的とした一般的な情報で、<strong>投資助言ではありません</strong>。
+特定の売買を勧めるものではなく、将来の利益を保証するものでもありません。
+FXは元本が保証されない取引です。<a href="privacy.html">免責事項</a>をご確認ください。
+<span class="ad-notice">※このページには広告を含む場合があります。</span>
+</div>
+
+<div class="tldr">
+  <span class="tag">この記事の要点</span>
+  <ul>
+    <li>線が効くのは、その価格帯に注文が集まっているからだと説明される</li>
+    <li>トレンドラインは2点では引けない。3点目で反応してはじめて有効とみなす</li>
+    <li>押し安値は「最後に高値を更新するきっかけになった安値」。どの期間の安値かはこれで決まる</li>
+    <li>ロールリバーサルは、抜けた側と抜かれた側でポジションの向きが入れ替わることで説明される</li>
+    <li>損切りは金額ではなく「その線が破られたら前提が崩れる」という場所に置く</li>
+  </ul>
+</div>
+
+
+<div class="ad-slot" data-ad="top"><span class="ad-label">広告</span><div class="ad-body"></div></div>
 
 
 <nav class="toc">
@@ -1050,7 +884,7 @@
       <span><i class="sw" style="background:var(--line1)"></i>下限＝押し目買い候補</span>
       <span><i class="sw" style="background:var(--line1); opacity:.6"></i>上限(平行線)＝利確候補</span>
     </div>
-    <svg viewBox="0 0 640 268" role="img" aria-label="上昇チャネルの中を推移する価格のチャート">
+    <svg viewBox="0 0 640 268" role="img" aria-label="チャネルラインの例。上昇トレンドラインと平行線ではさまれた帯の中を価格が推移する図">
       <line x1="51.1" y1="185.8" x2="51.1" y2="207.5" stroke="var(--up)" stroke-width="1.4"/>
       <rect x="48.1" y="190.5" width="5.9" height="1.6" rx="1.2" fill="var(--up)"/>
       <line x1="61.3" y1="186.2" x2="61.3" y2="196.6" stroke="var(--up)" stroke-width="1.4"/>
@@ -1690,7 +1524,7 @@
 </section>
 
 <!-- ============ 07 NECKLINE ============ -->
-<div class="ad-slot" data-ad="mid"><span class="ad-label">スポンサーリンク</span><div class="ad-body"></div></div>
+<div class="ad-slot" data-ad="mid"><span class="ad-label">広告</span><div class="ad-body"></div></div>
 <section id="neckline">
   <h2 class="sec"><span class="num">07</span>ネックライン</h2>
   <p class="sec-sub">チャートパターンに付随する水平線で、<strong>「そのパターンが完成したかどうかを判定する境界線」</strong>です。</p>
@@ -2019,7 +1853,7 @@
   <div class="q" data-q data-answer="1">
     <div class="qh"><span class="qn">Q1</span><p class="qt">このトレンドラインについて、正しい説明はどれですか?</p></div>
     <figure>
-      <svg viewBox="0 0 480 210" role="img" aria-label="安値2点を結んだ上昇トレンドライン">
+      <svg viewBox="0 0 480 210" role="img" aria-label="トレンドラインの引き方。上昇局面の安値2点を結んで引いた線と、3点目で反発する様子の図">
       <line x1="45.4" y1="133.9" x2="45.4" y2="138.7" stroke="var(--up)" stroke-width="1.4"/>
       <rect x="42.3" y="136.4" width="6.3" height="1.6" rx="1.2" fill="var(--up)"/>
       <line x1="56.2" y1="145.0" x2="56.2" y2="151.3" stroke="var(--down)" stroke-width="1.4"/>
@@ -2187,7 +2021,7 @@
   <div class="q" data-q data-answer="0">
     <div class="qh"><span class="qn">Q3</span><p class="qt">◯で囲んだ場面で価格が支えられました。この現象の名前と理由は?</p></div>
     <figure>
-      <svg viewBox="0 0 480 215" role="img" aria-label="元レジスタンスがサポートとして機能する場面">
+      <svg viewBox="0 0 480 215" role="img" aria-label="ロールリバーサルの図。上抜けた元レジスタンスラインが、今度はサポートとして機能する場面">
       <line x1="44.4" y1="120.1" x2="44.4" y2="148.5" stroke="var(--down)" stroke-width="1.4"/>
       <rect x="41.9" y="132.1" width="5.2" height="5.5" rx="1.2" fill="var(--down)"/>
       <line x1="53.3" y1="135.6" x2="53.3" y2="150.1" stroke="var(--down)" stroke-width="1.4"/>
@@ -2347,7 +2181,39 @@
 </section>
 
 
-<div class="ad-slot" data-ad="bottom"><span class="ad-label">スポンサーリンク</span><div class="ad-body"></div></div>
+<div class="ad-slot" data-ad="bottom"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<section id="faq">
+  <h2 class="sec"><span class="num">Q</span>よくある質問</h2>
+  <h3>トレンドラインはなぜ3点目で有効になるのですか？</h3>
+  <p>2点なら、どんなチャートでも必ず引けてしまうからです。2点を結ぶ線は無数にあり、偶然と区別がつきません。3点目でその線に反応して、はじめて「多くの人が同じ線を見ている」と判断できる、という考え方です。</p>
+  <h3>直近安値とは、どの期間の安値のことですか？</h3>
+  <p>期間で決まるのではなく、値動きの構造で決まります。上昇トレンドでは「最後に高値を更新するきっかけになった安値」を指し、これを押し安値と呼びます。ローソク足1本ごとの安値とは別のもので、高値を更新するたびに位置が上がっていきます。</p>
+  <h3>トレンドラインのブレイクと安値割れは同じことですか？</h3>
+  <p>重なることはありますが、同じではありません。トレンドラインは傾いているため、時間が経つほど水準が動きます（上昇トレンドラインなら切り上がります）。安値割れは水平の価格を下回ることで、トレンドの定義そのものが変わる点でより重い合図とされます。</p>
+  <h3>ロールリバーサルはなぜ起きるのですか？</h3>
+  <p>その価格を挟んで、参加者が持っているポジションの向きが入れ替わるからだと説明されます。サポートを割ったあと戻ってきた場面では、そこで買っていた人が「戻ってきたら決済したい」と考え、売り注文が出やすくなる、という見方です。</p>
+  <h3>損切りはどこに置けばいいですか？</h3>
+  <p>「そこを割ったら、自分が買った前提が崩れる」という価格です。金額で決めるのではなく、チャートの構造で決めます。直近安値のすぐ下は損切り注文が集まりやすいため、少し余裕を取るという考え方もあります。損切りを遠ざけるときは、その分ロット数を減らしてリスクを一定に保ちます。</p>
+</section>
+
+<section class="nextread">
+  <h2 class="sec"><span class="num">＋</span>この続きに読む</h2>
+  <div class="cards two">
+  <a class="pcard" href="method.html">
+    <div class="top"><h3>ラインの引き方と意味</h3></div>
+    <p class="lead">トレンドライン・水平線・フィボナッチ</p><span class="go">見る →</span>
+  </a>
+  <a class="pcard" href="chart.html">
+    <div class="top"><h3>FXチャートの見方</h3></div>
+    <p class="lead">サポレジとダウ理論に戻って確認する</p><span class="go">見る →</span>
+  </a>
+  <a class="pcard" href="money.html">
+    <div class="top"><h3>資金管理と損切り</h3></div>
+    <p class="lead">線から損切り位置を決める</p><span class="go">見る →</span>
+  </a>
+  </div>
+</section>
 
 <nav class="pager">
 <a class="prev" href="intro.html"><span class="dir">← 前の編</span><span class="ttl">入門編 やさしい入門</span></a>
@@ -2355,63 +2221,17 @@
 </nav>
 
 <footer>
-  <p><strong>この資料について</strong><br>
-  FXは証拠金取引であり、元本は保証されません。この資料は学習用のまとめであり、投資助言ではありません。
-  紹介した手法・水準・比率はいずれも「市場で広く使われている一般的な考え方」であって、将来の利益を保証するものではありません。
-  チャート図はすべて解説のために作成した模式図であり、実際の相場データではありません。
+  <p><strong>ご利用にあたって</strong><br>
+  当サイトはFXの学習を目的とした情報サイトであり、<strong>投資助言ではありません。</strong>
+  運営者は金融商品取引法に基づく投資助言・代理業の登録を受けておらず、特定の売買を勧めるものではありません。
+  FXは元本が保証されない取引で、預託した証拠金を上回る損失が生じる可能性もあります。
+  掲載している情報の正確性・完全性・最新性は保証しません。
+  掲載しているチャート図はすべて解説のために作成した模式図であり、実際の相場データではありません。
   実際の取引は必ずご自身の判断と責任で、デモ口座や少額での検証を経てから行ってください。</p>
   <p>Vol.2 実践編 ／ 作成:2026年8月 ／ 対象:米ドル/円 デイトレード・短期トレード</p>
-<p style="margin-top:14px"><a href="privacy.html" style="color:var(--muted)">プライバシーポリシー・免責事項</a></p>
+<p style="margin-top:14px"><a href="about.html" style="color:var(--muted)">運営者情報・編集方針</a> ／ <a href="privacy.html" style="color:var(--muted)">免責事項・プライバシーポリシー</a> ／ <a href="roadmap.html" style="color:var(--muted)">学習ロードマップ</a></p>
 </footer>
 
 </div>
-<script>
-(function(){
-  var btn = document.getElementById('themeBtn');
-  btn.addEventListener('click', function(){
-    var root = document.documentElement, cur = root.getAttribute('data-theme');
-    if(!cur){ cur = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
-    root.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
-  });
-
-  var correct = 0, answered = 0;
-  var qs = document.querySelectorAll('[data-q]'), total = qs.length;
-  var sTxt = document.getElementById('scoreTxt'), sNum = document.getElementById('scoreNum');
-  qs.forEach(function(q){
-    var ans = parseInt(q.getAttribute('data-answer'), 10);
-    var opts = q.querySelectorAll('.opt'), fb = q.querySelector('.fb');
-    opts.forEach(function(opt){
-      opt.addEventListener('click', function(){
-        if(q.dataset.done) return;
-        q.dataset.done = '1';
-        var picked = parseInt(opt.getAttribute('data-i'), 10);
-        answered++; if(picked === ans) correct++;
-        opts.forEach(function(o){
-          var i = parseInt(o.getAttribute('data-i'), 10);
-          o.disabled = true;
-          if(i === ans){ o.classList.add('correct'); o.insertAdjacentHTML('afterbegin','<span class="mark">正解</span>'); }
-          else if(i === picked){ o.classList.add('wrong'); o.insertAdjacentHTML('afterbegin','<span class="mark">不正解</span>'); }
-        });
-        fb.classList.add('show');
-        sNum.textContent = correct;
-        if(answered < total){ sTxt.textContent = '解答中… 残り ' + (total - answered) + ' 問'; }
-        else if(correct === total){ sTxt.textContent = '全問正解。線の意味が理解できています。'; }
-        else if(correct >= 3){ sTxt.textContent = 'あと少し。まちがえた問題のセクションに戻りましょう。'; }
-        else { sTxt.textContent = 'セクション01の「原理」から読み直すのが近道です。'; }
-      });
-    });
-  });
-
-  var boxes = document.querySelectorAll('#chkbox input[type="checkbox"]');
-  var bar = document.getElementById('bar'), pTxt = document.getElementById('progTxt');
-  function update(){
-    var done = 0; boxes.forEach(function(b){ if(b.checked) done++; });
-    bar.style.width = (boxes.length ? done/boxes.length*100 : 0) + '%';
-    pTxt.textContent = done + ' / ' + boxes.length + ' 項目 完了' + (done === boxes.length ? ' — おつかれさまでした!' : '');
-  }
-  boxes.forEach(function(b){ b.addEventListener('change', update); });
-  update();
-})();
-</script>
 </body>
 </html>

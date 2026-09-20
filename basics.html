@@ -3,204 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FXの基礎知識と経済指標の読み方 - FX学習ノート</title>
-<style>
-  :root{
-    color-scheme: light;
-    --page:#f9f9f7; --surface:#fcfcfb;
-    --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781;
-    --line:#e1e0d9; --axis:#c3c2b7;
-    --up:#e34948; --down:#2a78d6;
-    --line1:#eb6834; --line2:#4a3aa7; --line3:#1baf7a;
-    --good:#0ca30c; --crit:#d03b3b;
-    --ring:rgba(11,11,11,0.10);
-    --shadow:0 1px 2px rgba(11,11,11,.04), 0 8px 24px rgba(11,11,11,.05);
-  }
-  @media (prefers-color-scheme: dark){
-    :root:where(:not([data-theme="light"])){
-      color-scheme: dark;
-      --page:#0d0d0d; --surface:#1a1a19;
-      --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
-      --line:#2c2c2a; --axis:#383835;
-      --up:#e66767; --down:#3987e5;
-      --line1:#d95926; --line2:#9085e9; --line3:#199e70;
-      --good:#0ca30c; --crit:#d03b3b;
-      --ring:rgba(255,255,255,0.10);
-      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
-    }
-  }
-  :root[data-theme="dark"]{
-    color-scheme: dark;
-    --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
-    --line:#2c2c2a; --axis:#383835; --up:#e66767; --down:#3987e5;
-    --line1:#d95926; --line2:#9085e9; --line3:#199e70; --good:#0ca30c; --crit:#d03b3b;
-    --ring:rgba(255,255,255,0.10);
-    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
-  }
-
-  *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  body{margin:0; background:var(--page); color:var(--ink);
-    font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",Meiryo,sans-serif;
-    line-height:1.85; font-size:16px; text-rendering:optimizeLegibility;}
-  .wrap{max-width:920px; margin:0 auto; padding:0 20px 96px}
-
-  header.hero{padding:64px 0 40px; border-bottom:1px solid var(--line)}
-  .eyebrow{font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--line1); font-weight:700; margin:0 0 14px}
-  h1{font-size:clamp(27px,4.8vw,40px); line-height:1.32; margin:0 0 18px; letter-spacing:-.01em}
-  .lede{font-size:17px; color:var(--ink-2); margin:0; max-width:64ch}
-  .meta{margin-top:22px; font-size:13px; color:var(--muted)}
-  .themetoggle{position:fixed; top:14px; right:14px; z-index:50; background:var(--surface);
-    color:var(--ink-2); border:1px solid var(--ring); border-radius:999px; padding:7px 14px;
-    font-size:12px; cursor:pointer; font-family:inherit; box-shadow:var(--shadow)}
-  .themetoggle:hover{color:var(--ink)}
-
-  nav.toc{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
-    padding:20px 24px; margin:32px 0 8px; box-shadow:var(--shadow)}
-  nav.toc h2{font-size:13px; letter-spacing:.1em; color:var(--muted); margin:0 0 12px; text-transform:uppercase}
-  nav.toc ol{margin:0; padding-left:20px; columns:2; column-gap:32px}
-  nav.toc li{margin:5px 0; break-inside:avoid}
-  nav.toc a{color:var(--ink-2); text-decoration:none; border-bottom:1px solid transparent}
-  nav.toc a:hover{color:var(--ink); border-bottom-color:var(--axis)}
-  @media (max-width:640px){nav.toc ol{columns:1}}
-
-  section{padding-top:58px; scroll-margin-top:20px}
-  h2.sec{font-size:clamp(21px,3.4vw,27px); margin:0 0 8px; letter-spacing:-.01em; display:flex; align-items:baseline; gap:12px}
-  h2.sec .num{font-size:13px; font-weight:700; color:var(--line1); letter-spacing:.08em; flex:none}
-  .sec-sub{color:var(--ink-2); margin:0 0 26px; font-size:15.5px; max-width:66ch}
-  h3{font-size:18px; margin:36px 0 10px; letter-spacing:-.005em}
-  h4{font-size:15.5px; margin:22px 0 6px}
-  p{margin:0 0 14px}
-  strong{font-weight:700}
-
-  .card{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
-    padding:22px 26px; margin:20px 0; box-shadow:var(--shadow)}
-  .card > :first-child{margin-top:0}
-  .card > :last-child{margin-bottom:0}
-
-  .key{background:var(--surface); border:1px solid var(--ring); border-left:3px solid var(--line1);
-    border-radius:0 12px 12px 0; padding:18px 22px; margin:18px 0}
-  .key .tag{display:block; font-size:11.5px; font-weight:700; letter-spacing:.1em; color:var(--line1); margin-bottom:6px}
-  .key p{margin:0; font-size:15.5px}
-  .key p + p{margin-top:10px}
-
-  .warn{background:var(--surface); border:1px solid var(--ring); border-left:3px solid var(--crit);
-    border-radius:0 12px 12px 0; padding:18px 22px; margin:18px 0}
-  .warn .tag{display:block; font-size:11.5px; font-weight:700; letter-spacing:.1em; color:var(--crit); margin-bottom:6px}
-  .warn p{margin:0; font-size:15.5px}
-
-  .note{font-size:14.5px; color:var(--ink-2); background:var(--surface);
-    border:1px dashed var(--axis); border-radius:12px; padding:14px 18px; margin:18px 0}
-  .note strong{color:var(--ink)}
-  ul.plain{margin:10px 0 14px; padding-left:22px}
-  ul.plain li{margin:7px 0}
-  ol.steps2{margin:10px 0 14px; padding-left:22px}
-  ol.steps2 li{margin:8px 0}
-
-  figure{margin:22px 0; background:var(--surface); border:1px solid var(--ring);
-    border-radius:14px; padding:20px 20px 14px; box-shadow:var(--shadow)}
-  figure svg{display:block; width:100%; height:auto}
-  figcaption{font-size:13.5px; color:var(--ink-2); margin-top:12px; padding-top:12px;
-    border-top:1px solid var(--line); line-height:1.75}
-  .legend{display:flex; flex-wrap:wrap; gap:16px; margin:0 0 12px; font-size:12.5px; color:var(--ink-2)}
-  .legend span{display:inline-flex; align-items:center; gap:7px}
-  .sw{width:12px; height:3px; border-radius:2px; flex:none}
-  .sw.box{height:11px; width:11px; border-radius:3px}
-  .figrow{display:grid; grid-template-columns:1fr 1fr; gap:16px}
-  @media (max-width:700px){.figrow{grid-template-columns:1fr}}
-  .figrow figure{margin:0}
-
-  .t{font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
-  .t-lbl{font-size:12px; fill:var(--ink-2)}
-  .t-mut{font-size:11px; fill:var(--muted)}
-
-  table{width:100%; border-collapse:collapse; margin:16px 0; font-size:14.5px;
-    background:var(--surface); border:1px solid var(--ring); border-radius:12px; overflow:hidden}
-  th,td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
-  th{font-size:12.5px; letter-spacing:.05em; color:var(--muted); font-weight:700; background:var(--page)}
-  tr:last-child td{border-bottom:none}
-  td.rank{font-weight:700; color:var(--line1); white-space:nowrap}
-
-  .q{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
-    padding:22px 24px; margin:18px 0; box-shadow:var(--shadow)}
-  .q .qh{display:flex; gap:10px; align-items:baseline; margin-bottom:6px}
-  .q .qn{font-size:12px; font-weight:700; color:var(--line1); letter-spacing:.06em; flex:none}
-  .q .qt{font-size:16px; font-weight:600; margin:0}
-  .q figure{margin:14px 0; padding:14px 14px 10px}
-  .opts{display:flex; flex-direction:column; gap:8px; margin:14px 0 0}
-  .opt{text-align:left; font:inherit; font-size:15px; cursor:pointer; background:var(--page);
-    color:var(--ink); border:1px solid var(--ring); border-radius:10px; padding:11px 15px;
-    transition:border-color .12s, background .12s}
-  .opt:hover:not(:disabled){border-color:var(--axis)}
-  .opt:disabled{cursor:default}
-  .opt.correct{border-color:var(--good); background:color-mix(in srgb, var(--good) 9%, var(--page))}
-  .opt.wrong{border-color:var(--crit); background:color-mix(in srgb, var(--crit) 9%, var(--page))}
-  .opt .mark{font-weight:700; margin-right:8px}
-  .fb{margin:14px 0 0; font-size:14.5px; color:var(--ink-2); line-height:1.75;
-    border-left:3px solid var(--good); padding:2px 0 2px 14px; display:none}
-  .fb.show{display:block}
-  .score{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
-    padding:18px 24px; margin:22px 0 0; box-shadow:var(--shadow); font-size:15px;
-    display:flex; justify-content:space-between; align-items:center; gap:16px}
-  .score b{font-size:24px; font-variant-numeric:tabular-nums}
-
-  .chk{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
-    padding:8px 24px 16px; margin:18px 0; box-shadow:var(--shadow)}
-  .chk label{display:flex; gap:11px; align-items:flex-start; padding:9px 0; font-size:15px;
-    cursor:pointer; border-bottom:1px solid var(--line)}
-  .chk label:last-child{border-bottom:none}
-  .chk input{margin:6px 0 0; width:16px; height:16px; accent-color:var(--good); flex:none; cursor:pointer}
-  .chk input:checked + span{color:var(--muted); text-decoration:line-through}
-  .progressbar{height:6px; background:var(--line); border-radius:999px; overflow:hidden; margin:10px 0 4px}
-  .progressbar i{display:block; height:100%; width:0; background:var(--good); border-radius:999px; transition:width .25s}
-  .progresstxt{font-size:13px; color:var(--muted); margin:0 0 8px}
-
-  footer{margin-top:72px; padding-top:28px; border-top:1px solid var(--line);
-    font-size:13.5px; color:var(--muted); line-height:1.8}
-
-  /* ---- site nav (added for GitHub Pages) ---- */
-  .sitenav{position:sticky; top:0; z-index:60; background:var(--page);
-    border-bottom:1px solid var(--line)}
-  @supports (backdrop-filter: blur(8px)){
-    .sitenav{background:color-mix(in srgb, var(--page) 86%, transparent); backdrop-filter:saturate(1.5) blur(10px)}
-  }
-  .sitenav .inner{max-width:920px; margin:0 auto; padding:0 20px; display:flex; gap:2px;
-    align-items:center; overflow-x:auto; scrollbar-width:none}
-  .sitenav .inner::-webkit-scrollbar{display:none}
-  .sitenav a{flex:none; font-size:12.5px; color:var(--ink-2); text-decoration:none;
-    padding:12px 11px; border-bottom:2px solid transparent; white-space:nowrap; line-height:1.2}
-  .sitenav a:hover{color:var(--ink)}
-  .sitenav a.cur{color:var(--line1); border-bottom-color:var(--line1); font-weight:700}
-  .sitenav .home{font-weight:700; color:var(--ink); margin-right:8px; padding-right:14px;
-    border-right:1px solid var(--line); border-bottom:none}
-  .sitenav .home:hover{color:var(--line1)}
-  .sitenav .themetoggle{position:static; margin-left:auto; flex:none; box-shadow:none;
-    padding:5px 11px; font-size:11.5px}
-  header.hero{padding-top:44px}
-</style>
-
-<style>
-  .md h2{font-size:clamp(20px,3.2vw,25px); margin:54px 0 10px; letter-spacing:-.01em; scroll-margin-top:60px}
-  .md h3{font-size:17px; margin:30px 0 8px}
-  .md p{margin:0 0 14px}
-  .md ul,.md ol{padding-left:22px; margin:10px 0 16px}
-  .md li{margin:7px 0}
-  .md hr{border:none; border-top:1px solid var(--line); margin:44px 0 0}
-  .md a{color:var(--line1)}
-  .md table{margin:18px 0}
-  .md > p:first-child{margin-top:0}
-  .toclist{background:var(--surface); border:1px solid var(--ring); border-radius:14px;
-    padding:20px 24px; margin:30px 0 0; box-shadow:var(--shadow)}
-  .toclist h2{font-size:13px; letter-spacing:.1em; color:var(--muted); margin:0 0 12px; text-transform:uppercase}
-  .toclist ol{margin:0; padding-left:20px; columns:2; column-gap:32px}
-  .toclist li{margin:5px 0; break-inside:avoid}
-  .toclist a{color:var(--ink-2); text-decoration:none}
-  .toclist a:hover{color:var(--ink)}
-  @media (max-width:640px){.toclist ol{columns:1}}
-</style>
+<title>テクニカルとファンダメンタルズの違い｜FX基礎ガイド</title>
 
 <link rel="canonical" href="https://red-spider-lily-616.github.io/chart_school/basics.html">
-<meta name="description" content="FXを始める人向けの基礎ガイド。テクニカル分析とファンダメンタルズ分析の役割分担、初心者向けの通貨ペアの選び方、米雇用統計・CPI・FOMC・日銀会合が過去にどちら方向の値動きをもたらしたかを実例で検証します。">
+<meta name="description" content="FXのテクニカル分析とファンダメンタルズ分析の違いと使い分けを解説します。初心者向けの通貨ペアの選び方、米雇用統計・CPI・FOMC・日銀会合が過去にどちら方向の値動きをもたらしたかの検証つき。">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#fcfcfb" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1a1a19" media="(prefers-color-scheme: dark)">
@@ -208,67 +14,75 @@
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="FX学習ノート">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:title" content="FXの基礎知識と経済指標の読み方 - FX学習ノート">
-<meta property="og:description" content="FXを始める人向けの基礎ガイド。テクニカル分析とファンダメンタルズ分析の役割分担、初心者向けの通貨ペアの選び方、米雇用統計・CPI・FOMC・日銀会合が過去にどちら方向の値動きをもたらしたかを実例で検証します。">
+<meta property="og:title" content="テクニカルとファンダメンタルズの違い｜FX基礎ガイド">
+<meta property="og:description" content="FXのテクニカル分析とファンダメンタルズ分析の違いと使い分けを解説します。初心者向けの通貨ペアの選び方、米雇用統計・CPI・FOMC・日銀会合が過去にどちら方向の値動きをもたらしたかの検証つき。">
 <meta property="og:url" content="https://red-spider-lily-616.github.io/chart_school/basics.html">
 <meta property="og:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="FX学習ノート — テクニカル分析とファンダメンタルズ分析を図解で">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="FXの基礎知識と経済指標の読み方 - FX学習ノート">
-<meta name="twitter:description" content="FXを始める人向けの基礎ガイド。テクニカル分析とファンダメンタルズ分析の役割分担、初心者向けの通貨ペアの選び方、米雇用統計・CPI・FOMC・日銀会合が過去にどちら方向の値動きをもたらしたかを実例で検証します。">
+<meta name="twitter:title" content="テクニカルとファンダメンタルズの違い｜FX基礎ガイド">
+<meta name="twitter:description" content="FXのテクニカル分析とファンダメンタルズ分析の違いと使い分けを解説します。初心者向けの通貨ペアの選び方、米雇用統計・CPI・FOMC・日銀会合が過去にどちら方向の値動きをもたらしたかの検証つき。">
 <meta name="twitter:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FX学習ノート", "item": "https://red-spider-lily-616.github.io/chart_school/"}, {"@type": "ListItem", "position": 2, "name": "基礎編", "item": "https://red-spider-lily-616.github.io/chart_school/basics.html"}]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "FXの基礎知識と経済指標の読み方 - FX学習ノート", "description": "FXを始める人向けの基礎ガイド。テクニカル分析とファンダメンタルズ分析の役割分担、初心者向けの通貨ペアの選び方、米雇用統計・CPI・FOMC・日銀会合が過去にどちら方向の値動きをもたらしたかを実例で検証します。", "inLanguage": "ja", "url": "https://red-spider-lily-616.github.io/chart_school/basics.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://red-spider-lily-616.github.io/chart_school/basics.html"}, "image": "https://red-spider-lily-616.github.io/chart_school/og.png", "datePublished": "2026-09-13", "dateModified": "2026-09-14", "author": {"@type": "Person", "name": "FX学習ノート"}, "publisher": {"@type": "Organization", "name": "FX学習ノート", "logo": {"@type": "ImageObject", "url": "https://red-spider-lily-616.github.io/chart_school/og.png"}}, "isPartOf": {"@type": "WebSite", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/"}}</script>
-<style>
-  /* ---- ad slots (populated by ads.js; hidden until configured) ---- */
-  .ad-slot{display:none; margin:40px 0; text-align:center}
-  html.ad-ready .ad-slot{display:block}
-  .ad-slot .ad-label{display:block; font-size:10.5px; letter-spacing:.12em;
-    color:var(--muted); margin-bottom:8px; text-transform:uppercase}
-  .ad-slot .ad-body{min-height:100px; display:flex; align-items:center;
-    justify-content:center; overflow:hidden}
-  .ad-slot .ad-body > *{max-width:100%}
-  /* ---- prev / next ---- */
-  .pager{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:56px 0 0}
-  @media (max-width:600px){.pager{grid-template-columns:1fr}}
-  .pager a{display:block; text-decoration:none; color:inherit; background:var(--surface);
-    border:1px solid var(--ring); border-radius:14px; padding:16px 20px;
-    box-shadow:var(--shadow); transition:border-color .14s}
-  .pager a:hover{border-color:var(--line1)}
-  .pager .dir{display:block; font-size:11px; letter-spacing:.1em; color:var(--muted);
-    font-weight:700; margin-bottom:5px}
-  .pager .ttl{font-size:15px; font-weight:700; color:var(--ink)}
-  .pager a.next{text-align:right}
-</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "テクニカルとファンダメンタルズの違い｜FX基礎ガイド", "description": "FXのテクニカル分析とファンダメンタルズ分析の違いと使い分けを解説します。初心者向けの通貨ペアの選び方、米雇用統計・CPI・FOMC・日銀会合が過去にどちら方向の値動きをもたらしたかの検証つき。", "inLanguage": "ja", "url": "https://red-spider-lily-616.github.io/chart_school/basics.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://red-spider-lily-616.github.io/chart_school/basics.html"}, "image": "https://red-spider-lily-616.github.io/chart_school/og.png", "datePublished": "2026-09-13", "dateModified": "2026-09-18", "author": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/about.html"}, "publisher": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/", "logo": {"@type": "ImageObject", "url": "https://red-spider-lily-616.github.io/chart_school/og.png"}}, "isPartOf": {"@type": "WebSite", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/"}, "articleSection": "基礎編"}</script>
+<script src="site.js" defer></script>
 <script src="ads.js" defer></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "テクニカル分析とファンダメンタルズ分析はどちらを先に学ぶべきですか？", "acceptedAnswer": {"@type": "Answer", "text": "短期売買が目的ならテクニカル分析が先です。エントリーと損切りのタイミングは、チャートを見ないと決められないためです。ファンダメンタルズ分析は「なぜ動いたのか」と「いつ荒れるのか」を知るために、あとから重ねていく形が一般的です。"}}, {"@type": "Question", "name": "FX初心者に向いているとされる通貨ペアはどれですか？", "acceptedAnswer": {"@type": "Answer", "text": "米ドル/円が挙げられることが多いペアです。取引量が多く値動きが素直になりやすいこと、スプレッドが狭く扱われることが多いこと、日本語の情報が多いことが理由として挙げられます。ただし通貨ペアの条件は各社で異なるため、最新の表示で確認してください。"}}, {"@type": "Question", "name": "米雇用統計が発表されると為替はどちらに動きますか？", "acceptedAnswer": {"@type": "Answer", "text": "方向は事前に決まりません。市場がすでに織り込んでいた予想と比べて上振れたか下振れたかで動くとされ、良い数字でも予想以下なら下がることがあります。発表直後は値動きが速く、スプレッドも広がりやすくなります。"}}, {"@type": "Question", "name": "テクニカルとファンダメンタルズはどう組み合わせるのですか？", "acceptedAnswer": {"@type": "Answer", "text": "ファンダメンタルズで大まかな方向と危険な時間帯を把握し、テクニカルで具体的な売買ポイントを決める、という分担が基本形とされます。両方で同じ方向を示しているときのほうが、判断の根拠は厚くなります。"}}, {"@type": "Question", "name": "FXの勉強にはどれくらいの期間がかかりますか？", "acceptedAnswer": {"@type": "Answer", "text": "デモ口座で1回の取引を完了できる状態までなら、1日30分で1か月程度が目安です。自分の売買ルールを作って30回検証できる段階までは、さらに3〜6か月かかるのが一般的とされます。"}}]}</script>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <nav class="sitenav"><div class="inner">
 <a class="home" href="index.html">FX学習ノート</a>
-<a class="cur" href="basics.html">基礎</a>
-<a href="intro.html">入門</a>
-<a href="lines.html">線の意味</a>
-<a href="structure.html">相場の構造</a>
+<a href="roadmap.html">ロードマップ</a>
+<a href="start.html">はじめて</a>
+<a href="chart.html">チャート</a>
+<a href="method.html">手法</a>
+<a href="fund.html">経済指標</a>
+<a href="money.html">資金管理</a>
+<a href="pro.html">実践</a>
+<a href="glossary.html">用語集</a>
 <button class="themetoggle" id="themeBtn" type="button">◐ 表示切替</button>
 </div></nav>
 <div class="wrap">
 
+<nav class="crumb"><a href="index.html">ホーム</a> › <span>基礎編</span></nav>
+
 <header class="hero">
   <p class="eyebrow">FX Study Notes — 基礎編</p>
-  <h1>FX学習ガイド<br>テクニカル分析とファンダメンタルズ分析</h1>
+  <h1>テクニカルとファンダメンタルズ<br>2つの分析の違いと使い分け</h1>
   <p class="lede">
     FXを始めるにあたって必要な知識を、学ぶ順番に沿って整理したものです。
     2つの分析手法の役割分担、初心者向けの通貨ペアの選び方、主要な経済指標が過去にどちら方向の値動きをもたらしたかの検証、
     そして現実的な目標設定までを扱います。
   </p>
-  <p class="meta">想定スタイル:デイトレード・短期トレード(数時間〜1日程度で決済) ／ 米ドル/円</p>
+  <p class="meta">想定スタイル:デイトレード・短期トレード(数時間〜1日程度で決済) ／ 米ドル/円 ／ 最終更新: 2026年9月18日</p>
 </header>
-<div class="ad-slot" data-ad="top"><span class="ad-label">スポンサーリンク</span><div class="ad-body"></div></div>
+
+<div class="note note-legal">
+このページはFXの学習を目的とした一般的な情報で、<strong>投資助言ではありません</strong>。
+特定の売買を勧めるものではなく、将来の利益を保証するものでもありません。
+FXは元本が保証されない取引です。<a href="privacy.html">免責事項</a>をご確認ください。
+<span class="ad-notice">※このページには広告を含む場合があります。</span>
+</div>
+
+<div class="tldr">
+  <span class="tag">この記事の要点</span>
+  <ul>
+    <li>テクニカル分析は「いつ・どこで」、ファンダメンタルズ分析は「なぜ・どちら方向に」を扱う。役割が違うので、どちらが上ということはない</li>
+    <li>短期売買ならテクニカルが先。ファンダメンタルズは「いつ荒れるか」を知るために使う</li>
+    <li>通貨ペアは1〜2つに絞るほうが、値動きの癖と指標のタイミングを覚えやすい</li>
+    <li>経済指標は「数字の良し悪し」ではなく「事前予想と比べてどうだったか」で動く</li>
+    <li>資金管理を守った場合、短期間で資金を倍にするのは現実的ではない</li>
+  </ul>
+</div>
 
 
-<nav class="toclist"><h2>もくじ</h2><ol><li><a href="#s1">まず前提として</a></li><li><a href="#s2">全体像:2つの分析の役割分担</a></li><li><a href="#s3">初心者向けの通貨ペアの選び方</a></li><li><a href="#s4">テクニカル分析で学ぶべきこと</a></li><li><a href="#s5">ファンダメンタルズ分析で学ぶべきこと</a></li><li><a href="#s6">主要指標・要因の意味と過去の値動き検証(USD/JPY基準)</a></li><li><a href="#s7">テクニカルとファンダメンタルズを組み合わせる考え方</a></li><li><a href="#s8">学習の進め方(ロードマップ)</a></li><li><a href="#s9">参考にすべき情報源のジャンル(具体名は変化するため、種類で紹介)</a></li><li><a href="#s10">目標設定:5万円を10万円にするために</a></li><li><a href="#s11">最後に:再現性を高めるための3つの習慣</a></li></ol></nav>
+<div class="ad-slot" data-ad="top"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+
+<nav class="toclist"><h2>もくじ</h2><ol><li><a href="#s1">まず前提として</a></li><li><a href="#s2">全体像:2つの分析の役割分担</a></li><li><a href="#s3">初心者向けの通貨ペアの選び方</a></li><li><a href="#s4">テクニカル分析で学ぶべきこと</a></li><li><a href="#s5">ファンダメンタルズ分析で学ぶべきこと</a></li><li><a href="#s6">主要指標・要因の意味と過去の値動き検証(USD/JPY基準)</a></li><li><a href="#s7">テクニカルとファンダメンタルズを組み合わせる考え方</a></li><li><a href="#s8">学習の進め方(ロードマップ)</a></li><li><a href="#s9">参考にすべき情報源のジャンル(具体名は変化するため、種類で紹介)</a></li><li><a href="#s10">「短期で資金を倍にしたい」という目標について</a></li><li><a href="#s11">最後に:再現性を高めるための3つの習慣</a></li></ol></nav>
 
 <div class="md">
 
@@ -399,7 +213,7 @@
 <li>重要指標発表の直前・直後はスプレッド拡大やスリッページが大きくなりやすく、テクニカルの「セオリー通りの反応」が起きにくい時間帯でもある</li>
 </ul>
 <hr />
-<div class="ad-slot" data-ad="mid"><span class="ad-label">スポンサーリンク</span><div class="ad-body"></div></div>
+<div class="ad-slot" data-ad="mid"><span class="ad-label">広告</span><div class="ad-body"></div></div>
 <h2 id="s6">5. 主要指標・要因の意味と過去の値動き検証(USD/JPY基準)</h2>
 <p>前の章で挙げた指標・要因について、それぞれの意味と、過去に実際どちら方向に値動きをもたらしたかを、米ドル/円を基準に具体例で検証します。2024〜2025年の実例を中心に、Web検索で確認できた情報をもとにまとめています(特定の値幅・値段は速報記事ベースのため、正確な数値は改めてチャートで確認することをおすすめします)。</p>
 <h3>5-1. 米雇用統計(NFP・非農業部門雇用者数)</h3>
@@ -511,15 +325,15 @@
 <li>各証券会社が提供するデモトレード環境</li>
 </ul>
 <hr />
-<h2 id="s10">9. 目標設定:5万円を10万円にするために</h2>
-<p>当初「5万円を5日間で10万円にしたい」という目標が挙がりましたが、これは資金を5日間で+100%にするという意味です。ガイド内で紹介した「1トレードあたりの許容損失は資金の1〜2%程度」という資金管理を守った場合、これを実現するのは現実的にはほぼ不可能です。5日間で数回のトレードだけで資金を倍にしようとすると、1回あたり数%〜10%以上のリスクを取る必要があり、これは通常の資金管理の目安を大きく超える水準です。当たれば大きく増える一方、外れれば資金の大部分・全部を失う可能性が高く、再現性のある手法の構築とは相容れません。</p>
-<p>そのため、目標そのものは残しつつ、達成までの期間と道のりを現実的なものに置き換えることをおすすめします。</p>
-<h3>最終ゴール</h3>
+<h2 id="s10">9. 「短期で資金を倍にしたい」という目標について</h2>
+<p>FXを始める人からよく挙がる目標に「5万円を5日間で10万円にしたい」というものがあります。これは資金を5日間で+100%にするという意味です。ガイド内で紹介した「1トレードあたりの許容損失は資金の1〜2%程度」という資金管理を守った場合、これを実現するのは現実的にはほぼ不可能です。5日間で数回のトレードだけで資金を倍にしようとすると、1回あたり数%〜10%以上のリスクを取る必要があり、これは通常の資金管理の目安を大きく超える水準です。当たれば大きく増える一方、外れれば資金の大部分・全部を失う可能性が高く、再現性のある手法の構築とは相容れません。</p>
+<p>そのため以下では、この目標を否定するのではなく、<strong>資金管理を守った場合に同じ金額へ到達するまでにどれくらいかかるのか</strong>を計算で示します。短期で倍を狙うことが何を意味するのかを、数字で確認するための節です。</p>
+<h3>比較のための到達点</h3>
 <ul>
 <li>5万円 → 10万円(資金+100%)</li>
 </ul>
 <h3>期間の目安(資金管理を守った場合)</h3>
-<p>短期トレードで安定して勝てるようになったトレーダーでも、月利5〜10%を継続できれば十分優秀とされます(これは平均的な目安であり、保証された数字ではありません)。この前提で複利計算すると、資金を倍にするまでの期間はおおよそ以下のようになります。</p>
+<p>短期トレードで安定して勝てるようになったトレーダーでも、月利5〜10%を継続できれば十分優秀とされることが多いようです。<strong>これは実現できると約束するものではなく、複利計算の前提として置いた仮の数字です。</strong>実際には、この水準を継続できる人のほうが少数です。この仮定で計算すると、資金が倍になるまでの期間はおおよそ次のようになります。</p>
 <table>
 <thead>
 <tr>
@@ -542,7 +356,7 @@
 </tr>
 </tbody>
 </table>
-<p>「5日」という当初の目標と比べるとかなり長く感じるかもしれませんが、これが資金管理を守りながら現実的に狙える速度感です。逆に言えば、これより大幅に短い期間で倍を狙う手法は、原則としてハイリスク・低再現性の賭けになっていると考えてください。</p>
+<p><strong>この表は「これだけ待てば倍になる」という意味ではありません。</strong>月利が想定どおり続いた場合の計算上の期間であり、実際には損失が出る月もあれば、資金が減り続けることもあります。「5日で倍」と比べてどれほど時間軸が違うのかを示すためのものです。逆に言えば、これより大幅に短い期間で倍を狙う手法は、原則としてハイリスク・低再現性の賭けになっていると考えてください。</p>
 <h3>段階的な目標設定(フェーズ分け)</h3>
 <p>最初から金額の目標を追うのではなく、まずは「資金を守りながらルールを検証するフェーズ」を挟むことをおすすめします。</p>
 <ol>
@@ -566,7 +380,39 @@
 </div>
 
 
-<div class="ad-slot" data-ad="bottom"><span class="ad-label">スポンサーリンク</span><div class="ad-body"></div></div>
+<div class="ad-slot" data-ad="bottom"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<section id="faq">
+  <h2 class="sec"><span class="num">Q</span>よくある質問</h2>
+  <h3>テクニカル分析とファンダメンタルズ分析はどちらを先に学ぶべきですか？</h3>
+  <p>短期売買が目的ならテクニカル分析が先です。エントリーと損切りのタイミングは、チャートを見ないと決められないためです。ファンダメンタルズ分析は「なぜ動いたのか」と「いつ荒れるのか」を知るために、あとから重ねていく形が一般的です。</p>
+  <h3>FX初心者に向いているとされる通貨ペアはどれですか？</h3>
+  <p>米ドル/円が挙げられることが多いペアです。取引量が多く値動きが素直になりやすいこと、スプレッドが狭く扱われることが多いこと、日本語の情報が多いことが理由として挙げられます。ただし通貨ペアの条件は各社で異なるため、最新の表示で確認してください。</p>
+  <h3>米雇用統計が発表されると為替はどちらに動きますか？</h3>
+  <p>方向は事前に決まりません。市場がすでに織り込んでいた予想と比べて上振れたか下振れたかで動くとされ、良い数字でも予想以下なら下がることがあります。発表直後は値動きが速く、スプレッドも広がりやすくなります。</p>
+  <h3>テクニカルとファンダメンタルズはどう組み合わせるのですか？</h3>
+  <p>ファンダメンタルズで大まかな方向と危険な時間帯を把握し、テクニカルで具体的な売買ポイントを決める、という分担が基本形とされます。両方で同じ方向を示しているときのほうが、判断の根拠は厚くなります。</p>
+  <h3>FXの勉強にはどれくらいの期間がかかりますか？</h3>
+  <p>デモ口座で1回の取引を完了できる状態までなら、1日30分で1か月程度が目安です。自分の売買ルールを作って30回検証できる段階までは、さらに3〜6か月かかるのが一般的とされます。</p>
+</section>
+
+<section class="nextread">
+  <h2 class="sec"><span class="num">＋</span>この続きに読む</h2>
+  <div class="cards two">
+  <a class="pcard" href="start.html">
+    <div class="top"><h3>FXの始め方</h3></div>
+    <p class="lead">仕組み・レバレッジ・pipsとロットから</p><span class="go">見る →</span>
+  </a>
+  <a class="pcard" href="fund.html">
+    <div class="top"><h3>経済指標の見方</h3></div>
+    <p class="lead">金利と中央銀行、雇用統計・CPI・FOMC</p><span class="go">見る →</span>
+  </a>
+  <a class="pcard" href="roadmap.html">
+    <div class="top"><h3>学習ロードマップ</h3></div>
+    <p class="lead">何をどの順に学ぶか</p><span class="go">見る →</span>
+  </a>
+  </div>
+</section>
 
 <nav class="pager">
 <a class="prev" href="index.html"><span class="dir">← 目次</span><span class="ttl">FX学習ノート トップ</span></a>
@@ -574,24 +420,17 @@
 </nav>
 
 <footer>
-  <p><strong>この資料について</strong><br>
-  FXは証拠金取引であり、元本は保証されません。この資料は学習用のまとめであり、投資助言ではありません。
+  <p><strong>ご利用にあたって</strong><br>
+  当サイトはFXの学習を目的とした情報サイトであり、<strong>投資助言ではありません。</strong>
+  運営者は金融商品取引法に基づく投資助言・代理業の登録を受けておらず、特定の売買を勧めるものではありません。
+  FXは元本が保証されない取引で、預託した証拠金を上回る損失が生じる可能性もあります。
+  掲載している情報の正確性・完全性・最新性は保証しません。
+  掲載しているチャート図はすべて解説のために作成した模式図であり、実際の相場データではありません。
   実際の取引は必ずご自身の判断と責任で、デモ口座や少額での検証を経てから行ってください。</p>
   <p><a href="index.html" style="color:var(--line1)">← 目次に戻る</a></p>
-<p style="margin-top:14px"><a href="privacy.html" style="color:var(--muted)">プライバシーポリシー・免責事項</a></p>
+<p style="margin-top:14px"><a href="about.html" style="color:var(--muted)">運営者情報・編集方針</a> ／ <a href="privacy.html" style="color:var(--muted)">免責事項・プライバシーポリシー</a> ／ <a href="roadmap.html" style="color:var(--muted)">学習ロードマップ</a></p>
 </footer>
 
 </div>
-<script>
-(function(){
-  var btn = document.getElementById('themeBtn');
-  if(!btn) return;
-  btn.addEventListener('click', function(){
-    var root = document.documentElement, cur = root.getAttribute('data-theme');
-    if(!cur){ cur = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
-    root.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
-  });
-})();
-</script>
 </body>
 </html>

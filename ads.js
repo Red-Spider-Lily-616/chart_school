@@ -1,45 +1,50 @@
 /* =====================================================================
-   広告の設定ファイル
+   広告設定ファイル（A8.net 対応）
    ---------------------------------------------------------------------
-   ここを書き換えるだけで、サイトの全ページに広告が表示されます。
-   HTMLファイルは一切さわる必要はありません。
+   このファイル1つを書き換えるだけで、サイト全ページの広告が変わります。
+   HTMLファイルは一切さわりません。
 
-   広告を出す準備ができるまでは、下の設定を空のままにしておいてください。
-   空の間は広告枠そのものが非表示になり、レイアウトは何も変わりません。
+   設定が空の間は広告枠そのものがDOMから消えるため、
+   レイアウトは何も変わりません。安心して空のまま置いておけます。
    ===================================================================== */
 
 /* ---------------------------------------------------------------------
-   【設定1】Google AdSense を使う場合
+   【設定】各広告枠に入れるHTML
    ---------------------------------------------------------------------
-   AdSense の管理画面に表示される「サイト運営者 ID」を貼り付けます。
-   例:  const AD_CLIENT = "ca-pub-1234567890123456";
---------------------------------------------------------------------- */
-const AD_CLIENT = "";
+   A8.netの管理画面 →「プログラム検索」→ 提携中のプログラム →
+   「広告リンク」でバナーを選び、表示されたHTMLをまるごとコピーして
+   下の "" の中に貼り付けます。
 
-/* ---------------------------------------------------------------------
-   【設定2】広告枠ごとの中身
-   ---------------------------------------------------------------------
-   各ページに3か所の枠があります。
+   ■ 貼り付けるときの注意
+     ・シングルクォート '...' で囲んでください（A8のコードは " を含むため）
+     ・末尾の <img ...0.gif...> （1x1の計測用画像）も必ず含めること
+     ・貼り付けたあと、行末の , を消さないこと
 
+   ■ 枠の位置
      top    … 記事タイトルのすぐ下
      mid    … 記事の中ほど
      bottom … 記事の最後、ページ送りの手前
 
-   入れ方は2通りあります。好きなほうを使ってください。
+   使わない枠は "" のままにしておけば非表示になります。
 
-   ■ AdSense の場合 … 広告ユニットの「スロットID」(10桁の数字)を書く
-       top: "1234567890",
-
-   ■ ASP のバナー(A8.net など)の場合 … 配布された HTML をそのまま貼る
-       top: '<a href="..."><img src="..." alt=""></a>',
-
-   使わない枠は "" のままにしておけば、その枠は表示されません。
+   ■ 記入例
+     top: '<a href="https://px.a8.net/svt/ejp?a8mat=XXXX" rel="nofollow">' +
+          '<img border="0" width="300" height="250" alt="" ' +
+          'src="https://www2X.a8.net/svt/bgt?aid=XXXX&wid=001&eno=01&mid=XXXX&mc=1"></a>' +
+          '<img border="0" width="1" height="1" src="https://www1X.a8.net/0.gif?a8mat=XXXX" alt="">',
 --------------------------------------------------------------------- */
 const AD_SLOTS = {
   top:    "",
   mid:    "",
   bottom: ""
 };
+
+/* ---------------------------------------------------------------------
+   【設定】広告の見出し文字
+   景品表示法（ステマ規制）により、広告であることの明示が必要です。
+   通常は "広告" のままで問題ありません。
+--------------------------------------------------------------------- */
+const AD_LABEL = "広告";
 
 /* =====================================================================
    ここから下は書き換え不要です
@@ -51,54 +56,35 @@ const AD_SLOTS = {
   if (!slots.length) return;
 
   var used = 0;
-  var needAdsense = false;
 
   slots.forEach(function (slot) {
     var name = slot.getAttribute("data-ad");
-    var value = (AD_SLOTS[name] || "").trim();
-    if (!value) {
+    var code = (AD_SLOTS[name] || "").trim();
+
+    if (!code) {            // 未設定の枠は丸ごと削除（レイアウトに影響させない）
       slot.remove();
       return;
     }
+
+    var label = slot.querySelector(".ad-label");
+    if (label) label.textContent = AD_LABEL;
 
     var body = slot.querySelector(".ad-body");
+    body.innerHTML = code;
 
-    if (value.charAt(0) === "<") {
-      // 生のHTML(ASPバナーなど)をそのまま入れる
-      body.innerHTML = value;
-    } else if (AD_CLIENT) {
-      // AdSense のレスポンシブ広告ユニット
-      var ins = document.createElement("ins");
-      ins.className = "adsbygoogle";
-      ins.style.display = "block";
-      ins.setAttribute("data-ad-client", AD_CLIENT);
-      ins.setAttribute("data-ad-slot", value);
-      ins.setAttribute("data-ad-format", "auto");
-      ins.setAttribute("data-full-width-responsive", "true");
-      body.appendChild(ins);
-      needAdsense = true;
-    } else {
-      // スロットIDは入っているがクライアントIDが未設定 → 何もしない
-      slot.remove();
-      return;
-    }
+    // アフィリエイトリンクには rel="sponsored nofollow" を必ず付ける
+    // （Google のリンクスパム対策ガイドラインへの対応。A8 のコードに
+    //   rel が無い場合や不足している場合の保険として自動補完する）
+    body.querySelectorAll("a[href]").forEach(function (a) {
+      var rel = (a.getAttribute("rel") || "").toLowerCase().split(/\s+/);
+      if (rel.indexOf("sponsored") === -1) rel.push("sponsored");
+      if (rel.indexOf("nofollow") === -1) rel.push("nofollow");
+      a.setAttribute("rel", rel.filter(Boolean).join(" "));
+      a.setAttribute("target", "_blank");
+    });
+
     used++;
   });
 
-  if (!used) return;
-  document.documentElement.classList.add("ad-ready");
-
-  if (needAdsense) {
-    var s = document.createElement("script");
-    s.async = true;
-    s.crossOrigin = "anonymous";
-    s.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" +
-            encodeURIComponent(AD_CLIENT);
-    document.head.appendChild(s);
-    s.addEventListener("load", function () {
-      document.querySelectorAll("ins.adsbygoogle").forEach(function () {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-      });
-    });
-  }
+  if (used) document.documentElement.classList.add("ad-ready");
 })();

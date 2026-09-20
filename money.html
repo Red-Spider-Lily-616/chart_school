@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FXの資金管理｜損切り位置とロット数の決め方｜FX学習ノート</title>
+<link rel="canonical" href="https://red-spider-lily-616.github.io/chart_school/money.html">
+<meta name="description" content="FXの資金管理をまとめたカテゴリです。1回のリスクの決め方、チャートから損切り位置を決める手順、そこからロット数を逆算する方法、期待値とリスクリワード、トレード記録のつけ方を扱います。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#fcfcfb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a19" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FX学習ノート">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="FXの資金管理｜損切り位置とロット数の決め方｜FX学習ノート">
+<meta property="og:description" content="FXの資金管理をまとめたカテゴリです。1回のリスクの決め方、チャートから損切り位置を決める手順、そこからロット数を逆算する方法、期待値とリスクリワード、トレード記録のつけ方を扱います。">
+<meta property="og:url" content="https://red-spider-lily-616.github.io/chart_school/money.html">
+<meta property="og:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FXの資金管理｜損切り位置とロット数の決め方｜FX学習ノート">
+<meta name="twitter:description" content="FXの資金管理をまとめたカテゴリです。1回のリスクの決め方、チャートから損切り位置を決める手順、そこからロット数を逆算する方法、期待値とリスクリワード、トレード記録のつけ方を扱います。">
+<meta name="twitter:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FX学習ノート", "item": "https://red-spider-lily-616.github.io/chart_school/"}, {"@type": "ListItem", "position": 2, "name": "資金管理と損切り", "item": "https://red-spider-lily-616.github.io/chart_school/money.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "FXで1回の取引のリスクはどれくらいが適切ですか？", "acceptedAnswer": {"@type": "Answer", "text": "書籍や各社の解説で一般に挙げられている目安は、口座資金の1〜2%です。10万円の口座なら、1回あたり1,000〜2,000円までの損失に収まるロット数という計算になります。"}}, {"@type": "Question", "name": "ロット数はどうやって計算しますか？", "acceptedAnswer": {"@type": "Answer", "text": "「許容損失額 ÷ 損切り幅(pips) ÷ 1pipsあたりの金額」で逆算します。損切り位置を先に決めておくことが前提です。"}}, {"@type": "Question", "name": "勝率が高ければFXで勝てますか？", "acceptedAnswer": {"@type": "Answer", "text": "勝率だけでは判断できません。1回の利益と1回の損失の大きさを合わせた期待値で見ます。勝率が低くても利益幅が大きければ資金は残り、勝率が高くても1回の損失が大きければ減っていきます。"}}]}</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="sitenav"><div class="inner">
+<a class="home" href="index.html">FX学習ノート</a>
+<a href="roadmap.html">ロードマップ</a>
+<a href="start.html">はじめて</a>
+<a href="chart.html">チャート</a>
+<a href="method.html">手法</a>
+<a href="fund.html">経済指標</a>
+<a class="cur" href="money.html">資金管理</a>
+<a href="pro.html">実践</a>
+<a href="glossary.html">用語集</a>
+<button class="themetoggle" id="themeBtn" type="button">◐ 表示切替</button>
+</div></nav>
+<div class="wrap">
+
+<nav class="crumb"><a href="index.html">ホーム</a> › <span>資金管理と損切り</span></nav>
+
+<header class="hero">
+  <p class="eyebrow">FX Study Notes</p>
+  <h1>資金管理と損切り<br>手法より先に決めること</h1>
+  <p class="lede">生き残るための土台。手法より先に決めるべきことを扱います。</p>
+  <p class="meta">全5記事</p>
+</header>
+
+<div class="note note-legal">
+このページはFXの学習を目的とした一般的な情報で、<strong>投資助言ではありません</strong>。
+特定の売買を勧めるものではなく、将来の利益を保証するものでもありません。
+FXは元本が保証されない取引です。<a href="privacy.html">免責事項</a>をご確認ください。
+<span class="ad-notice">※このページには広告を含む場合があります。</span>
+</div>
+
+
+<div class="ad-slot" data-ad="top"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<section id="about">
+  <h2 class="sec"><span class="num">01</span>このカテゴリで分かること</h2>
+  <h3>資金管理は手法より先に決める</h3>
+  <p>どれだけ良い手法でも連敗は必ず起きます。1回の取引で口座の20%を失う設定にしていると、5連敗で資金は3分の1（約33%）まで減り、元に戻すには約3倍にしなければなりません。一般に挙げられている目安である1〜2%に抑えていれば、同じ5連敗でも資金は9割残ります。手法の改善は、生き残っている人にしかできません。</p>
+  <h3>順番は「損切り位置 → 損切り幅 → ロット数」</h3>
+  <p>まずチャートを見て損切り価格を決め、次にその価格までの距離（pips）を測り、最後に「許容金額 ÷ 損切り幅(pips) ÷ 1pipsあたりの金額」でロット数を逆算します。ここで1pipsあたりの金額を割り忘れると、ロット数が桁違いに大きくなるので注意してください。ロット数を先に決めて、あとから損切りを置くのは逆です。それでは1回あたりのリスクが毎回ばらついてしまいます。</p>
+  <h3>損切りは金額ではなくチャートの構造で決める</h3>
+  <p>「1万円負けたら切る」ではなく「この安値を割ったら、上昇という前提が崩れるから切る」です。前者は相場と無関係な線なので、当たっても外れても次に活かせることがありません。</p>
+  <h3>勝率だけでは手法の良し悪しは分からない</h3>
+  <p>勝率40%でも、平均利益が平均損失の2倍あればプラスになります。逆に勝率80%でも、1回の負けで8回分を失う設計ならマイナスです。計算式は「勝率×平均利益 − 負率×平均損失」で、これが期待値です。</p>
+</section>
+
+<div class="note"><strong>どこから読むか迷ったら:</strong>
+<a href="roadmap.html">学習ロードマップ</a>に、ゼロから中級者までの読む順番をまとめています。</div>
+
+<section id="list">
+  <h2 class="sec"><span class="num">02</span>この章の記事（全5本）</h2>
+  <p class="sec-sub">上から順に読むのがおすすめです。</p>
+<div class="cards">
+  <div class="pcard soon">
+    <div class="top"><span class="no">I-14</span><h3>資金管理の基本<span class="soon-badge">準備中</span></h3></div>
+    <p class="lead">生き残るための唯一のルール。</p>
+  </div>
+  <div class="pcard soon">
+    <div class="top"><span class="no">I-15</span><h3>損切りの決め方<span class="soon-badge">準備中</span></h3></div>
+    <p class="lead">金額ではなく「線」で決める。</p>
+  </div>
+  <div class="pcard soon">
+    <div class="top"><span class="no">II-17</span><h3>期待値とリスクリワード<span class="soon-badge">準備中</span></h3></div>
+    <p class="lead">勝率だけでは何も分からない。</p>
+  </div>
+  <div class="pcard soon">
+    <div class="top"><span class="no">II-18</span><h3>トレード記録のつけ方<span class="soon-badge">準備中</span></h3></div>
+    <p class="lead">再現性はここから生まれる。</p>
+  </div>
+  <div class="pcard soon">
+    <div class="top"><span class="no">II-19</span><h3>メンタル管理<span class="soon-badge">準備中</span></h3></div>
+    <p class="lead">ルールを破らせる力に備える。</p>
+  </div>
+</div>
+</section>
+
+<section id="faq">
+  <h2 class="sec"><span class="num">03</span>よくある質問</h2>
+  <h3>FXで1回の取引のリスクはどれくらいが適切ですか？</h3>
+  <p>書籍や各社の解説で一般に挙げられている目安は、口座資金の1〜2%です。10万円の口座なら、1回あたり1,000〜2,000円までの損失に収まるロット数という計算になります。</p>
+  <h3>ロット数はどうやって計算しますか？</h3>
+  <p>「許容損失額 ÷ 損切り幅(pips) ÷ 1pipsあたりの金額」で逆算します。損切り位置を先に決めておくことが前提です。</p>
+  <h3>勝率が高ければFXで勝てますか？</h3>
+  <p>勝率だけでは判断できません。1回の利益と1回の損失の大きさを合わせた期待値で見ます。勝率が低くても利益幅が大きければ資金は残り、勝率が高くても1回の損失が大きければ減っていきます。</p>
+</section>
+
+<div class="note"><strong>通して読むなら:</strong>
+期待値の計算と資金曲線の話は<a href="structure.html">相場の構造とマルチタイムフレーム分析（上級編）</a>の後半で扱っています。損切り位置の決め方は<a href="method.html">ラインの引き方と意味</a>へ。</div>
+
+<div class="ad-slot" data-ad="bottom"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<footer>
+  <p><strong>ご利用にあたって</strong><br>
+  当サイトはFXの学習を目的とした情報サイトであり、<strong>投資助言ではありません。</strong>
+  運営者は金融商品取引法に基づく投資助言・代理業の登録を受けておらず、特定の売買を勧めるものではありません。
+  FXは元本が保証されない取引で、預託した証拠金を上回る損失が生じる可能性もあります。
+  掲載している情報の正確性・完全性・最新性は保証しません。
+  掲載しているチャート図はすべて解説のために作成した模式図であり、実際の相場データではありません。
+  実際の取引は必ずご自身の判断と責任で、デモ口座や少額での検証を経てから行ってください。</p>
+  <p class="footlinks"><a href="about.html">運営者情報・編集方針</a> ／ <a href="privacy.html">免責事項・プライバシーポリシー</a> ／ <a href="roadmap.html">学習ロードマップ</a></p>
+</footer>
+
+</div>
+<script src="site.js" defer></script>
+<script src="ads.js" defer></script>
+</body>
+</html>
