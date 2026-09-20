@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FXの期待値とリスクリワード｜計算のしかた｜FX学習ノート</title>
+<link rel="canonical" href="https://red-spider-lily-616.github.io/chart_school/money-expectancy.html">
+<meta name="description" content="FXの期待値とリスクリワードの計算方法を説明します。勝率だけでは判断できない理由、損益分岐となる勝率、そして期待値がプラスでも資金が減ることがある理由を整理しました。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#fcfcfb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a19" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="FX学習ノート">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="FXの期待値とリスクリワード｜計算のしかた｜FX学習ノート">
+<meta property="og:description" content="FXの期待値とリスクリワードの計算方法を説明します。勝率だけでは判断できない理由、損益分岐となる勝率、そして期待値がプラスでも資金が減ることがある理由を整理しました。">
+<meta property="og:url" content="https://red-spider-lily-616.github.io/chart_school/money-expectancy.html">
+<meta property="og:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FXの期待値とリスクリワード｜計算のしかた｜FX学習ノート">
+<meta name="twitter:description" content="FXの期待値とリスクリワードの計算方法を説明します。勝率だけでは判断できない理由、損益分岐となる勝率、そして期待値がプラスでも資金が減ることがある理由を整理しました。">
+<meta name="twitter:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FX学習ノート", "item": "https://red-spider-lily-616.github.io/chart_school/"}, {"@type": "ListItem", "position": 2, "name": "資金管理と損切り", "item": "https://red-spider-lily-616.github.io/chart_school/money.html"}, {"@type": "ListItem", "position": 3, "name": "期待値とリスクリワード｜計算のしかた", "item": "https://red-spider-lily-616.github.io/chart_school/money-expectancy.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "FXの期待値とリスクリワード｜計算のしかた｜FX学習ノート", "description": "FXの期待値とリスクリワードの計算方法を説明します。勝率だけでは判断できない理由、損益分岐となる勝率、そして期待値がプラスでも資金が減ることがある理由を整理しました。", "inLanguage": "ja", "url": "https://red-spider-lily-616.github.io/chart_school/money-expectancy.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://red-spider-lily-616.github.io/chart_school/money-expectancy.html"}, "image": "https://red-spider-lily-616.github.io/chart_school/og.png", "datePublished": "2026-09-20", "dateModified": "2026-09-20", "articleSection": "資金管理と損切り", "author": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/about.html"}, "publisher": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/", "logo": {"@type": "ImageObject", "url": "https://red-spider-lily-616.github.io/chart_school/og.png"}}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "FXの期待値はどう計算しますか？", "acceptedAnswer": {"@type": "Answer", "text": "「（勝率 × 平均利益）−（負率 × 平均損失）」で計算します。勝率40%、平均利益20,000円、平均損失10,000円なら、8,000 − 6,000 = +2,000円です。勝率が5割を下回っていても期待値がプラスになることがあります。"}}, {"@type": "Question", "name": "リスクリワードが2なら勝率はどれくらい必要ですか？", "acceptedAnswer": {"@type": "Answer", "text": "約33%を超えればプラスになる計算です。3回に1回勝てばトントンという水準ですが、実際にはスプレッドなどのコストが加わるため、もう少し必要になります。"}}, {"@type": "Question", "name": "勝率を上げれば期待値も上がりますか？", "acceptedAnswer": {"@type": "Answer", "text": "上がるとは限りません。勝率を上げようとすると利確を早くする方向に向かい、平均利益が小さくなってリスクリワードが悪化します。多くの場合トレードオフの関係にあるため、必ず両方を記録して期待値で確認してください。"}}]}</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="sitenav"><div class="inner">
+<a class="home" href="index.html">FX学習ノート</a>
+<a href="roadmap.html">ロードマップ</a>
+<a href="start.html">はじめて</a>
+<a href="chart.html">チャート</a>
+<a href="method.html">手法</a>
+<a href="fund.html">経済指標</a>
+<a class="cur" href="money.html">資金管理</a>
+<a href="pro.html">実践</a>
+<a href="glossary.html">用語集</a>
+<button class="themetoggle" id="themeBtn" type="button">◐ 表示切替</button>
+</div></nav>
+<div class="wrap">
+
+<nav class="crumb"><a href="index.html">ホーム</a> › <a href="money.html">資金管理と損切り</a> › <span>期待値とリスクリワード｜計算のしかた</span></nav>
+
+<header class="hero">
+  <p class="eyebrow">資金管理と損切り　II-17</p>
+  <h1>期待値とリスクリワード｜計算のしかた</h1>
+  <p class="lede">「勝率7割」と言われると強そうに聞こえます。しかし<strong>1回の負けで7回ぶんを失う設計なら、資金は減り続けます。</strong>判断に使うのは勝率ではありません。</p>
+  <p class="meta">想定読者:記録が貯まり始めた人 ／ 読了目安:8分 ／ 最終更新: 2026年9月20日</p>
+</header>
+
+<div class="note note-legal">
+このページはFXの学習を目的とした一般的な情報で、<strong>投資助言ではありません</strong>。
+特定の売買を勧めるものではなく、将来の利益を保証するものでもありません。
+FXは元本が保証されない取引です。<a href="privacy.html">免責事項</a>をご確認ください。
+<span class="ad-notice">※このページには広告を含む場合があります。</span>
+</div>
+
+<div class="tldr">
+  <span class="tag">この記事の要点</span>
+  <ul>
+    <li>期待値 =（勝率 × 平均利益）−（負率 × 平均損失）</li>
+    <li>リスクリワードが2なら、勝率33%を超えればプラスになる計算</li>
+    <li>期待値がプラスでも、1回のリスクが大きければ途中で退場しうる</li>
+  </ul>
+</div>
+
+<div class="ad-slot" data-ad="top"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<nav class="toc">
+  <h2>もくじ</h2>
+  <ol>
+    <li><a href="#s1">期待値の計算式</a></li>
+    <li><a href="#s2">リスクリワードとは何ですか？</a></li>
+    <li><a href="#s3">勝率を上げると何が起きますか？</a></li>
+    <li><a href="#s4">期待値がプラスでも安心ではない</a></li>
+  </ol>
+</nav>
+
+<section id="s1">
+  <h2 class="sec"><span class="num">01</span>期待値の計算式</h2>
+  <p>1回の取引あたり、平均していくらの損益になるかを表す数字です。</p>
+  <div class="key"><span class="tag">期待値</span>
+  <p><strong>期待値 =（勝率 × 平均利益）−（負率 × 平均損失）</strong></p></div>
+  <p>勝率40%、平均利益20,000円、平均損失10,000円の手法で計算してみます。</p>
+  <p>（0.4 × 20,000）−（0.6 × 10,000）= 8,000 − 6,000 = <strong>+2,000円</strong></p>
+  <p>勝率が5割を下回っていても、期待値はプラスです。<strong>勝率だけを見ていたら、この手法は捨てられていた</strong>ことになります。</p>
+</section>
+
+<section id="s2">
+  <h2 class="sec"><span class="num">02</span>リスクリワードとは何ですか？</h2>
+  <p><strong>1回で狙う利益が、許容する損失の何倍か</strong>を表す数字です。損益比とも呼ばれます。</p>
+  <p>損切り20pips、利確40pipsなら、リスクリワードは2です。</p>
+  <p>この数字が決まると、<strong>プラスになるために必要な勝率</strong>が自動的に決まります。</p>
+  <table>
+    <thead><tr><th style="width:26%">リスクリワード</th><th>損益分岐となる勝率</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">0.5（半分）</td><td>約67%</td></tr>
+      <tr><td class="rank">1（同じ）</td><td>50%</td></tr>
+      <tr><td class="rank">2（2倍）</td><td>約33%</td></tr>
+      <tr><td class="rank">3（3倍）</td><td>25%</td></tr>
+    </tbody>
+  </table>
+  <p>リスクリワードが2なら、<strong>3回に1回勝てばトントン</strong>です。ここにコスト（スプレッド）が加わるので、実際にはもう少し必要になります。</p>
+</section>
+
+<div class="ad-slot" data-ad="mid"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<section id="s3">
+  <h2 class="sec"><span class="num">03</span>勝率を上げると何が起きますか？</h2>
+  <p>多くの場合、<strong>リスクリワードが下がります。</strong></p>
+  <p>勝率を上げようとすると、利確を早くする方向に向かいます。小さな利益で確定すれば、含み益が消える前に確定できるので勝率は上がります。しかし<strong>平均利益が小さくなるため、リスクリワードは悪化します。</strong></p>
+  <p>逆に大きく伸ばそうとすれば、途中で戻ってきて負ける回数が増え、勝率は下がります。</p>
+  <p><strong>勝率とリスクリワードは、多くの場合トレードオフの関係にあります。</strong>片方だけを見て改善しようとすると、もう片方が悪化して期待値は変わらない、ということが起こります。</p>
+  <div class="warn">「勝率を上げたい」という改善は、期待値で確認しないと意味がありません。<strong>必ず両方を記録してください。</strong></div>
+</section>
+
+<section id="s4">
+  <h2 class="sec"><span class="num">04</span>期待値がプラスでも安心ではない</h2>
+  <p>期待値は<strong>「十分な回数を繰り返したら」という前提</strong>の数字です。</p>
+  <p>期待値がプラスでも、途中で大きなドローダウンが来れば、その前に資金が尽きて退場することがあります。これは手法の問題ではなく<strong>1回のリスクの大きさの問題</strong>です。</p>
+  <p>だから資金管理が先に来ます。期待値がプラスの手法を持っていても、<strong>1回20%のリスクで回せば、連敗で脱落する可能性が現実的に高くなります。</strong></p>
+  <p>また、<strong>30回程度の記録では偶然の影響が大きく残ります。</strong>30回は「見切りの最低ライン」であって、期待値が確定する回数ではありません。100回程度まで積み上げてから最終判断するのが妥当とされます。</p>
+</section>
+
+<section id="faq">
+  <h2 class="sec"><span class="num">05</span>よくある質問</h2>
+  <h3>FXの期待値はどう計算しますか？</h3>
+  <p>「（勝率 × 平均利益）−（負率 × 平均損失）」で計算します。勝率40%、平均利益20,000円、平均損失10,000円なら、8,000 − 6,000 = +2,000円です。勝率が5割を下回っていても期待値がプラスになることがあります。</p>
+  <h3>リスクリワードが2なら勝率はどれくらい必要ですか？</h3>
+  <p>約33%を超えればプラスになる計算です。3回に1回勝てばトントンという水準ですが、実際にはスプレッドなどのコストが加わるため、もう少し必要になります。</p>
+  <h3>勝率を上げれば期待値も上がりますか？</h3>
+  <p>上がるとは限りません。勝率を上げようとすると利確を早くする方向に向かい、平均利益が小さくなってリスクリワードが悪化します。多くの場合トレードオフの関係にあるため、必ず両方を記録して期待値で確認してください。</p>
+</section>
+
+<section class="nextread">
+  <h2 class="sec"><span class="num">＋</span>この続きに読む</h2>
+  <div class="cards two">
+  <a class="pcard" href="money-journal.html">
+    <div class="top"><h3>トレード記録のつけ方</h3></div>
+    <p class="lead">期待値を計算するための材料</p><span class="go">見る →</span>
+  </a>
+  <a class="pcard" href="structure.html">
+    <div class="top"><h3>相場の構造とマルチタイムフレーム分析</h3></div>
+    <p class="lead">期待値の数学を図解で</p><span class="go">見る →</span>
+  </a>
+  </div>
+</section>
+
+<div class="ad-slot" data-ad="bottom"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<nav class="pager">
+  <a class="prev" href="fund-currency-pairs.html"><span class="dir">← 前の記事</span><span class="ttl">通貨ペアの選び方</span></a>
+  <a class="next" href="money-journal.html"><span class="dir">次の記事 →</span><span class="ttl">トレード記録のつけ方</span></a>
+</nav>
+
+<footer>
+  <p><strong>ご利用にあたって</strong><br>
+  当サイトはFXの学習を目的とした情報サイトであり、<strong>投資助言ではありません。</strong>
+  運営者は金融商品取引法に基づく投資助言・代理業の登録を受けておらず、特定の売買を勧めるものではありません。
+  FXは元本が保証されない取引で、預託した証拠金を上回る損失が生じる可能性もあります。
+  掲載している情報の正確性・完全性・最新性は保証しません。
+  掲載しているチャート図はすべて解説のために作成した模式図であり、実際の相場データではありません。
+  実際の取引は必ずご自身の判断と責任で、デモ口座や少額での検証を経てから行ってください。</p>
+  <p class="footlinks"><a href="about.html">運営者情報・編集方針</a> ／ <a href="privacy.html">免責事項・プライバシーポリシー</a> ／ <a href="roadmap.html">学習ロードマップ</a></p>
+</footer>
+
+</div>
+<script src="site.js" defer></script>
+<script src="ads.js" defer></script>
+</body>
+</html>

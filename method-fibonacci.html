@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>フィボナッチ｜押し目はどこまで下がるか｜FX学習ノート</title>
+<link rel="canonical" href="https://red-spider-lily-616.github.io/chart_school/method-fibonacci.html">
+<meta name="description" content="フィボナッチ・リトレースメントの使い方を説明します。38.2%・50%・61.8%という水準の意味、どこからどこへ引くか、そして他の根拠と重なったときにだけ使う理由を整理しました。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#fcfcfb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a19" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="FX学習ノート">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="フィボナッチ｜押し目はどこまで下がるか｜FX学習ノート">
+<meta property="og:description" content="フィボナッチ・リトレースメントの使い方を説明します。38.2%・50%・61.8%という水準の意味、どこからどこへ引くか、そして他の根拠と重なったときにだけ使う理由を整理しました。">
+<meta property="og:url" content="https://red-spider-lily-616.github.io/chart_school/method-fibonacci.html">
+<meta property="og:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="フィボナッチ｜押し目はどこまで下がるか｜FX学習ノート">
+<meta name="twitter:description" content="フィボナッチ・リトレースメントの使い方を説明します。38.2%・50%・61.8%という水準の意味、どこからどこへ引くか、そして他の根拠と重なったときにだけ使う理由を整理しました。">
+<meta name="twitter:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FX学習ノート", "item": "https://red-spider-lily-616.github.io/chart_school/"}, {"@type": "ListItem", "position": 2, "name": "ラインの引き方と意味", "item": "https://red-spider-lily-616.github.io/chart_school/method.html"}, {"@type": "ListItem", "position": 3, "name": "フィボナッチ｜押し目はどこまで下がるか", "item": "https://red-spider-lily-616.github.io/chart_school/method-fibonacci.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "フィボナッチ｜押し目はどこまで下がるか｜FX学習ノート", "description": "フィボナッチ・リトレースメントの使い方を説明します。38.2%・50%・61.8%という水準の意味、どこからどこへ引くか、そして他の根拠と重なったときにだけ使う理由を整理しました。", "inLanguage": "ja", "url": "https://red-spider-lily-616.github.io/chart_school/method-fibonacci.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://red-spider-lily-616.github.io/chart_school/method-fibonacci.html"}, "image": "https://red-spider-lily-616.github.io/chart_school/og.png", "datePublished": "2026-09-20", "dateModified": "2026-09-20", "articleSection": "ラインの引き方と意味", "author": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/about.html"}, "publisher": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/", "logo": {"@type": "ImageObject", "url": "https://red-spider-lily-616.github.io/chart_school/og.png"}}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "フィボナッチはどこからどこへ引きますか？", "acceptedAnswer": {"@type": "Answer", "text": "上昇トレンドなら、直近の目立つ安値を起点、直近の目立つ高値を終点として引きます。起点と終点を変えると水準がすべて変わるため、ダウ理論で判定したスイングローを使うなど、自分の基準を先に決めておく必要があります。"}}, {"@type": "Question", "name": "フィボナッチの38.2%・50%・61.8%はどれが重要ですか？", "acceptedAnswer": {"@type": "Answer", "text": "50%が最も多く意識されるとされます。38.2%は浅い押しで勢いが強いトレンド、61.8%は深い押しです。61.8%を大きく超えると直近安値までの距離が近くなり、トレンド継続の前提が弱くなるとされます。"}}, {"@type": "Question", "name": "フィボナッチだけで売買の判断をしていいですか？", "acceptedAnswer": {"@type": "Answer", "text": "単体では後づけになりやすい手法です。3本の線を引けばどこかには当たるため、当たったこと自体に意味がありません。過去に止まった水平線や移動平均線など、他の根拠と重なったときにだけ使う形が一般的です。"}}]}</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="sitenav"><div class="inner">
+<a class="home" href="index.html">FX学習ノート</a>
+<a href="roadmap.html">ロードマップ</a>
+<a href="start.html">はじめて</a>
+<a href="chart.html">チャート</a>
+<a class="cur" href="method.html">手法</a>
+<a href="fund.html">経済指標</a>
+<a href="money.html">資金管理</a>
+<a href="pro.html">実践</a>
+<a href="glossary.html">用語集</a>
+<button class="themetoggle" id="themeBtn" type="button">◐ 表示切替</button>
+</div></nav>
+<div class="wrap">
+
+<nav class="crumb"><a href="index.html">ホーム</a> › <a href="method.html">ラインの引き方と意味</a> › <span>フィボナッチ｜押し目はどこまで下がるか</span></nav>
+
+<header class="hero">
+  <p class="eyebrow">ラインの引き方と意味　II-8</p>
+  <h1>フィボナッチ｜押し目はどこまで下がるか</h1>
+  <p class="lede">フィボナッチは「押し目がどこまで下がるか」の目安です。<strong>ただし、この数字自体に力があるわけではありません。</strong>多くの人が同じ数字を見ている、という点に意味があります。</p>
+  <p class="meta">想定読者:チャネルまで理解した人 ／ 読了目安:7分 ／ 最終更新: 2026年9月20日</p>
+</header>
+
+<div class="note note-legal">
+このページはFXの学習を目的とした一般的な情報で、<strong>投資助言ではありません</strong>。
+特定の売買を勧めるものではなく、将来の利益を保証するものでもありません。
+FXは元本が保証されない取引です。<a href="privacy.html">免責事項</a>をご確認ください。
+<span class="ad-notice">※このページには広告を含む場合があります。</span>
+</div>
+
+<div class="tldr">
+  <span class="tag">この記事の要点</span>
+  <ul>
+    <li>主に使われるのは38.2%・50%・61.8%の3つ</li>
+    <li>引くのは「直近の目立つ安値から高値まで」。どこに引くかで水準が全部変わる</li>
+    <li>単体では弱い。水平線や移動平均線と重なったときに意味が出る</li>
+  </ul>
+</div>
+
+<div class="ad-slot" data-ad="top"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<nav class="toc">
+  <h2>もくじ</h2>
+  <ol>
+    <li><a href="#s1">フィボナッチ・リトレースメントとは</a></li>
+    <li><a href="#s2">どこからどこへ引きますか？</a></li>
+    <li><a href="#s3">どの水準を重く見ますか？</a></li>
+    <li><a href="#s4">単体で使わない</a></li>
+  </ol>
+</nav>
+
+<section id="s1">
+  <h2 class="sec"><span class="num">01</span>フィボナッチ・リトレースメントとは</h2>
+  <p>上昇した値幅に対して、<strong>どこまで戻るか</strong>の目安となる水準を引く手法です。</p>
+  <p>安値から高値までの値幅を100%として、そこから38.2%・50%・61.8%戻った価格に線を引きます。上昇トレンド中の押し目が、このどれかで止まりやすいとされます。</p>
+  <p>数字の由来はフィボナッチ数列という数学上の並びですが、<strong>相場がこの比率に従う理由が証明されているわけではありません。</strong>広く使われているため多くの人が同じ価格を見ている、という説明のほうが実務的です。</p>
+  <div class="note">50%は厳密にはフィボナッチ比率ではありませんが、「半値戻し」として古くから使われているため、多くのツールに含まれています。</div>
+</section>
+
+<section id="s2">
+  <h2 class="sec"><span class="num">02</span>どこからどこへ引きますか？</h2>
+  <p><strong>直近の目立つ安値から、直近の目立つ高値まで</strong>です。上昇トレンドの場合です。</p>
+  <p>ここが最大の注意点です。<strong>起点と終点を変えると、水準はすべて変わります。</strong>都合のいい位置に引けば、どんな押し目にも当てはめられてしまいます。</p>
+  <p>そうならないための基準をひとつ決めておきます。たとえば次のような形です。</p>
+  <div class="key"><span class="tag">基準の例</span>
+  <p>「ダウ理論で判定した直近のスイングロー（谷）を起点、そのあと更新した直近の高値を終点とする。押し目の途中で引き直さない。」</p></div>
+  <p>この基準があれば、あとから「線の引き方が悪かったのか、手法が機能しなかったのか」を切り分けられます。</p>
+</section>
+
+<div class="ad-slot" data-ad="mid"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<section id="s3">
+  <h2 class="sec"><span class="num">03</span>どの水準を重く見ますか？</h2>
+  <table>
+    <thead><tr><th style="width:20%">水準</th><th>言われている性格</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">38.2%</td><td>浅い押し。勢いが強いトレンドで止まりやすいとされる</td></tr>
+      <tr><td class="rank">50%</td><td>半値戻し。最も多く意識されるとされる</td></tr>
+      <tr><td class="rank">61.8%</td><td>深い押し。ここを割ると、トレンド継続の前提が弱くなるとされる</td></tr>
+    </tbody>
+  </table>
+  <p>61.8%を大きく超えて下げると、<strong>直近安値までの距離が近くなります。</strong>つまりダウ理論上のトレンド崩壊が視野に入る領域です。</p>
+  <p>そのため「深い押しほど、入る根拠としては弱くなる」という整理ができます。</p>
+</section>
+
+<section id="s4">
+  <h2 class="sec"><span class="num">04</span>単体で使わない</h2>
+  <p>フィボナッチだけで判断すると、<strong>後づけになりやすい</strong>手法です。</p>
+  <p>3本の線を引けば、どこかには当たります。当たったこと自体には意味がありません。</p>
+  <p>使い方としては、<strong>ほかの根拠と重なったときにだけ採用する</strong>という形が一般的です。</p>
+  <ul>
+    <li>38.2%の水準が、過去に何度も止まった水平線と重なっている</li>
+    <li>50%の水準に、上向きの移動平均線が来ている</li>
+    <li>61.8%の水準が、直近の押し安値とほぼ同じ位置にある</li>
+  </ul>
+  <p>このように<strong>2つ以上の根拠が同じ価格を指しているとき</strong>だけ使う、と決めておくと、線の本数が増えすぎることも防げます。</p>
+</section>
+
+<section id="faq">
+  <h2 class="sec"><span class="num">05</span>よくある質問</h2>
+  <h3>フィボナッチはどこからどこへ引きますか？</h3>
+  <p>上昇トレンドなら、直近の目立つ安値を起点、直近の目立つ高値を終点として引きます。起点と終点を変えると水準がすべて変わるため、ダウ理論で判定したスイングローを使うなど、自分の基準を先に決めておく必要があります。</p>
+  <h3>フィボナッチの38.2%・50%・61.8%はどれが重要ですか？</h3>
+  <p>50%が最も多く意識されるとされます。38.2%は浅い押しで勢いが強いトレンド、61.8%は深い押しです。61.8%を大きく超えると直近安値までの距離が近くなり、トレンド継続の前提が弱くなるとされます。</p>
+  <h3>フィボナッチだけで売買の判断をしていいですか？</h3>
+  <p>単体では後づけになりやすい手法です。3本の線を引けばどこかには当たるため、当たったこと自体に意味がありません。過去に止まった水平線や移動平均線など、他の根拠と重なったときにだけ使う形が一般的です。</p>
+</section>
+
+<section class="nextread">
+  <h2 class="sec"><span class="num">＋</span>この続きに読む</h2>
+  <div class="cards two">
+  <a class="pcard" href="method-chart-patterns.html">
+    <div class="top"><h3>チャートパターン</h3></div>
+    <p class="lead">ネックラインが引き金になる</p><span class="go">見る →</span>
+  </a>
+  <a class="pcard" href="lines.html">
+    <div class="top"><h3>押し安値とトレンドラインの意味</h3></div>
+    <p class="lead">フィボナッチの図解はこちら</p><span class="go">見る →</span>
+  </a>
+  </div>
+</section>
+
+<div class="ad-slot" data-ad="bottom"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<nav class="pager">
+  <a class="prev" href="method-channel.html"><span class="dir">← 前の記事</span><span class="ttl">チャネルライン</span></a>
+  <a class="next" href="method-chart-patterns.html"><span class="dir">次の記事 →</span><span class="ttl">チャートパターン</span></a>
+</nav>
+
+<footer>
+  <p><strong>ご利用にあたって</strong><br>
+  当サイトはFXの学習を目的とした情報サイトであり、<strong>投資助言ではありません。</strong>
+  運営者は金融商品取引法に基づく投資助言・代理業の登録を受けておらず、特定の売買を勧めるものではありません。
+  FXは元本が保証されない取引で、預託した証拠金を上回る損失が生じる可能性もあります。
+  掲載している情報の正確性・完全性・最新性は保証しません。
+  掲載しているチャート図はすべて解説のために作成した模式図であり、実際の相場データではありません。
+  実際の取引は必ずご自身の判断と責任で、デモ口座や少額での検証を経てから行ってください。</p>
+  <p class="footlinks"><a href="about.html">運営者情報・編集方針</a> ／ <a href="privacy.html">免責事項・プライバシーポリシー</a> ／ <a href="roadmap.html">学習ロードマップ</a></p>
+</footer>
+
+</div>
+<script src="site.js" defer></script>
+<script src="ads.js" defer></script>
+</body>
+</html>

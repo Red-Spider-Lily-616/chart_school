@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FXの検証のやり方｜30回やってから評価する｜FX学習ノート</title>
+<link rel="canonical" href="https://red-spider-lily-616.github.io/chart_school/pro-backtest.html">
+<meta name="description" content="FXの手法の検証方法を説明します。過去検証と実弾検証の違い、30回という目安の意味と限界、カーブフィッティングを避ける方法、そして何を変えるかの判断手順を整理しました。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#fcfcfb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a19" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="FX学習ノート">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="FXの検証のやり方｜30回やってから評価する｜FX学習ノート">
+<meta property="og:description" content="FXの手法の検証方法を説明します。過去検証と実弾検証の違い、30回という目安の意味と限界、カーブフィッティングを避ける方法、そして何を変えるかの判断手順を整理しました。">
+<meta property="og:url" content="https://red-spider-lily-616.github.io/chart_school/pro-backtest.html">
+<meta property="og:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FXの検証のやり方｜30回やってから評価する｜FX学習ノート">
+<meta name="twitter:description" content="FXの手法の検証方法を説明します。過去検証と実弾検証の違い、30回という目安の意味と限界、カーブフィッティングを避ける方法、そして何を変えるかの判断手順を整理しました。">
+<meta name="twitter:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FX学習ノート", "item": "https://red-spider-lily-616.github.io/chart_school/"}, {"@type": "ListItem", "position": 2, "name": "環境認識と検証", "item": "https://red-spider-lily-616.github.io/chart_school/pro.html"}, {"@type": "ListItem", "position": 3, "name": "検証のやり方｜30回やってから評価する", "item": "https://red-spider-lily-616.github.io/chart_school/pro-backtest.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "FXの検証のやり方｜30回やってから評価する｜FX学習ノート", "description": "FXの手法の検証方法を説明します。過去検証と実弾検証の違い、30回という目安の意味と限界、カーブフィッティングを避ける方法、そして何を変えるかの判断手順を整理しました。", "inLanguage": "ja", "url": "https://red-spider-lily-616.github.io/chart_school/pro-backtest.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://red-spider-lily-616.github.io/chart_school/pro-backtest.html"}, "image": "https://red-spider-lily-616.github.io/chart_school/og.png", "datePublished": "2026-09-20", "dateModified": "2026-09-20", "articleSection": "環境認識と検証", "author": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/about.html"}, "publisher": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/", "logo": {"@type": "ImageObject", "url": "https://red-spider-lily-616.github.io/chart_school/og.png"}}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "FXの検証は何回やれば十分ですか？", "acceptedAnswer": {"@type": "Answer", "text": "30回は評価を始めてよい最低ラインで、期待値が確定する回数ではありません。勝率5割でも10回のうち7回勝つことは珍しくないため、100回程度まで積み上げてから最終判断するのが妥当とされます。"}}, {"@type": "Question", "name": "過去検証と実弾検証はどちらがいいですか？", "acceptedAnswer": {"@type": "Answer", "text": "組み合わせるのが現実的です。過去検証は速い代わりに、結果を知った状態で見るため都合よくなりやすい欠点があります。実弾検証は遅い代わりに実態に近く、心理的な圧力も再現されます。"}}, {"@type": "Question", "name": "検証の結果が悪かったら何を変えますか？", "acceptedAnswer": {"@type": "Answer", "text": "まずルールを守れた率を見ます。守れていない取引が多いなら手法の評価はできません。次に期待値を計算し、勝率が低いなら入る条件、平均利益が小さいなら利確、平均損失が大きいなら損切りと、原因を1つに絞って変えます。"}}]}</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="sitenav"><div class="inner">
+<a class="home" href="index.html">FX学習ノート</a>
+<a href="roadmap.html">ロードマップ</a>
+<a href="start.html">はじめて</a>
+<a href="chart.html">チャート</a>
+<a href="method.html">手法</a>
+<a href="fund.html">経済指標</a>
+<a href="money.html">資金管理</a>
+<a class="cur" href="pro.html">実践</a>
+<a href="glossary.html">用語集</a>
+<button class="themetoggle" id="themeBtn" type="button">◐ 表示切替</button>
+</div></nav>
+<div class="wrap">
+
+<nav class="crumb"><a href="index.html">ホーム</a> › <a href="pro.html">環境認識と検証</a> › <span>検証のやり方｜30回やってから評価する</span></nav>
+
+<header class="hero">
+  <p class="eyebrow">環境認識と検証　II-24</p>
+  <h1>検証のやり方｜30回やってから評価する</h1>
+  <p class="lede">3連敗で手法を変えると、どの手法も評価されないまま終わります。<strong>評価するには回数が要る</strong>という、ただそれだけの話です。</p>
+  <p class="meta">想定読者:自分のルールを書いた人 ／ 読了目安:8分 ／ 最終更新: 2026年9月20日</p>
+</header>
+
+<div class="note note-legal">
+このページはFXの学習を目的とした一般的な情報で、<strong>投資助言ではありません</strong>。
+特定の売買を勧めるものではなく、将来の利益を保証するものでもありません。
+FXは元本が保証されない取引です。<a href="privacy.html">免責事項</a>をご確認ください。
+<span class="ad-notice">※このページには広告を含む場合があります。</span>
+</div>
+
+<div class="tldr">
+  <span class="tag">この記事の要点</span>
+  <ul>
+    <li>30回は「見切りの最低ライン」であって、期待値が確定する回数ではない</li>
+    <li>過去検証は速いが自分に都合よくなりやすい。実弾検証は遅いが実態に近い</li>
+    <li>変えるのは一度に1か所だけ。同時に変えるとどれが効いたか分からない</li>
+  </ul>
+</div>
+
+<div class="ad-slot" data-ad="top"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<nav class="toc">
+  <h2>もくじ</h2>
+  <ol>
+    <li><a href="#s1">なぜ回数が必要なのですか？</a></li>
+    <li><a href="#s2">過去検証と実弾検証</a></li>
+    <li><a href="#s3">都合よく合わせすぎない</a></li>
+    <li><a href="#s4">何を変えるか</a></li>
+  </ol>
+</nav>
+
+<section id="s1">
+  <h2 class="sec"><span class="num">01</span>なぜ回数が必要なのですか？</h2>
+  <p><strong>少ない回数では、実力と偶然を区別できないから</strong>です。</p>
+  <p>勝率5割の手法でも、10回のうち7回勝つことは珍しくありません。逆に3連敗も8回に1回起こります。<strong>10回や20回の結果は、ほとんど偶然の振れに埋もれます。</strong></p>
+  <p>30回という目安がよく挙げられますが、これは<strong>「評価を始めてよい最低ライン」</strong>という意味です。30回でも偶然の影響はかなり残ります。</p>
+  <p>目安としては、<strong>100回程度まで積み上げてから最終判断する</strong>のが妥当とされます。30回の時点では「明らかにおかしくないか」を見るだけにとどめます。</p>
+</section>
+
+<section id="s2">
+  <h2 class="sec"><span class="num">02</span>過去検証と実弾検証</h2>
+  <table>
+    <thead><tr><th style="width:24%">　</th><th>過去検証</th><th>実弾検証（最小単位）</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">速さ</td><td>速い。数日で100回分できる</td><td>遅い。数か月かかる</td></tr>
+      <tr><td class="rank">正確さ</td><td>都合よくなりやすい</td><td>実態に近い</td></tr>
+      <tr><td class="rank">心理</td><td>再現されない</td><td>本番と同じ圧力がかかる</td></tr>
+    </tbody>
+  </table>
+  <p>過去検証の最大の問題は、<strong>結果を知った状態でチャートを見てしまう</strong>ことです。先が見えていると、無意識に有利な判断をします。</p>
+  <p>対策としては、<strong>チャートの右側を隠して1本ずつ進める</strong>方法があります。ツールによっては、そのための機能が用意されています。</p>
+  <p>両方を組み合わせ、<strong>過去検証で明らかに機能しないものを外し、残ったものを実弾で確かめる</strong>という進め方が現実的です。</p>
+</section>
+
+<div class="ad-slot" data-ad="mid"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<section id="s3">
+  <h2 class="sec"><span class="num">03</span>都合よく合わせすぎない</h2>
+  <p>過去のチャートに合うよう設定を細かく調整していくと、<strong>その期間にだけ当てはまるルール</strong>ができあがります。カーブフィッティングと呼ばれます。</p>
+  <p>移動平均線の期間を19や21に変えて「こちらのほうが成績が良い」と調整するのが典型例です。<strong>成績が良くなった理由を説明できないなら、それは過去に合わせただけ</strong>である可能性が高くなります。</p>
+  <p>避けるための目安は2つです。</p>
+  <ul>
+    <li><strong>条件を増やしすぎない</strong> ― 条件が多いほど、過去には合い、未来には合わなくなります</li>
+    <li><strong>別の期間でも試す</strong> ― 検証に使っていない期間で同じ結果が出るか確かめます</li>
+  </ul>
+</section>
+
+<section id="s4">
+  <h2 class="sec"><span class="num">04</span>何を変えるか</h2>
+  <p>検証が終わったら、記録を見て判断します。順番があります。</p>
+  <div class="step">
+    <h3>1. まず「守れた率」を見る</h3>
+    <p>ルールを守れていない取引が多いなら、<strong>手法の評価はまだできません。</strong>直すのはルールではなく、実行できる形にすることです。回数の上限を決める、注文を先に置くなど。</p>
+    <h3>2. 期待値を計算する</h3>
+    <p>（勝率 × 平均利益）−（負率 × 平均損失）。プラスなら、まず数量やリスクの設定を見直します。</p>
+    <h3>3. マイナスなら、どちらが原因かを見る</h3>
+    <p>勝率が極端に低いなら<strong>入る条件</strong>、平均利益が小さいなら<strong>利確</strong>、平均損失が大きいなら<strong>損切り</strong>。原因を1つに絞ります。</p>
+    <h3>4. 一度に1か所だけ変える</h3>
+    <p>2か所同時に変えると、どちらが効いたのか分かりません。変えたら、また決めた回数まで記録を取り直します。</p>
+  </div>
+  <p>ここまで回せるようになれば、<a href="roadmap.html">Part II の修了条件</a>を満たしています。</p>
+</section>
+
+<section id="faq">
+  <h2 class="sec"><span class="num">05</span>よくある質問</h2>
+  <h3>FXの検証は何回やれば十分ですか？</h3>
+  <p>30回は評価を始めてよい最低ラインで、期待値が確定する回数ではありません。勝率5割でも10回のうち7回勝つことは珍しくないため、100回程度まで積み上げてから最終判断するのが妥当とされます。</p>
+  <h3>過去検証と実弾検証はどちらがいいですか？</h3>
+  <p>組み合わせるのが現実的です。過去検証は速い代わりに、結果を知った状態で見るため都合よくなりやすい欠点があります。実弾検証は遅い代わりに実態に近く、心理的な圧力も再現されます。</p>
+  <h3>検証の結果が悪かったら何を変えますか？</h3>
+  <p>まずルールを守れた率を見ます。守れていない取引が多いなら手法の評価はできません。次に期待値を計算し、勝率が低いなら入る条件、平均利益が小さいなら利確、平均損失が大きいなら損切りと、原因を1つに絞って変えます。</p>
+</section>
+
+<section class="nextread">
+  <h2 class="sec"><span class="num">＋</span>この続きに読む</h2>
+  <div class="cards two">
+  <a class="pcard" href="roadmap.html">
+    <div class="top"><h3>学習ロードマップ</h3></div>
+    <p class="lead">Part II の修了条件を確認する</p><span class="go">見る →</span>
+  </a>
+  <a class="pcard" href="structure.html">
+    <div class="top"><h3>相場の構造とマルチタイムフレーム分析</h3></div>
+    <p class="lead">上級編を通して読む</p><span class="go">見る →</span>
+  </a>
+  </div>
+</section>
+
+<div class="ad-slot" data-ad="bottom"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<nav class="pager">
+  <a class="prev" href="pro-build-rules.html"><span class="dir">← 前の記事</span><span class="ttl">売買ルールを作る</span></a>
+  <a class="next" href="roadmap.html"><span class="dir">次へ →</span><span class="ttl">学習ロードマップ</span></a>
+</nav>
+
+<footer>
+  <p><strong>ご利用にあたって</strong><br>
+  当サイトはFXの学習を目的とした情報サイトであり、<strong>投資助言ではありません。</strong>
+  運営者は金融商品取引法に基づく投資助言・代理業の登録を受けておらず、特定の売買を勧めるものではありません。
+  FXは元本が保証されない取引で、預託した証拠金を上回る損失が生じる可能性もあります。
+  掲載している情報の正確性・完全性・最新性は保証しません。
+  掲載しているチャート図はすべて解説のために作成した模式図であり、実際の相場データではありません。
+  実際の取引は必ずご自身の判断と責任で、デモ口座や少額での検証を経てから行ってください。</p>
+  <p class="footlinks"><a href="about.html">運営者情報・編集方針</a> ／ <a href="privacy.html">免責事項・プライバシーポリシー</a> ／ <a href="roadmap.html">学習ロードマップ</a></p>
+</footer>
+
+</div>
+<script src="site.js" defer></script>
+<script src="ads.js" defer></script>
+</body>
+</html>

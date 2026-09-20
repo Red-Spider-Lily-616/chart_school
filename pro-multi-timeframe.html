@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>マルチタイムフレーム分析｜3本の時間足の使い方｜FX学習ノート</title>
+<link rel="canonical" href="https://red-spider-lily-616.github.io/chart_school/pro-multi-timeframe.html">
+<meta name="description" content="マルチタイムフレーム分析の手順を説明します。3本の時間足の組み合わせ方、上位足で方向を決めて下位足で入る流れ、そして時間足ごとに判断が食い違ったときの優先順位を整理しました。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#fcfcfb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a19" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="FX学習ノート">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="マルチタイムフレーム分析｜3本の時間足の使い方｜FX学習ノート">
+<meta property="og:description" content="マルチタイムフレーム分析の手順を説明します。3本の時間足の組み合わせ方、上位足で方向を決めて下位足で入る流れ、そして時間足ごとに判断が食い違ったときの優先順位を整理しました。">
+<meta property="og:url" content="https://red-spider-lily-616.github.io/chart_school/pro-multi-timeframe.html">
+<meta property="og:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="マルチタイムフレーム分析｜3本の時間足の使い方｜FX学習ノート">
+<meta name="twitter:description" content="マルチタイムフレーム分析の手順を説明します。3本の時間足の組み合わせ方、上位足で方向を決めて下位足で入る流れ、そして時間足ごとに判断が食い違ったときの優先順位を整理しました。">
+<meta name="twitter:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FX学習ノート", "item": "https://red-spider-lily-616.github.io/chart_school/"}, {"@type": "ListItem", "position": 2, "name": "環境認識と検証", "item": "https://red-spider-lily-616.github.io/chart_school/pro.html"}, {"@type": "ListItem", "position": 3, "name": "マルチタイムフレーム分析｜3本の時間足の使い方", "item": "https://red-spider-lily-616.github.io/chart_school/pro-multi-timeframe.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "マルチタイムフレーム分析｜3本の時間足の使い方｜FX学習ノート", "description": "マルチタイムフレーム分析の手順を説明します。3本の時間足の組み合わせ方、上位足で方向を決めて下位足で入る流れ、そして時間足ごとに判断が食い違ったときの優先順位を整理しました。", "inLanguage": "ja", "url": "https://red-spider-lily-616.github.io/chart_school/pro-multi-timeframe.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://red-spider-lily-616.github.io/chart_school/pro-multi-timeframe.html"}, "image": "https://red-spider-lily-616.github.io/chart_school/og.png", "datePublished": "2026-09-20", "dateModified": "2026-09-20", "articleSection": "環境認識と検証", "author": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/about.html"}, "publisher": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/", "logo": {"@type": "ImageObject", "url": "https://red-spider-lily-616.github.io/chart_school/og.png"}}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "マルチタイムフレーム分析では何本の時間足を見ますか？", "acceptedAnswer": {"@type": "Answer", "text": "3本が基本形です。上位足で方向、中位足で環境、下位足でタイミングを決めます。間隔は4〜6倍ずつ離すのが目安で、日足・4時間足・1時間足や、4時間足・1時間足・15分足といった組み合わせが使われます。"}}, {"@type": "Question", "name": "時間足によって判断が食い違ったらどうしますか？", "acceptedAnswer": {"@type": "Answer", "text": "上位足を優先します。上位足が下降で下位足が上昇という場面は、下降トレンドの中の戻りである可能性が高く、短命に終わりやすいとされます。ただし上位足がレンジの場合は、取引しないという選択も含めて別に考えます。"}}, {"@type": "Question", "name": "下位足から見始めてはいけないのですか？", "acceptedAnswer": {"@type": "Answer", "text": "避けたほうがよいとされます。下位足から探し始めると、上位足に逆らった取引を見つけてしまうためです。上位足で方向を決め、中位足で範囲を決め、最後に下位足でタイミングを取る順番を守ります。"}}]}</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="sitenav"><div class="inner">
+<a class="home" href="index.html">FX学習ノート</a>
+<a href="roadmap.html">ロードマップ</a>
+<a href="start.html">はじめて</a>
+<a href="chart.html">チャート</a>
+<a href="method.html">手法</a>
+<a href="fund.html">経済指標</a>
+<a href="money.html">資金管理</a>
+<a class="cur" href="pro.html">実践</a>
+<a href="glossary.html">用語集</a>
+<button class="themetoggle" id="themeBtn" type="button">◐ 表示切替</button>
+</div></nav>
+<div class="wrap">
+
+<nav class="crumb"><a href="index.html">ホーム</a> › <a href="pro.html">環境認識と検証</a> › <span>マルチタイムフレーム分析｜3本の時間足の使い方</span></nav>
+
+<header class="hero">
+  <p class="eyebrow">環境認識と検証　II-20</p>
+  <h1>マルチタイムフレーム分析｜3本の時間足の使い方</h1>
+  <p class="lede">時間軸は<strong>入れ子</strong>になっています。日足1本の中身が4時間足6本、その中身が1時間足4本。同じ相場を、違う倍率で見ているだけです。</p>
+  <p class="meta">想定読者:Part II の前半を終えた人 ／ 読了目安:8分 ／ 最終更新: 2026年9月20日</p>
+</header>
+
+<div class="note note-legal">
+このページはFXの学習を目的とした一般的な情報で、<strong>投資助言ではありません</strong>。
+特定の売買を勧めるものではなく、将来の利益を保証するものでもありません。
+FXは元本が保証されない取引です。<a href="privacy.html">免責事項</a>をご確認ください。
+<span class="ad-notice">※このページには広告を含む場合があります。</span>
+</div>
+
+<div class="tldr">
+  <span class="tag">この記事の要点</span>
+  <ul>
+    <li>上位足で方向、中位足で環境、下位足でタイミングを決める</li>
+    <li>組み合わせは4〜6倍ずつ離すのが目安</li>
+    <li>判断が食い違ったら、必ず上位足を優先する</li>
+  </ul>
+</div>
+
+<div class="ad-slot" data-ad="top"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<nav class="toc">
+  <h2>もくじ</h2>
+  <ol>
+    <li><a href="#s1">なぜ複数の足を見るのですか？</a></li>
+    <li><a href="#s2">時間足の組み合わせ方</a></li>
+    <li><a href="#s3">実際の手順</a></li>
+    <li><a href="#s4">判断が食い違ったらどうしますか？</a></li>
+  </ol>
+</nav>
+
+<section id="s1">
+  <h2 class="sec"><span class="num">01</span>なぜ複数の足を見るのですか？</h2>
+  <p><strong>1本の足だけでは、今いる場所が分からないから</strong>です。</p>
+  <p>1時間足で上昇していても、日足では下降の途中の一時的な戻りかもしれません。この場合、1時間足の上昇に乗ると、<strong>大きな流れに逆らうことになります。</strong></p>
+  <p>逆に、日足が上昇しているなら、1時間足の下げは押し目かもしれません。<strong>同じ値動きでも、上位足の状況によって意味が変わります。</strong></p>
+  <p>マルチタイムフレーム分析（MTF分析）は、この「今どこにいるか」を確かめるための手順です。</p>
+</section>
+
+<section id="s2">
+  <h2 class="sec"><span class="num">02</span>時間足の組み合わせ方</h2>
+  <p>3本が基本形とされます。それぞれの役割が違います。</p>
+  <table>
+    <thead><tr><th style="width:22%">役割</th><th>見るもの</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">上位足</td><td>大きな方向。ダウ理論で上昇・下降・レンジを判定する</td></tr>
+      <tr><td class="rank">中位足</td><td>環境。重要な水平線やトレンドラインを引く</td></tr>
+      <tr><td class="rank">下位足</td><td>タイミング。入る場所と損切り位置を決める</td></tr>
+    </tbody>
+  </table>
+  <p>間隔は<strong>4〜6倍ずつ離す</strong>のが目安とされます。近すぎると同じ情報を2回見ることになり、離れすぎると間がつながりません。</p>
+  <ul>
+    <li>日足 → 4時間足 → 1時間足</li>
+    <li>4時間足 → 1時間足 → 15分足</li>
+    <li>1時間足 → 15分足 → 5分足</li>
+  </ul>
+  <p>どれを選ぶかは、<strong>自分が画面を見られる時間</strong>で決まります。</p>
+</section>
+
+<div class="ad-slot" data-ad="mid"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<section id="s3">
+  <h2 class="sec"><span class="num">03</span>実際の手順</h2>
+  <div class="step">
+    <h3>1. 上位足で方向を判定する</h3>
+    <p>ダウ理論で上昇・下降・レンジのどれかを決めます。<strong>レンジなら、その日は取引しないという選択もあります。</strong></p>
+    <h3>2. 中位足で線を引く</h3>
+    <p>直近の重要な高値・安値、意識されている水平線を引きます。<strong>どこまで戻ったら押し目として成立するか</strong>の範囲を決めます。</p>
+    <h3>3. 下位足で入る場所を探す</h3>
+    <p>中位足で決めた範囲に価格が来たら、下位足に切り替えます。そこで反発の形が出るのを待ちます。</p>
+    <h3>4. 損切りを決めて数量を逆算する</h3>
+    <p>下位足で見れば損切りは近くなりますが、<strong>近すぎるとノイズで切られます。</strong>中位足の線の少し外側に置くのが一般的です。</p>
+  </div>
+  <p>順番が逆にならないよう注意してください。<strong>下位足から探し始めると、上位足に逆らった取引を見つけてしまいます。</strong></p>
+</section>
+
+<section id="s4">
+  <h2 class="sec"><span class="num">04</span>判断が食い違ったらどうしますか？</h2>
+  <p><strong>上位足を優先します。</strong>例外はありません。</p>
+  <p>上位足が下降、下位足が上昇という場面はよくあります。これは<strong>下降トレンドの中の戻り</strong>である可能性が高く、下位足の上昇に乗ると短命に終わりやすいとされます。</p>
+  <p>ただし、上位足が「レンジ」と判定される場合は別です。方向が決まっていないので、下位足の動きに従うか、そもそも取引しないかを選ぶことになります。</p>
+  <div class="key"><span class="tag">ルールに書く形</span>
+  <p>「4時間足がダウ理論で上昇と判定できるときのみ、1時間足の押し目で買う。4時間足が下降またはレンジの間は買わない。」<strong>ここまで書けば、他人が読んでも同じ判断になります。</strong></p></div>
+</section>
+
+<section id="faq">
+  <h2 class="sec"><span class="num">05</span>よくある質問</h2>
+  <h3>マルチタイムフレーム分析では何本の時間足を見ますか？</h3>
+  <p>3本が基本形です。上位足で方向、中位足で環境、下位足でタイミングを決めます。間隔は4〜6倍ずつ離すのが目安で、日足・4時間足・1時間足や、4時間足・1時間足・15分足といった組み合わせが使われます。</p>
+  <h3>時間足によって判断が食い違ったらどうしますか？</h3>
+  <p>上位足を優先します。上位足が下降で下位足が上昇という場面は、下降トレンドの中の戻りである可能性が高く、短命に終わりやすいとされます。ただし上位足がレンジの場合は、取引しないという選択も含めて別に考えます。</p>
+  <h3>下位足から見始めてはいけないのですか？</h3>
+  <p>避けたほうがよいとされます。下位足から探し始めると、上位足に逆らった取引を見つけてしまうためです。上位足で方向を決め、中位足で範囲を決め、最後に下位足でタイミングを取る順番を守ります。</p>
+</section>
+
+<section class="nextread">
+  <h2 class="sec"><span class="num">＋</span>この続きに読む</h2>
+  <div class="cards two">
+  <a class="pcard" href="pro-market-phases.html">
+    <div class="top"><h3>相場の4局面</h3></div>
+    <p class="lead">レンジには2種類ある</p><span class="go">見る →</span>
+  </a>
+  <a class="pcard" href="structure.html">
+    <div class="top"><h3>相場の構造とマルチタイムフレーム分析</h3></div>
+    <p class="lead">手順を図解で</p><span class="go">見る →</span>
+  </a>
+  </div>
+</section>
+
+<div class="ad-slot" data-ad="bottom"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<nav class="pager">
+  <a class="prev" href="money-mental.html"><span class="dir">← 前の記事</span><span class="ttl">メンタル管理</span></a>
+  <a class="next" href="pro-market-phases.html"><span class="dir">次の記事 →</span><span class="ttl">相場の4局面</span></a>
+</nav>
+
+<footer>
+  <p><strong>ご利用にあたって</strong><br>
+  当サイトはFXの学習を目的とした情報サイトであり、<strong>投資助言ではありません。</strong>
+  運営者は金融商品取引法に基づく投資助言・代理業の登録を受けておらず、特定の売買を勧めるものではありません。
+  FXは元本が保証されない取引で、預託した証拠金を上回る損失が生じる可能性もあります。
+  掲載している情報の正確性・完全性・最新性は保証しません。
+  掲載しているチャート図はすべて解説のために作成した模式図であり、実際の相場データではありません。
+  実際の取引は必ずご自身の判断と責任で、デモ口座や少額での検証を経てから行ってください。</p>
+  <p class="footlinks"><a href="about.html">運営者情報・編集方針</a> ／ <a href="privacy.html">免責事項・プライバシーポリシー</a> ／ <a href="roadmap.html">学習ロードマップ</a></p>
+</footer>
+
+</div>
+<script src="site.js" defer></script>
+<script src="ads.js" defer></script>
+</body>
+</html>

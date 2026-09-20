@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSIとは｜見方と設定値、だましの避け方｜FX学習ノート</title>
+<link rel="canonical" href="https://red-spider-lily-616.github.io/chart_school/chart-rsi.html">
+<meta name="description" content="RSIの見方と設定値を説明します。何を計算している指標なのか、70と30の意味、強いトレンドで効かなくなる理由、そしてダイバージェンスの読み方までを整理しました。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#fcfcfb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a19" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="FX学習ノート">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="RSIとは｜見方と設定値、だましの避け方｜FX学習ノート">
+<meta property="og:description" content="RSIの見方と設定値を説明します。何を計算している指標なのか、70と30の意味、強いトレンドで効かなくなる理由、そしてダイバージェンスの読み方までを整理しました。">
+<meta property="og:url" content="https://red-spider-lily-616.github.io/chart_school/chart-rsi.html">
+<meta property="og:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RSIとは｜見方と設定値、だましの避け方｜FX学習ノート">
+<meta name="twitter:description" content="RSIの見方と設定値を説明します。何を計算している指標なのか、70と30の意味、強いトレンドで効かなくなる理由、そしてダイバージェンスの読み方までを整理しました。">
+<meta name="twitter:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FX学習ノート", "item": "https://red-spider-lily-616.github.io/chart_school/"}, {"@type": "ListItem", "position": 2, "name": "FXチャートの見方", "item": "https://red-spider-lily-616.github.io/chart_school/chart.html"}, {"@type": "ListItem", "position": 3, "name": "RSIとは｜見方と設定値、だましの避け方", "item": "https://red-spider-lily-616.github.io/chart_school/chart-rsi.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "RSIとは｜見方と設定値、だましの避け方｜FX学習ノート", "description": "RSIの見方と設定値を説明します。何を計算している指標なのか、70と30の意味、強いトレンドで効かなくなる理由、そしてダイバージェンスの読み方までを整理しました。", "inLanguage": "ja", "url": "https://red-spider-lily-616.github.io/chart_school/chart-rsi.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://red-spider-lily-616.github.io/chart_school/chart-rsi.html"}, "image": "https://red-spider-lily-616.github.io/chart_school/og.png", "datePublished": "2026-09-20", "dateModified": "2026-09-20", "articleSection": "FXチャートの見方", "author": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/about.html"}, "publisher": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/", "logo": {"@type": "ImageObject", "url": "https://red-spider-lily-616.github.io/chart_school/og.png"}}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "RSIとは何ですか？", "acceptedAnswer": {"@type": "Answer", "text": "一定期間の値動きのうち、上昇した分が占める割合を0〜100で表す指標です。14期間なら直近14本の値動きを上昇分と下落分に分けて計算します。示しているのは最近の値動きがどれだけ一方向に偏っているかで、価格の高さそのものではありません。"}}, {"@type": "Question", "name": "RSIが70を超えたら売ればいいのですか？", "acceptedAnswer": {"@type": "Answer", "text": "そうとは限りません。70以上は一方向に偏った動きが続いていることを示すだけで、反転を意味しません。強い上昇トレンドではRSIが70を超えたまま価格が上がり続けることがあり、ここで逆張りするとトレンドに逆らうことになります。"}}, {"@type": "Question", "name": "RSIはどんな場面で使いますか？", "acceptedAnswer": {"@type": "Answer", "text": "レンジ相場での行き過ぎの目安として使われます。トレンドが出ている間は水準ではなく、価格とRSIの食い違い（ダイバージェンス）を見るのが一般的です。効かない場面を先にルールに書いておくと判断がぶれません。"}}]}</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="sitenav"><div class="inner">
+<a class="home" href="index.html">FX学習ノート</a>
+<a href="roadmap.html">ロードマップ</a>
+<a href="start.html">はじめて</a>
+<a class="cur" href="chart.html">チャート</a>
+<a href="method.html">手法</a>
+<a href="fund.html">経済指標</a>
+<a href="money.html">資金管理</a>
+<a href="pro.html">実践</a>
+<a href="glossary.html">用語集</a>
+<button class="themetoggle" id="themeBtn" type="button">◐ 表示切替</button>
+</div></nav>
+<div class="wrap">
+
+<nav class="crumb"><a href="index.html">ホーム</a> › <a href="chart.html">FXチャートの見方</a> › <span>RSIとは｜見方と設定値、だましの避け方</span></nav>
+
+<header class="hero">
+  <p class="eyebrow">FXチャートの見方　II-2</p>
+  <h1>RSIとは｜見方と設定値、だましの避け方</h1>
+  <p class="lede">RSIは「買われすぎ・売られすぎ」を測る指標として紹介されます。しかし<strong>70を超えたら売り、ではありません。</strong>何を計算しているかを知ると、使える場面が分かります。</p>
+  <p class="meta">想定読者:Part I を終えた人 ／ 読了目安:7分 ／ 最終更新: 2026年9月20日</p>
+</header>
+
+<div class="note note-legal">
+このページはFXの学習を目的とした一般的な情報で、<strong>投資助言ではありません</strong>。
+特定の売買を勧めるものではなく、将来の利益を保証するものでもありません。
+FXは元本が保証されない取引です。<a href="privacy.html">免責事項</a>をご確認ください。
+<span class="ad-notice">※このページには広告を含む場合があります。</span>
+</div>
+
+<div class="tldr">
+  <span class="tag">この記事の要点</span>
+  <ul>
+    <li>RSIは一定期間の値動きのうち、上昇分が占める割合を0〜100で表す指標</li>
+    <li>70や30に触れただけでは反転の根拠にならない。強いトレンドでは張りついたまま進む</li>
+    <li>RSIが効きやすいのはレンジ。トレンド中は水準より、価格との食い違いを見る</li>
+  </ul>
+</div>
+
+<div class="ad-slot" data-ad="top"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<nav class="toc">
+  <h2>もくじ</h2>
+  <ol>
+    <li><a href="#s1">RSIは何を計算していますか？</a></li>
+    <li><a href="#s2">70と30は何を意味しますか？</a></li>
+    <li><a href="#s3">RSIはどこで使いますか？</a></li>
+    <li><a href="#s4">使わない場面を決めておく</a></li>
+  </ol>
+</nav>
+
+<section id="s1">
+  <h2 class="sec"><span class="num">01</span>RSIは何を計算していますか？</h2>
+  <p>RSIは、<strong>一定期間の値動きのうち、上昇した分が占める割合</strong>を0〜100の数字にしたものです。</p>
+  <p>14期間のRSIなら、直近14本ぶんの値動きを上昇分と下落分に分け、上昇分が全体の何%かを計算します。すべて上昇なら100、すべて下落なら0に近づきます。</p>
+  <p>つまりRSIが示しているのは<strong>「最近の値動きが、どれだけ一方向に偏っているか」</strong>です。価格の高さそのものではありません。</p>
+  <div class="note">期間は14が広く使われています。短くすると反応が早くなりますが、だましも増えます。最初は一般的な値のまま固定してください。</div>
+</section>
+
+<section id="s2">
+  <h2 class="sec"><span class="num">02</span>70と30は何を意味しますか？</h2>
+  <p>一般に、<strong>70以上で買われすぎ、30以下で売られすぎ</strong>と解釈されます。</p>
+  <p>ただしこれは「反転する」という意味ではありません。<strong>一方向に偏った動きが続いている、という事実を示しているだけ</strong>です。</p>
+  <p>強い上昇トレンドでは、RSIが70を超えたまま何十本も価格が上がり続けることがあります。これを「張りつき」と呼びます。ここで逆張りすると、<strong>トレンドに正面から逆らうことになります。</strong></p>
+  <div class="warn">「RSIが70を超えたから売る」という使い方は、最も損失が出やすい使い方のひとつとして知られています。水準だけで判断しないでください。</div>
+</section>
+
+<div class="ad-slot" data-ad="mid"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<section id="s3">
+  <h2 class="sec"><span class="num">03</span>RSIはどこで使いますか？</h2>
+  <h3>レンジ相場での反転の目安</h3>
+  <p>方向が決まっていない相場では、RSIの行き過ぎが戻りやすいとされます。ダウ理論でレンジと判定できているときに限って使う、という条件をつけると扱いやすくなります。</p>
+  <h3>トレンド中はダイバージェンスを見る</h3>
+  <p>トレンドが出ているときは、水準ではなく<strong>価格とRSIの食い違い</strong>を見ます。価格は高値を更新しているのにRSIは高値を切り下げている、という状態がダイバージェンスです。</p>
+  <p>勢いが衰えている可能性を示すとされますが、<strong>出たあとも価格が進み続けることがあります。</strong>単体ではなく、重要な水平線やトレンドラインと重なったときの補強材料として使われます。</p>
+</section>
+
+<section id="s4">
+  <h2 class="sec"><span class="num">04</span>使わない場面を決めておく</h2>
+  <p>どの指標にも効かない場面があります。RSIの場合は<strong>強いトレンドの最中</strong>です。</p>
+  <p>ここを自分のルールに書いておくと、判断がぶれにくくなります。たとえば次のような形です。</p>
+  <div class="key"><span class="tag">ルールの書き方の例</span>
+  <p>「1時間足がダウ理論で上昇または下降と判定できる間は、RSIの水準では逆張りしない。レンジと判定できるときのみ、RSIの行き過ぎを反転の目安として使う。」</p></div>
+  <p>こう書いておけば、あとで検証したときに<strong>「ルールを守ったのに負けた」のか「ルールを破って負けた」のか</strong>を区別できます。この区別ができないと、改善ができません。</p>
+</section>
+
+<section id="faq">
+  <h2 class="sec"><span class="num">05</span>よくある質問</h2>
+  <h3>RSIとは何ですか？</h3>
+  <p>一定期間の値動きのうち、上昇した分が占める割合を0〜100で表す指標です。14期間なら直近14本の値動きを上昇分と下落分に分けて計算します。示しているのは最近の値動きがどれだけ一方向に偏っているかで、価格の高さそのものではありません。</p>
+  <h3>RSIが70を超えたら売ればいいのですか？</h3>
+  <p>そうとは限りません。70以上は一方向に偏った動きが続いていることを示すだけで、反転を意味しません。強い上昇トレンドではRSIが70を超えたまま価格が上がり続けることがあり、ここで逆張りするとトレンドに逆らうことになります。</p>
+  <h3>RSIはどんな場面で使いますか？</h3>
+  <p>レンジ相場での行き過ぎの目安として使われます。トレンドが出ている間は水準ではなく、価格とRSIの食い違い（ダイバージェンス）を見るのが一般的です。効かない場面を先にルールに書いておくと判断がぶれません。</p>
+</section>
+
+<section class="nextread">
+  <h2 class="sec"><span class="num">＋</span>この続きに読む</h2>
+  <div class="cards two">
+  <a class="pcard" href="chart-macd.html">
+    <div class="top"><h3>MACD</h3></div>
+    <p class="lead">トレンドの勢いを測る指標</p><span class="go">見る →</span>
+  </a>
+  <a class="pcard" href="structure.html">
+    <div class="top"><h3>相場の構造とマルチタイムフレーム分析</h3></div>
+    <p class="lead">ダイバージェンスを図解で</p><span class="go">見る →</span>
+  </a>
+  </div>
+</section>
+
+<div class="ad-slot" data-ad="bottom"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<nav class="pager">
+  <a class="prev" href="pro-next-level.html"><span class="dir">← 前の記事</span><span class="ttl">中級者とは何が違うのか</span></a>
+  <a class="next" href="chart-macd.html"><span class="dir">次の記事 →</span><span class="ttl">MACD</span></a>
+</nav>
+
+<footer>
+  <p><strong>ご利用にあたって</strong><br>
+  当サイトはFXの学習を目的とした情報サイトであり、<strong>投資助言ではありません。</strong>
+  運営者は金融商品取引法に基づく投資助言・代理業の登録を受けておらず、特定の売買を勧めるものではありません。
+  FXは元本が保証されない取引で、預託した証拠金を上回る損失が生じる可能性もあります。
+  掲載している情報の正確性・完全性・最新性は保証しません。
+  掲載しているチャート図はすべて解説のために作成した模式図であり、実際の相場データではありません。
+  実際の取引は必ずご自身の判断と責任で、デモ口座や少額での検証を経てから行ってください。</p>
+  <p class="footlinks"><a href="about.html">運営者情報・編集方針</a> ／ <a href="privacy.html">免責事項・プライバシーポリシー</a> ／ <a href="roadmap.html">学習ロードマップ</a></p>
+</footer>
+
+</div>
+<script src="site.js" defer></script>
+<script src="ads.js" defer></script>
+</body>
+</html>

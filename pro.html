@@ -24,6 +24,7 @@
 <meta name="twitter:description" content="FXの環境認識と検証をまとめたカテゴリです。マルチタイムフレーム分析（MTF分析）、相場の4局面、流動性とストップ狩り、売買ルールの作り方と30回検証の手順を扱います。">
 <meta name="twitter:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FX学習ノート", "item": "https://red-spider-lily-616.github.io/chart_school/"}, {"@type": "ListItem", "position": 2, "name": "環境認識と検証", "item": "https://red-spider-lily-616.github.io/chart_school/pro.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "マルチタイムフレーム分析と環境認識のやり方", "numberOfItems": 6, "itemListElement": [{"@type": "ListItem", "position": 1, "name": "中級者とは何が違うのか", "url": "https://red-spider-lily-616.github.io/chart_school/pro-next-level.html"}, {"@type": "ListItem", "position": 2, "name": "マルチタイムフレーム分析", "url": "https://red-spider-lily-616.github.io/chart_school/pro-multi-timeframe.html"}, {"@type": "ListItem", "position": 3, "name": "相場の4局面", "url": "https://red-spider-lily-616.github.io/chart_school/pro-market-phases.html"}, {"@type": "ListItem", "position": 4, "name": "流動性とストップ狩り", "url": "https://red-spider-lily-616.github.io/chart_school/pro-liquidity.html"}, {"@type": "ListItem", "position": 5, "name": "売買ルールを作る", "url": "https://red-spider-lily-616.github.io/chart_school/pro-build-rules.html"}, {"@type": "ListItem", "position": 6, "name": "検証のやり方", "url": "https://red-spider-lily-616.github.io/chart_school/pro-backtest.html"}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "マルチタイムフレーム分析では何本の時間足を見ますか？", "acceptedAnswer": {"@type": "Answer", "text": "3本が基本です。方向を決める上位足、環境を見る中位足、タイミングを取る下位足。日足・4時間足・1時間足、あるいは4時間足・1時間足・15分足のように、4〜6倍ずつ離れた組み合わせを使います。"}}, {"@type": "Question", "name": "手法の検証は何回やれば十分ですか？", "acceptedAnswer": {"@type": "Answer", "text": "最低30回が目安です。ただし30回では偶然の影響がまだ大きく残るため、「使えるかどうかを見切る最低ライン」と考え、100回程度まで積み上げてから最終判断してください。"}}, {"@type": "Question", "name": "ストップ狩りは本当にあるのですか？", "acceptedAnswer": {"@type": "Answer", "text": "誰かが個人の損切りを狙い撃ちするというより、損切り注文が集まっている価格帯は大口が約定させやすい場所なので、値が引き寄せられやすいという説明が一般的です。いずれにしても、直近安値のすぐ下に損切りを置くと巻き込まれやすくなる、という指摘があります。なお損切りを遠ざける場合は、その分ロット数を減らして1回あたりのリスクを一定に保つのが基本的な考え方です。損切り幅とロット数は必ずセットで動かします。"}}]}</script>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -82,30 +83,30 @@ FXは元本が保証されない取引です。<a href="privacy.html">免責事�
   <h2 class="sec"><span class="num">02</span>この章の記事（全6本）</h2>
   <p class="sec-sub">上から順に読むのがおすすめです。</p>
 <div class="cards">
-  <div class="pcard soon">
-    <div class="top"><span class="no">II-1</span><h3>中級者とは何が違うのか<span class="soon-badge">準備中</span></h3></div>
-    <p class="lead">次に埋めるべき差。</p>
-  </div>
-  <div class="pcard soon">
-    <div class="top"><span class="no">II-20</span><h3>マルチタイムフレーム分析<span class="soon-badge">準備中</span></h3></div>
-    <p class="lead">時間軸は入れ子になっている。</p>
-  </div>
-  <div class="pcard soon">
-    <div class="top"><span class="no">II-21</span><h3>相場の4局面<span class="soon-badge">準備中</span></h3></div>
-    <p class="lead">レンジには2種類ある。</p>
-  </div>
-  <div class="pcard soon">
-    <div class="top"><span class="no">II-22</span><h3>流動性とストップ狩り<span class="soon-badge">準備中</span></h3></div>
-    <p class="lead">損切りが狙われる仕組み。</p>
-  </div>
-  <div class="pcard soon">
-    <div class="top"><span class="no">II-23</span><h3>売買ルールを作る<span class="soon-badge">準備中</span></h3></div>
-    <p class="lead">文章にできないものは再現できない。</p>
-  </div>
-  <div class="pcard soon">
-    <div class="top"><span class="no">II-24</span><h3>検証のやり方<span class="soon-badge">準備中</span></h3></div>
-    <p class="lead">30回やってから評価する。</p>
-  </div>
+  <a class="pcard" href="pro-next-level.html">
+    <div class="top"><span class="no">II-1</span><h3>中級者とは何が違うのか</h3></div>
+    <p class="lead">次に埋めるべき差。</p><span class="go">読む →</span>
+  </a>
+  <a class="pcard" href="pro-multi-timeframe.html">
+    <div class="top"><span class="no">II-20</span><h3>マルチタイムフレーム分析</h3></div>
+    <p class="lead">時間軸は入れ子になっている。</p><span class="go">読む →</span>
+  </a>
+  <a class="pcard" href="pro-market-phases.html">
+    <div class="top"><span class="no">II-21</span><h3>相場の4局面</h3></div>
+    <p class="lead">レンジには2種類ある。</p><span class="go">読む →</span>
+  </a>
+  <a class="pcard" href="pro-liquidity.html">
+    <div class="top"><span class="no">II-22</span><h3>流動性とストップ狩り</h3></div>
+    <p class="lead">損切りが狙われる仕組み。</p><span class="go">読む →</span>
+  </a>
+  <a class="pcard" href="pro-build-rules.html">
+    <div class="top"><span class="no">II-23</span><h3>売買ルールを作る</h3></div>
+    <p class="lead">文章にできないものは再現できない。</p><span class="go">読む →</span>
+  </a>
+  <a class="pcard" href="pro-backtest.html">
+    <div class="top"><span class="no">II-24</span><h3>検証のやり方</h3></div>
+    <p class="lead">30回やってから評価する。</p><span class="go">読む →</span>
+  </a>
 </div>
 </section>
 

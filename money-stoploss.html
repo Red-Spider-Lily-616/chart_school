@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FXの損切りの決め方｜位置からロットを逆算｜FX学習ノート</title>
+<link rel="canonical" href="https://red-spider-lily-616.github.io/chart_school/money-stoploss.html">
+<meta name="description" content="FXの損切りの決め方を手順で説明します。金額ではなくチャートの構造で位置を決める理由、そこからロット数を逆算する計算式、損切りを動かしてはいけない理由を整理しました。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#fcfcfb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a19" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="FX学習ノート">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="FXの損切りの決め方｜位置からロットを逆算｜FX学習ノート">
+<meta property="og:description" content="FXの損切りの決め方を手順で説明します。金額ではなくチャートの構造で位置を決める理由、そこからロット数を逆算する計算式、損切りを動かしてはいけない理由を整理しました。">
+<meta property="og:url" content="https://red-spider-lily-616.github.io/chart_school/money-stoploss.html">
+<meta property="og:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FXの損切りの決め方｜位置からロットを逆算｜FX学習ノート">
+<meta name="twitter:description" content="FXの損切りの決め方を手順で説明します。金額ではなくチャートの構造で位置を決める理由、そこからロット数を逆算する計算式、損切りを動かしてはいけない理由を整理しました。">
+<meta name="twitter:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FX学習ノート", "item": "https://red-spider-lily-616.github.io/chart_school/"}, {"@type": "ListItem", "position": 2, "name": "資金管理と損切り", "item": "https://red-spider-lily-616.github.io/chart_school/money.html"}, {"@type": "ListItem", "position": 3, "name": "損切りの決め方｜位置からロットを逆算", "item": "https://red-spider-lily-616.github.io/chart_school/money-stoploss.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "FXの損切りの決め方｜位置からロットを逆算｜FX学習ノート", "description": "FXの損切りの決め方を手順で説明します。金額ではなくチャートの構造で位置を決める理由、そこからロット数を逆算する計算式、損切りを動かしてはいけない理由を整理しました。", "inLanguage": "ja", "url": "https://red-spider-lily-616.github.io/chart_school/money-stoploss.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://red-spider-lily-616.github.io/chart_school/money-stoploss.html"}, "image": "https://red-spider-lily-616.github.io/chart_school/og.png", "datePublished": "2026-09-20", "dateModified": "2026-09-20", "articleSection": "資金管理と損切り", "author": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/about.html"}, "publisher": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/", "logo": {"@type": "ImageObject", "url": "https://red-spider-lily-616.github.io/chart_school/og.png"}}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "FXの損切りはどこに置けばいいですか？", "acceptedAnswer": {"@type": "Answer", "text": "「そこを抜けたら、入った根拠が消える価格」の少し外側です。買いなら直近の安値やサポートの少し下になります。ぴったりの価格には損切り注文が集まりヒゲで一瞬抜ける動きが起きやすいため、少し余裕を取るという考え方があります。"}}, {"@type": "Question", "name": "ロット数はどう計算しますか？", "acceptedAnswer": {"@type": "Answer", "text": "「許容損失額 ÷ 損切り幅(pips) ÷ 1pipsあたりの金額」で逆算します。資金10万円でリスク2%、損切り20pips、米ドル/円なら、2,000 ÷ 20 ÷ 10 = 10で1万通貨です。1pipsあたりの金額を割り忘れると数量が桁違いになります。"}}, {"@type": "Question", "name": "損切りを後から動かしてもいいですか？", "acceptedAnswer": {"@type": "Answer", "text": "不利な方向へ動かすのは避けてください。決めたはずの1回のリスクが壊れ、損失が想定外に膨らむ経路として知られています。含み益が出たあとに建値方向へ引き上げるなど、有利な方向への変更は問題ありません。"}}]}</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="sitenav"><div class="inner">
+<a class="home" href="index.html">FX学習ノート</a>
+<a href="roadmap.html">ロードマップ</a>
+<a href="start.html">はじめて</a>
+<a href="chart.html">チャート</a>
+<a href="method.html">手法</a>
+<a href="fund.html">経済指標</a>
+<a class="cur" href="money.html">資金管理</a>
+<a href="pro.html">実践</a>
+<a href="glossary.html">用語集</a>
+<button class="themetoggle" id="themeBtn" type="button">◐ 表示切替</button>
+</div></nav>
+<div class="wrap">
+
+<nav class="crumb"><a href="index.html">ホーム</a> › <a href="money.html">資金管理と損切り</a> › <span>損切りの決め方｜位置からロットを逆算</span></nav>
+
+<header class="hero">
+  <p class="eyebrow">資金管理と損切り　I-15</p>
+  <h1>損切りの決め方｜位置からロットを逆算</h1>
+  <p class="lede">損切りは「いくら負けたら切るか」ではありません。<strong>「どこまで行ったら、自分が入った前提が崩れるか」</strong>で決めます。順番を間違えると、資金管理が働かなくなります。</p>
+  <p class="meta">想定読者:資金管理の基本を読んだ人 ／ 読了目安:8分 ／ 最終更新: 2026年9月20日</p>
+</header>
+
+<div class="note note-legal">
+このページはFXの学習を目的とした一般的な情報で、<strong>投資助言ではありません</strong>。
+特定の売買を勧めるものではなく、将来の利益を保証するものでもありません。
+FXは元本が保証されない取引です。<a href="privacy.html">免責事項</a>をご確認ください。
+<span class="ad-notice">※このページには広告を含む場合があります。</span>
+</div>
+
+<div class="tldr">
+  <span class="tag">この記事の要点</span>
+  <ul>
+    <li>損切りは金額ではなく、チャートの構造で位置を決める</li>
+    <li>ロット数は「許容損失額 ÷ 損切り幅(pips) ÷ 1pipsあたりの金額」で逆算する</li>
+    <li>損切り幅を広げるなら、そのぶんロット数を減らしてリスクを一定に保つ</li>
+  </ul>
+</div>
+
+<div class="ad-slot" data-ad="top"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<nav class="toc">
+  <h2>もくじ</h2>
+  <ol>
+    <li><a href="#s1">なぜ金額で決めてはいけないのですか？</a></li>
+    <li><a href="#s2">損切り位置はどこに置きますか？</a></li>
+    <li><a href="#s3">ロット数はどう逆算しますか？</a></li>
+    <li><a href="#s4">損切りを動かしてはいけない</a></li>
+  </ol>
+</nav>
+
+<section id="s1">
+  <h2 class="sec"><span class="num">01</span>なぜ金額で決めてはいけないのですか？</h2>
+  <p><strong>相場と無関係な線になるからです。</strong></p>
+  <p>「1万円負けたら切る」という決め方は、自分の都合だけで決めた価格です。そこに値動きが止まる理由はありません。<strong>当たっても外れても、次に活かせることがありません。</strong></p>
+  <p>一方「この安値を割ったら、上昇という前提が崩れるから切る」という決め方なら、切られたときに「前提が間違っていた」という情報が残ります。<strong>検証できる損切りと、できない損切りの違い</strong>がここにあります。</p>
+</section>
+
+<section id="s2">
+  <h2 class="sec"><span class="num">02</span>損切り位置はどこに置きますか？</h2>
+  <p><strong>「そこを抜けたら、入った根拠が消える価格」の少し外側</strong>です。</p>
+  <h3>買いで入った場合</h3>
+  <p>直近の安値、支えになっているサポート、トレンドラインなど、<strong>根拠として使った線の少し下</strong>に置きます。</p>
+  <h3>なぜ「少し」外側なのか</h3>
+  <p>ぴったりの価格には、多くの人の損切り注文が集まります。そこはヒゲで一瞬だけ抜けて戻る動きが起きやすい場所です。<strong>少し余裕を取ることで、本来なら耐えられた動きで切られるのを減らせる</strong>とされます。</p>
+  <div class="warn">ただし「余裕」を広げるほど、1回の損失額は増えます。だから次の章の逆算が必要になります。<strong>損切り幅とロット数は必ずセットで動かしてください。</strong></div>
+</section>
+
+<div class="ad-slot" data-ad="mid"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<section id="s3">
+  <h2 class="sec"><span class="num">03</span>ロット数はどう逆算しますか？</h2>
+  <p>計算式は1つです。単位まで含めて覚えてください。</p>
+  <div class="key"><span class="tag">ロット数の逆算</span>
+  <p><strong>取引数量 = 許容損失額 ÷ 損切り幅(pips) ÷ 1pipsあたりの金額</strong></p></div>
+  <p>例を置きます。資金10万円、1回のリスクは2%なので許容損失額は2,000円。米ドル/円で、損切りまでの距離が20pipsだったとします。</p>
+  <p>1,000通貨あたりの1pipsは10円なので、2,000 ÷ 20 ÷ 10 = <strong>10。つまり1万通貨</strong>で取引できる計算になります。</p>
+  <p>もし損切りが40pipsまで広がったら、2,000 ÷ 40 ÷ 10 = 5、つまり<strong>5,000通貨に減らします。</strong>こうすることで、損切り幅が変わっても1回の損失額は2,000円のまま保たれます。</p>
+  <div class="note">「1pipsあたりの金額」を割り忘れるのがいちばん多い間違いです。省くと数量が桁違いに大きくなります。<a href="start-pips-lot.html">pipsとロット</a>で単位を確認してください。</div>
+</section>
+
+<section id="s4">
+  <h2 class="sec"><span class="num">04</span>損切りを動かしてはいけない</h2>
+  <p>一度置いた損切りを、<strong>不利な方向へ動かさない</strong>ことが重要です。</p>
+  <p>価格が損切りに近づくと、「もう少しだけ待てば戻るかもしれない」と考えたくなります。ここで損切りをずらすと、決めたはずの1回のリスクが壊れます。<strong>1回だけのつもりのずらしが、口座を壊す典型的な経路</strong>として知られています。</p>
+  <p>逆に、<strong>有利な方向へ動かすのは問題ありません。</strong>含み益が出たあとに損切りを建値まで引き上げれば、最悪でも損失ゼロで終わる形にできます。</p>
+  <div class="key"><span class="tag">判断の順番</span>
+  <p>入る前に「損切り価格」と「数量」を決める → 入ったら動かさない（有利方向を除く）→ 結果を記録する。この3つが揃ってはじめて、検証できる1回になります。</p></div>
+</section>
+
+<section id="faq">
+  <h2 class="sec"><span class="num">05</span>よくある質問</h2>
+  <h3>FXの損切りはどこに置けばいいですか？</h3>
+  <p>「そこを抜けたら、入った根拠が消える価格」の少し外側です。買いなら直近の安値やサポートの少し下になります。ぴったりの価格には損切り注文が集まりヒゲで一瞬抜ける動きが起きやすいため、少し余裕を取るという考え方があります。</p>
+  <h3>ロット数はどう計算しますか？</h3>
+  <p>「許容損失額 ÷ 損切り幅(pips) ÷ 1pipsあたりの金額」で逆算します。資金10万円でリスク2%、損切り20pips、米ドル/円なら、2,000 ÷ 20 ÷ 10 = 10で1万通貨です。1pipsあたりの金額を割り忘れると数量が桁違いになります。</p>
+  <h3>損切りを後から動かしてもいいですか？</h3>
+  <p>不利な方向へ動かすのは避けてください。決めたはずの1回のリスクが壊れ、損失が想定外に膨らむ経路として知られています。含み益が出たあとに建値方向へ引き上げるなど、有利な方向への変更は問題ありません。</p>
+</section>
+
+<section class="nextread">
+  <h2 class="sec"><span class="num">＋</span>この続きに読む</h2>
+  <div class="cards two">
+  <a class="pcard" href="start-first-trade.html">
+    <div class="top"><h3>最初の1トレード</h3></div>
+    <p class="lead">ここまでを1回の取引につなげる</p><span class="go">見る →</span>
+  </a>
+  <a class="pcard" href="lines.html">
+    <div class="top"><h3>押し安値とトレンドラインの意味</h3></div>
+    <p class="lead">損切り位置の根拠になる線を学ぶ</p><span class="go">見る →</span>
+  </a>
+  </div>
+</section>
+
+<div class="ad-slot" data-ad="bottom"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<nav class="pager">
+  <a class="prev" href="money-risk.html"><span class="dir">← 前の記事</span><span class="ttl">資金管理の基本</span></a>
+  <a class="next" href="start-first-trade.html"><span class="dir">次の記事 →</span><span class="ttl">最初の1トレード</span></a>
+</nav>
+
+<footer>
+  <p><strong>ご利用にあたって</strong><br>
+  当サイトはFXの学習を目的とした情報サイトであり、<strong>投資助言ではありません。</strong>
+  運営者は金融商品取引法に基づく投資助言・代理業の登録を受けておらず、特定の売買を勧めるものではありません。
+  FXは元本が保証されない取引で、預託した証拠金を上回る損失が生じる可能性もあります。
+  掲載している情報の正確性・完全性・最新性は保証しません。
+  掲載しているチャート図はすべて解説のために作成した模式図であり、実際の相場データではありません。
+  実際の取引は必ずご自身の判断と責任で、デモ口座や少額での検証を経てから行ってください。</p>
+  <p class="footlinks"><a href="about.html">運営者情報・編集方針</a> ／ <a href="privacy.html">免責事項・プライバシーポリシー</a> ／ <a href="roadmap.html">学習ロードマップ</a></p>
+</footer>
+
+</div>
+<script src="site.js" defer></script>
+<script src="ads.js" defer></script>
+</body>
+</html>

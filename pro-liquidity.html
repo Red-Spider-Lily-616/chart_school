@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>流動性とストップ狩り｜損切りが狙われる仕組み｜FX学習ノート</title>
+<link rel="canonical" href="https://red-spider-lily-616.github.io/chart_school/pro-liquidity.html">
+<meta name="description" content="流動性とストップ狩りと呼ばれる現象を説明します。流動性の本来の意味、損切り注文が溜まる場所、そして狙われるというより注文の偏りが原因とされる理由を整理しました。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#fcfcfb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a19" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="FX学習ノート">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="流動性とストップ狩り｜損切りが狙われる仕組み｜FX学習ノート">
+<meta property="og:description" content="流動性とストップ狩りと呼ばれる現象を説明します。流動性の本来の意味、損切り注文が溜まる場所、そして狙われるというより注文の偏りが原因とされる理由を整理しました。">
+<meta property="og:url" content="https://red-spider-lily-616.github.io/chart_school/pro-liquidity.html">
+<meta property="og:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="流動性とストップ狩り｜損切りが狙われる仕組み｜FX学習ノート">
+<meta name="twitter:description" content="流動性とストップ狩りと呼ばれる現象を説明します。流動性の本来の意味、損切り注文が溜まる場所、そして狙われるというより注文の偏りが原因とされる理由を整理しました。">
+<meta name="twitter:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FX学習ノート", "item": "https://red-spider-lily-616.github.io/chart_school/"}, {"@type": "ListItem", "position": 2, "name": "環境認識と検証", "item": "https://red-spider-lily-616.github.io/chart_school/pro.html"}, {"@type": "ListItem", "position": 3, "name": "流動性とストップ狩り｜損切りが狙われる仕組み", "item": "https://red-spider-lily-616.github.io/chart_school/pro-liquidity.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "流動性とストップ狩り｜損切りが狙われる仕組み｜FX学習ノート", "description": "流動性とストップ狩りと呼ばれる現象を説明します。流動性の本来の意味、損切り注文が溜まる場所、そして狙われるというより注文の偏りが原因とされる理由を整理しました。", "inLanguage": "ja", "url": "https://red-spider-lily-616.github.io/chart_school/pro-liquidity.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://red-spider-lily-616.github.io/chart_school/pro-liquidity.html"}, "image": "https://red-spider-lily-616.github.io/chart_school/og.png", "datePublished": "2026-09-20", "dateModified": "2026-09-20", "articleSection": "環境認識と検証", "author": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/about.html"}, "publisher": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/", "logo": {"@type": "ImageObject", "url": "https://red-spider-lily-616.github.io/chart_school/og.png"}}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "流動性とは何ですか？", "acceptedAnswer": {"@type": "Answer", "text": "本来は、どれだけ売買が成立しやすいかという板の厚さを指す言葉です。流動性が高いと大きな注文でも価格が動きにくく、低いと少しの注文で飛びます。トレードの文脈では、約定の相手になる注文が溜まっている価格帯を指すこともあります。"}}, {"@type": "Question", "name": "ストップ狩りは本当にあるのですか？", "acceptedAnswer": {"@type": "Answer", "text": "誰かが個人のポジションを狙い撃つというより、損切り注文が集まっている価格帯は大きな注文を約定させやすい場所なので、値が引き寄せられやすいという説明が一般的です。いずれにしても市場を解釈するモデルです。"}}, {"@type": "Question", "name": "損切りが狩られないようにするにはどうすればいいですか？", "acceptedAnswer": {"@type": "Answer", "text": "完全に避けることはできないため、巻き込まれても致命傷にならない設計にします。損切りをぴったりの価格ではなく少し外側に置き、広げた分だけ数量を減らして1回のリスクを一定に保ちます。"}}]}</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="sitenav"><div class="inner">
+<a class="home" href="index.html">FX学習ノート</a>
+<a href="roadmap.html">ロードマップ</a>
+<a href="start.html">はじめて</a>
+<a href="chart.html">チャート</a>
+<a href="method.html">手法</a>
+<a href="fund.html">経済指標</a>
+<a href="money.html">資金管理</a>
+<a class="cur" href="pro.html">実践</a>
+<a href="glossary.html">用語集</a>
+<button class="themetoggle" id="themeBtn" type="button">◐ 表示切替</button>
+</div></nav>
+<div class="wrap">
+
+<nav class="crumb"><a href="index.html">ホーム</a> › <a href="pro.html">環境認識と検証</a> › <span>流動性とストップ狩り｜損切りが狙われる仕組み</span></nav>
+
+<header class="hero">
+  <p class="eyebrow">環境認識と検証　II-22</p>
+  <h1>流動性とストップ狩り｜損切りが狙われる仕組み</h1>
+  <p class="lede">「ストップ狩り」という言葉は、誰かが個人を狙い撃つような印象を与えます。しかし実際に語られているのは、<strong>注文の偏りという、もっと構造的な話</strong>です。</p>
+  <p class="meta">想定読者:相場の4局面を理解した人 ／ 読了目安:7分 ／ 最終更新: 2026年9月20日</p>
+</header>
+
+<div class="note note-legal">
+このページはFXの学習を目的とした一般的な情報で、<strong>投資助言ではありません</strong>。
+特定の売買を勧めるものではなく、将来の利益を保証するものでもありません。
+FXは元本が保証されない取引です。<a href="privacy.html">免責事項</a>をご確認ください。
+<span class="ad-notice">※このページには広告を含む場合があります。</span>
+</div>
+
+<div class="tldr">
+  <span class="tag">この記事の要点</span>
+  <ul>
+    <li>流動性は本来「どれだけ売買が成立しやすいか」を指す言葉</li>
+    <li>損切り注文が溜まりやすいのは、直近安値の少し下と高値の少し上</li>
+    <li>狙い撃ちというより、注文が集まる場所に値が引き寄せられるという説明が一般的</li>
+  </ul>
+</div>
+
+<div class="ad-slot" data-ad="top"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<nav class="toc">
+  <h2>もくじ</h2>
+  <ol>
+    <li><a href="#s1">流動性とは本来どういう意味ですか？</a></li>
+    <li><a href="#s2">損切り注文はどこに溜まりますか？</a></li>
+    <li><a href="#s3">なぜそこに値が届くのですか？</a></li>
+    <li><a href="#s4">どう対処しますか？</a></li>
+  </ol>
+</nav>
+
+<section id="s1">
+  <h2 class="sec"><span class="num">01</span>流動性とは本来どういう意味ですか？</h2>
+  <p><strong>どれだけ売買が成立しやすいか</strong>、つまり板の厚さを指す言葉です。</p>
+  <p>流動性が高い市場では、大きな注文を出しても価格があまり動きません。相手になる注文がたくさんあるからです。逆に流動性が低いと、少しの注文で価格が飛びます。</p>
+  <p>早朝にスプレッドが広がるのは、流動性が下がっているためです。同じ理由で、指標発表の直後にも値が飛びます。</p>
+  <p>トレードの文脈では、<strong>「約定の相手になる注文が溜まっている価格帯」</strong>を指して流動性と呼ぶこともあります。以下はその意味で使います。</p>
+</section>
+
+<section id="s2">
+  <h2 class="sec"><span class="num">02</span>損切り注文はどこに溜まりますか？</h2>
+  <p><strong>多くの人が同じ場所を見ているところ</strong>です。</p>
+  <table>
+    <thead><tr><th style="width:38%">場所</th><th>溜まる注文</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">直近安値の少し下</td><td>買いポジションの損切り（売り注文）</td></tr>
+      <tr><td class="rank">直近高値の少し上</td><td>売りポジションの損切り（買い注文）</td></tr>
+      <tr><td class="rank">きりのいい価格（150.00など）</td><td>心理的な節目として意識されやすい</td></tr>
+      <tr><td class="rank">明確なトレンドラインの外側</td><td>同じ線を見ている人の損切り</td></tr>
+    </tbody>
+  </table>
+  <p>教科書どおりに損切りを置くほど、<strong>他の人と同じ場所に置くことになります。</strong>これは避けられません。大切なのは、そこが「約定しやすい場所」だと知っておくことです。</p>
+</section>
+
+<div class="ad-slot" data-ad="mid"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<section id="s3">
+  <h2 class="sec"><span class="num">03</span>なぜそこに値が届くのですか？</h2>
+  <p>大きな注文を成立させたい側にとって、<strong>相手になる注文が並んでいる場所は都合がよいから</strong>だと説明されます。</p>
+  <p>たとえばまとまった量を売りたい場合、買い注文がなければ売れません。直近高値の少し上には、売りポジションの損切り（買い注文）が並んでいます。そこまで価格が上がれば、売る相手が見つかります。</p>
+  <p>結果として、<strong>一度その水準をつけてから、すぐ戻ってくる</strong>という動きが起こりやすくなります。これが「ストップ狩り」や「ストップスイープ」と呼ばれる現象です。</p>
+  <div class="note">誰かが個人のポジションを狙い撃つという説明ではなく、注文の偏りが原因という見方が一般的です。いずれにしても市場を解釈するモデルであり、証明されたものではありません。</div>
+</section>
+
+<section id="s4">
+  <h2 class="sec"><span class="num">04</span>どう対処しますか？</h2>
+  <p>避けることはできません。<strong>巻き込まれても致命傷にならない設計にします。</strong></p>
+  <h3>損切りに少し余裕を持たせる</h3>
+  <p>ぴったりの価格ではなく、少し外側に置きます。ただし<strong>広げた分だけ数量を減らして、1回のリスクを一定に保ちます。</strong>片方だけ動かすと資金管理が壊れます。</p>
+  <h3>抜けた直後に飛び乗らない</h3>
+  <p>足の確定を待つ、あるいはリテストを待つことで、スイープと本物のブレイクをある程度区別できます。</p>
+  <h3>スイープを根拠として使う</h3>
+  <p>直近安値を一度割ってすぐ戻した、という動きを<strong>「売り注文が消化された」合図</strong>と解釈する見方もあります。ただしこれは後から分かることで、<strong>リアルタイムでは本物の下落と区別できません。</strong></p>
+  <div class="warn">「スイープだから戻るはず」と考えて損切りをずらすのは、最も危険な使い方です。<strong>この考え方は、損切りを置かない理由にしてはいけません。</strong></div>
+</section>
+
+<section id="faq">
+  <h2 class="sec"><span class="num">05</span>よくある質問</h2>
+  <h3>流動性とは何ですか？</h3>
+  <p>本来は、どれだけ売買が成立しやすいかという板の厚さを指す言葉です。流動性が高いと大きな注文でも価格が動きにくく、低いと少しの注文で飛びます。トレードの文脈では、約定の相手になる注文が溜まっている価格帯を指すこともあります。</p>
+  <h3>ストップ狩りは本当にあるのですか？</h3>
+  <p>誰かが個人のポジションを狙い撃つというより、損切り注文が集まっている価格帯は大きな注文を約定させやすい場所なので、値が引き寄せられやすいという説明が一般的です。いずれにしても市場を解釈するモデルです。</p>
+  <h3>損切りが狩られないようにするにはどうすればいいですか？</h3>
+  <p>完全に避けることはできないため、巻き込まれても致命傷にならない設計にします。損切りをぴったりの価格ではなく少し外側に置き、広げた分だけ数量を減らして1回のリスクを一定に保ちます。</p>
+</section>
+
+<section class="nextread">
+  <h2 class="sec"><span class="num">＋</span>この続きに読む</h2>
+  <div class="cards two">
+  <a class="pcard" href="pro-build-rules.html">
+    <div class="top"><h3>売買ルールを作る</h3></div>
+    <p class="lead">ここまでを文章にまとめる</p><span class="go">見る →</span>
+  </a>
+  <a class="pcard" href="method-breakout.html">
+    <div class="top"><h3>ブレイクアウトとだまし</h3></div>
+    <p class="lead">だましの避け方をもう一度</p><span class="go">見る →</span>
+  </a>
+  </div>
+</section>
+
+<div class="ad-slot" data-ad="bottom"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<nav class="pager">
+  <a class="prev" href="pro-market-phases.html"><span class="dir">← 前の記事</span><span class="ttl">相場の4局面</span></a>
+  <a class="next" href="pro-build-rules.html"><span class="dir">次の記事 →</span><span class="ttl">売買ルールを作る</span></a>
+</nav>
+
+<footer>
+  <p><strong>ご利用にあたって</strong><br>
+  当サイトはFXの学習を目的とした情報サイトであり、<strong>投資助言ではありません。</strong>
+  運営者は金融商品取引法に基づく投資助言・代理業の登録を受けておらず、特定の売買を勧めるものではありません。
+  FXは元本が保証されない取引で、預託した証拠金を上回る損失が生じる可能性もあります。
+  掲載している情報の正確性・完全性・最新性は保証しません。
+  掲載しているチャート図はすべて解説のために作成した模式図であり、実際の相場データではありません。
+  実際の取引は必ずご自身の判断と責任で、デモ口座や少額での検証を経てから行ってください。</p>
+  <p class="footlinks"><a href="about.html">運営者情報・編集方針</a> ／ <a href="privacy.html">免責事項・プライバシーポリシー</a> ／ <a href="roadmap.html">学習ロードマップ</a></p>
+</footer>
+
+</div>
+<script src="site.js" defer></script>
+<script src="ads.js" defer></script>
+</body>
+</html>

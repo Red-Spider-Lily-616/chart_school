@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FXの証拠金とレバレッジ｜必要証拠金の計算｜FX学習ノート</title>
+<link rel="canonical" href="https://red-spider-lily-616.github.io/chart_school/start-margin-leverage.html">
+<meta name="description" content="FXの証拠金とレバレッジの仕組みを説明します。必要証拠金の計算方法、証拠金維持率とロスカット、レバレッジが「損失も同じだけ拡大する倍率」である理由までを整理しました。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#fcfcfb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a19" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="FX学習ノート">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="FXの証拠金とレバレッジ｜必要証拠金の計算｜FX学習ノート">
+<meta property="og:description" content="FXの証拠金とレバレッジの仕組みを説明します。必要証拠金の計算方法、証拠金維持率とロスカット、レバレッジが「損失も同じだけ拡大する倍率」である理由までを整理しました。">
+<meta property="og:url" content="https://red-spider-lily-616.github.io/chart_school/start-margin-leverage.html">
+<meta property="og:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FXの証拠金とレバレッジ｜必要証拠金の計算｜FX学習ノート">
+<meta name="twitter:description" content="FXの証拠金とレバレッジの仕組みを説明します。必要証拠金の計算方法、証拠金維持率とロスカット、レバレッジが「損失も同じだけ拡大する倍率」である理由までを整理しました。">
+<meta name="twitter:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FX学習ノート", "item": "https://red-spider-lily-616.github.io/chart_school/"}, {"@type": "ListItem", "position": 2, "name": "FXの始め方", "item": "https://red-spider-lily-616.github.io/chart_school/start.html"}, {"@type": "ListItem", "position": 3, "name": "証拠金とレバレッジ｜必要証拠金の計算", "item": "https://red-spider-lily-616.github.io/chart_school/start-margin-leverage.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "FXの証拠金とレバレッジ｜必要証拠金の計算｜FX学習ノート", "description": "FXの証拠金とレバレッジの仕組みを説明します。必要証拠金の計算方法、証拠金維持率とロスカット、レバレッジが「損失も同じだけ拡大する倍率」である理由までを整理しました。", "inLanguage": "ja", "url": "https://red-spider-lily-616.github.io/chart_school/start-margin-leverage.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://red-spider-lily-616.github.io/chart_school/start-margin-leverage.html"}, "image": "https://red-spider-lily-616.github.io/chart_school/og.png", "datePublished": "2026-09-20", "dateModified": "2026-09-20", "articleSection": "FXの始め方", "author": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/about.html"}, "publisher": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/", "logo": {"@type": "ImageObject", "url": "https://red-spider-lily-616.github.io/chart_school/og.png"}}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "FXの必要証拠金はどう計算しますか？", "acceptedAnswer": {"@type": "Answer", "text": "「取引金額 ÷ レバレッジの上限」で計算します。1ドル150円のときに1万通貨なら、取引金額150万円をレバレッジ上限で割った額です。レートが動けば必要証拠金も変わるため、円安が進むと同じ数量でも必要額は増えます。"}}, {"@type": "Question", "name": "レバレッジは高いほうが有利ですか？", "acceptedAnswer": {"@type": "Answer", "text": "有利とは限りません。レバレッジは利益と損失を同じ倍率で拡大するため、倍率を上げるほど、耐えられる値動きの幅が狭くなります。倍率そのものより、1回の取引で失ってよい金額を先に決めることのほうが重要とされます。"}}, {"@type": "Question", "name": "ロスカットされると借金になりますか？", "acceptedAnswer": {"@type": "Answer", "text": "通常はロスカットによって損失が限定されますが、相場が急変した場合には間に合わないことがあります。その場合、預けた証拠金を超える損失が生じ、不足額の入金を求められることがあります。"}}]}</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="sitenav"><div class="inner">
+<a class="home" href="index.html">FX学習ノート</a>
+<a href="roadmap.html">ロードマップ</a>
+<a class="cur" href="start.html">はじめて</a>
+<a href="chart.html">チャート</a>
+<a href="method.html">手法</a>
+<a href="fund.html">経済指標</a>
+<a href="money.html">資金管理</a>
+<a href="pro.html">実践</a>
+<a href="glossary.html">用語集</a>
+<button class="themetoggle" id="themeBtn" type="button">◐ 表示切替</button>
+</div></nav>
+<div class="wrap">
+
+<nav class="crumb"><a href="index.html">ホーム</a> › <a href="start.html">FXの始め方</a> › <span>証拠金とレバレッジ｜必要証拠金の計算</span></nav>
+
+<header class="hero">
+  <p class="eyebrow">FXの始め方　I-2</p>
+  <h1>証拠金とレバレッジ｜必要証拠金の計算</h1>
+  <p class="lede">レバレッジは「少ない資金で大きく取引できる仕組み」と説明されます。それは正しいのですが、<strong>利益が増える倍率は、そのまま損失が増える倍率でもあります。</strong></p>
+  <p class="meta">想定読者:FXの仕組みを知ったばかりの人 ／ 読了目安:7分 ／ 最終更新: 2026年9月20日</p>
+</header>
+
+<div class="note note-legal">
+このページはFXの学習を目的とした一般的な情報で、<strong>投資助言ではありません</strong>。
+特定の売買を勧めるものではなく、将来の利益を保証するものでもありません。
+FXは元本が保証されない取引です。<a href="privacy.html">免責事項</a>をご確認ください。
+<span class="ad-notice">※このページには広告を含む場合があります。</span>
+</div>
+
+<div class="tldr">
+  <span class="tag">この記事の要点</span>
+  <ul>
+    <li>証拠金は売買代金ではなく、損失に備えて預ける担保</li>
+    <li>必要証拠金は「取引金額 ÷ レバレッジの上限」で決まる</li>
+    <li>レバレッジは利益と損失を同じ倍率で拡大する。倍率を上げるほど、耐えられる値動きの幅が狭くなる</li>
+  </ul>
+</div>
+
+<div class="ad-slot" data-ad="top"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<nav class="toc">
+  <h2>もくじ</h2>
+  <ol>
+    <li><a href="#s1">証拠金とは何か</a></li>
+    <li><a href="#s2">必要証拠金はどう計算しますか？</a></li>
+    <li><a href="#s3">レバレッジは何を拡大しているのか</a></li>
+    <li><a href="#s4">ロスカットはいつ起きますか？</a></li>
+  </ol>
+</nav>
+
+<section id="s1">
+  <h2 class="sec"><span class="num">01</span>証拠金とは何か</h2>
+  <p>証拠金とは、<strong>取引をするために口座に預けておく担保のお金</strong>です。売買代金そのものではありません。</p>
+  <p>1万ドル分の取引をするとき、150万円を用意する必要はありません。数万円の証拠金を預けておけば、1万ドル分の値動きの損益だけをやりとりできます。実際に通貨を受け取るわけではなく、差額だけを精算する取引だからです。</p>
+  <p>この「差額だけを精算する」という性質が、FXで少額から始められる理由になっています。</p>
+</section>
+
+<section id="s2">
+  <h2 class="sec"><span class="num">02</span>必要証拠金はどう計算しますか？</h2>
+  <p><strong>「取引金額 ÷ レバレッジの上限」</strong>で計算します。</p>
+  <p>たとえば1ドル=150円のときに1万通貨を取引する場合、取引金額は150万円です。レバレッジの上限が25倍なら、必要証拠金は150万円 ÷ 25 = 6万円になります。</p>
+  <p>ここで注意したいのは、<strong>レートが動けば必要証拠金も変わる</strong>ことです。円安が進んで1ドル=160円になれば、同じ1万通貨でも必要証拠金は6.4万円に増えます。</p>
+  <div class="note">日本の個人口座におけるレバレッジの上限は法令で定められています。上限や計算方法は変わることがあるため、取引の前に各社の最新の表示を確認してください。</div>
+</section>
+
+<div class="ad-slot" data-ad="mid"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<section id="s3">
+  <h2 class="sec"><span class="num">03</span>レバレッジは何を拡大しているのか</h2>
+  <p>拡大しているのは<strong>値動きに対する損益の感度</strong>です。倍率を上げると利益は増えますが、同じ倍率で損失も増えます。</p>
+  <p>10万円の資金で考えてみます。1ドル=150円が1円動いたとき、損益は次のようになります。</p>
+  <table>
+    <thead><tr><th>取引量</th><th>実効レバレッジ</th><th>1円動いたときの損益</th><th>資金に対する割合</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1,000通貨</td><td>約1.5倍</td><td>1,000円</td><td>1%</td></tr>
+      <tr><td class="rank">1万通貨</td><td>約15倍</td><td>10,000円</td><td>10%</td></tr>
+      <tr><td class="rank">1.6万通貨</td><td>約24倍</td><td>16,000円</td><td>16%</td></tr>
+    </tbody>
+  </table>
+  <p>1円の値動きは、米ドル/円では日常的に起きる範囲です。上限いっぱいまで使うと、<strong>ふつうの値動きで資金の2割近くが動く</strong>ことになります。</p>
+</section>
+
+<section id="s4">
+  <h2 class="sec"><span class="num">04</span>ロスカットはいつ起きますか？</h2>
+  <p>証拠金維持率が、各社の定める水準を下回ったときです。</p>
+  <p>証拠金維持率とは、<strong>預けている証拠金が必要証拠金の何％にあたるか</strong>を示す数字です。含み損が膨らむと、この数字が下がっていきます。一定の水準を割ると、FX会社が強制的にポジションを決済します。</p>
+  <p>ロスカットは資金を守るための仕組みですが、<strong>作動した時点で損失は確定します。</strong>また、相場が急変した場合には、ロスカットが間に合わず、預けた証拠金を超える損失が生じることもあります。</p>
+  <div class="warn"><strong>順番を間違えないでください。</strong>ロスカットは最後の安全装置であって、これを前提に取引を組み立てるものではありません。自分で決めた損切りが先に働くように設計する、というのが一般的な考え方です。</div>
+</section>
+
+<section id="faq">
+  <h2 class="sec"><span class="num">05</span>よくある質問</h2>
+  <h3>FXの必要証拠金はどう計算しますか？</h3>
+  <p>「取引金額 ÷ レバレッジの上限」で計算します。1ドル150円のときに1万通貨なら、取引金額150万円をレバレッジ上限で割った額です。レートが動けば必要証拠金も変わるため、円安が進むと同じ数量でも必要額は増えます。</p>
+  <h3>レバレッジは高いほうが有利ですか？</h3>
+  <p>有利とは限りません。レバレッジは利益と損失を同じ倍率で拡大するため、倍率を上げるほど、耐えられる値動きの幅が狭くなります。倍率そのものより、1回の取引で失ってよい金額を先に決めることのほうが重要とされます。</p>
+  <h3>ロスカットされると借金になりますか？</h3>
+  <p>通常はロスカットによって損失が限定されますが、相場が急変した場合には間に合わないことがあります。その場合、預けた証拠金を超える損失が生じ、不足額の入金を求められることがあります。</p>
+</section>
+
+<section class="nextread">
+  <h2 class="sec"><span class="num">＋</span>この続きに読む</h2>
+  <div class="cards two">
+  <a class="pcard" href="start-pips-lot.html">
+    <div class="top"><h3>pipsとロット</h3></div>
+    <p class="lead">損益がいくらになるのかを自分で計算する</p><span class="go">見る →</span>
+  </a>
+  <a class="pcard" href="money-risk.html">
+    <div class="top"><h3>資金管理の基本</h3></div>
+    <p class="lead">1回のリスクをどう決めるか</p><span class="go">見る →</span>
+  </a>
+  </div>
+</section>
+
+<div class="ad-slot" data-ad="bottom"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<nav class="pager">
+  <a class="prev" href="start-what-is-fx.html"><span class="dir">← 前の記事</span><span class="ttl">FXとは何か</span></a>
+  <a class="next" href="start-pips-lot.html"><span class="dir">次の記事 →</span><span class="ttl">pipsとロット</span></a>
+</nav>
+
+<footer>
+  <p><strong>ご利用にあたって</strong><br>
+  当サイトはFXの学習を目的とした情報サイトであり、<strong>投資助言ではありません。</strong>
+  運営者は金融商品取引法に基づく投資助言・代理業の登録を受けておらず、特定の売買を勧めるものではありません。
+  FXは元本が保証されない取引で、預託した証拠金を上回る損失が生じる可能性もあります。
+  掲載している情報の正確性・完全性・最新性は保証しません。
+  掲載しているチャート図はすべて解説のために作成した模式図であり、実際の相場データではありません。
+  実際の取引は必ずご自身の判断と責任で、デモ口座や少額での検証を経てから行ってください。</p>
+  <p class="footlinks"><a href="about.html">運営者情報・編集方針</a> ／ <a href="privacy.html">免責事項・プライバシーポリシー</a> ／ <a href="roadmap.html">学習ロードマップ</a></p>
+</footer>
+
+</div>
+<script src="site.js" defer></script>
+<script src="ads.js" defer></script>
+</body>
+</html>

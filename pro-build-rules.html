@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FXの売買ルールの作り方｜文章にできる形に｜FX学習ノート</title>
+<link rel="canonical" href="https://red-spider-lily-616.github.io/chart_school/pro-build-rules.html">
+<meta name="description" content="FXの売買ルールの作り方を説明します。他人が読んでも同じ判断になる条件の書き方、決めるべき6つの項目、曖昧な言葉を数値に置き換える方法、そして例外を作らない理由を整理しました。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#fcfcfb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a19" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="FX学習ノート">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="FXの売買ルールの作り方｜文章にできる形に｜FX学習ノート">
+<meta property="og:description" content="FXの売買ルールの作り方を説明します。他人が読んでも同じ判断になる条件の書き方、決めるべき6つの項目、曖昧な言葉を数値に置き換える方法、そして例外を作らない理由を整理しました。">
+<meta property="og:url" content="https://red-spider-lily-616.github.io/chart_school/pro-build-rules.html">
+<meta property="og:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FXの売買ルールの作り方｜文章にできる形に｜FX学習ノート">
+<meta name="twitter:description" content="FXの売買ルールの作り方を説明します。他人が読んでも同じ判断になる条件の書き方、決めるべき6つの項目、曖昧な言葉を数値に置き換える方法、そして例外を作らない理由を整理しました。">
+<meta name="twitter:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FX学習ノート", "item": "https://red-spider-lily-616.github.io/chart_school/"}, {"@type": "ListItem", "position": 2, "name": "環境認識と検証", "item": "https://red-spider-lily-616.github.io/chart_school/pro.html"}, {"@type": "ListItem", "position": 3, "name": "売買ルールの作り方｜文章にできる形に", "item": "https://red-spider-lily-616.github.io/chart_school/pro-build-rules.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "FXの売買ルールの作り方｜文章にできる形に｜FX学習ノート", "description": "FXの売買ルールの作り方を説明します。他人が読んでも同じ判断になる条件の書き方、決めるべき6つの項目、曖昧な言葉を数値に置き換える方法、そして例外を作らない理由を整理しました。", "inLanguage": "ja", "url": "https://red-spider-lily-616.github.io/chart_school/pro-build-rules.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://red-spider-lily-616.github.io/chart_school/pro-build-rules.html"}, "image": "https://red-spider-lily-616.github.io/chart_school/og.png", "datePublished": "2026-09-20", "dateModified": "2026-09-20", "articleSection": "環境認識と検証", "author": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/about.html"}, "publisher": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/", "logo": {"@type": "ImageObject", "url": "https://red-spider-lily-616.github.io/chart_school/og.png"}}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "FXの売買ルールには何を書けばいいですか？", "acceptedAnswer": {"@type": "Answer", "text": "環境・入る条件・損切り・利確・数量・やらない条件の6つです。とくに「やらない条件」を忘れがちで、これがないと条件が揃わない場面でも無理やり入ってしまいます。"}}, {"@type": "Question", "name": "ルールが十分かどうかはどう確かめますか？", "acceptedAnswer": {"@type": "Answer", "text": "そのルールを他人に渡して、同じチャートで同じ判断ができるかで確かめます。「強い上昇のとき」のような判定できない言葉が残っていると、読む人によって違う取引になります。"}}, {"@type": "Question", "name": "ルールに例外を作ってもいいですか？", "acceptedAnswer": {"@type": "Answer", "text": "避けてください。例外があると、負けたときも勝ったときも後から説明がついてしまい、改善の材料になりません。条件を増やしたいときは例外ではなくルールそのものを書き換え、記録を取り直します。"}}]}</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="sitenav"><div class="inner">
+<a class="home" href="index.html">FX学習ノート</a>
+<a href="roadmap.html">ロードマップ</a>
+<a href="start.html">はじめて</a>
+<a href="chart.html">チャート</a>
+<a href="method.html">手法</a>
+<a href="fund.html">経済指標</a>
+<a href="money.html">資金管理</a>
+<a class="cur" href="pro.html">実践</a>
+<a href="glossary.html">用語集</a>
+<button class="themetoggle" id="themeBtn" type="button">◐ 表示切替</button>
+</div></nav>
+<div class="wrap">
+
+<nav class="crumb"><a href="index.html">ホーム</a> › <a href="pro.html">環境認識と検証</a> › <span>売買ルールの作り方｜文章にできる形に</span></nav>
+
+<header class="hero">
+  <p class="eyebrow">環境認識と検証　II-23</p>
+  <h1>売買ルールの作り方｜文章にできる形に</h1>
+  <p class="lede">ルールが機能しているかどうかは、<strong>他人が読んで同じ判断になるか</strong>で分かります。「強い上昇のとき」では、読む人によって違う取引になります。</p>
+  <p class="meta">想定読者:Part II の大半を終えた人 ／ 読了目安:8分 ／ 最終更新: 2026年9月20日</p>
+</header>
+
+<div class="note note-legal">
+このページはFXの学習を目的とした一般的な情報で、<strong>投資助言ではありません</strong>。
+特定の売買を勧めるものではなく、将来の利益を保証するものでもありません。
+FXは元本が保証されない取引です。<a href="privacy.html">免責事項</a>をご確認ください。
+<span class="ad-notice">※このページには広告を含む場合があります。</span>
+</div>
+
+<div class="tldr">
+  <span class="tag">この記事の要点</span>
+  <ul>
+    <li>決めるのは「環境」「入る条件」「損切り」「利確」「数量」「やらない条件」の6つ</li>
+    <li>曖昧な言葉はすべて、判定できる形に置き換える</li>
+    <li>例外を1つ作ると、そのルールは検証できなくなる</li>
+  </ul>
+</div>
+
+<div class="ad-slot" data-ad="top"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<nav class="toc">
+  <h2>もくじ</h2>
+  <ol>
+    <li><a href="#s1">決めるべき6つの項目</a></li>
+    <li><a href="#s2">曖昧な言葉を置き換える</a></li>
+    <li><a href="#s3">書いてみる</a></li>
+    <li><a href="#s4">例外を作らない</a></li>
+  </ol>
+</nav>
+
+<section id="s1">
+  <h2 class="sec"><span class="num">01</span>決めるべき6つの項目</h2>
+  <table>
+    <thead><tr><th style="width:22%">項目</th><th>書く内容</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">環境</td><td>どの時間足が、どういう状態のときに取引するか</td></tr>
+      <tr><td class="rank">入る条件</td><td>何が起きたら注文を出すか</td></tr>
+      <tr><td class="rank">損切り</td><td>どの価格に置くか（基準を書く。金額ではない）</td></tr>
+      <tr><td class="rank">利確</td><td>どこで決済するか</td></tr>
+      <tr><td class="rank">数量</td><td>許容損失額と、逆算の手順</td></tr>
+      <tr><td class="rank">やらない条件</td><td>どういうときは取引しないか</td></tr>
+    </tbody>
+  </table>
+  <p>最後の<strong>「やらない条件」を忘れがち</strong>です。ここがないと、条件が揃わない場面でも無理やり入ってしまいます。</p>
+</section>
+
+<section id="s2">
+  <h2 class="sec"><span class="num">02</span>曖昧な言葉を置き換える</h2>
+  <p>ルールに書いてはいけない言葉があります。<strong>判定できない言葉</strong>です。</p>
+  <table>
+    <thead><tr><th style="width:38%">✕ 判定できない</th><th>○ 判定できる</th></tr></thead>
+    <tbody>
+      <tr><td>強い上昇のとき</td><td>4時間足で高値・安値がともに切り上がっているとき</td></tr>
+      <tr><td>押し目を待つ</td><td>直近の上昇幅に対して38.2〜61.8%戻ったところ</td></tr>
+      <tr><td>反発を確認したら</td><td>1時間足が確定し、下ヒゲが実体より長い足が出たら</td></tr>
+      <tr><td>十分に利益が出たら</td><td>損切り幅の2倍に達したら</td></tr>
+      <tr><td>相場が荒れているとき</td><td>重要度の高い経済指標の発表1時間前から発表後30分まで</td></tr>
+    </tbody>
+  </table>
+  <p>テストの方法は単純です。<strong>そのルールを他人に渡して、同じチャートで同じ判断ができるか。</strong>できなければ、まだ曖昧な部分が残っています。</p>
+</section>
+
+<div class="ad-slot" data-ad="mid"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<section id="s3">
+  <h2 class="sec"><span class="num">03</span>書いてみる</h2>
+  <p>実際に書くと、たとえばこうなります。</p>
+  <div class="key"><span class="tag">ルールの例（そのまま使うものではありません）</span>
+  <p><strong>環境:</strong> 4時間足でダウ理論により上昇と判定できる間のみ、買いを探す。下降またはレンジの間は何もしない。</p>
+  <p><strong>入る条件:</strong> 1時間足で、直近の上昇幅の38.2〜61.8%の範囲まで下げ、かつその範囲に引いた水平線の上で足が確定したら、次の足の始値で成行買い。</p>
+  <p><strong>損切り:</strong> 根拠にした水平線の5pips下。</p>
+  <p><strong>利確:</strong> 損切り幅の2倍の価格に指値。</p>
+  <p><strong>数量:</strong> 口座資金の2% ÷ 損切り幅(pips) ÷ 1pipsあたりの金額。最小単位を下回る場合は見送る。</p>
+  <p><strong>やらない条件:</strong> 重要指標の1時間前〜発表30分後は入らない。1日3回まで。3連敗したらその日は終了。</p></div>
+  <p>これを読めば、他人でも同じ取引ができます。<strong>できるということは、検証できるということです。</strong></p>
+</section>
+
+<section id="s4">
+  <h2 class="sec"><span class="num">04</span>例外を作らない</h2>
+  <p><strong>「基本はこうだが、状況によっては」を入れた時点で、ルールは検証できなくなります。</strong></p>
+  <p>例外があると、負けたときに「例外を適用すべきだった」と言えてしまいます。勝ったときも「例外が正しかった」と言えます。<strong>どちらにも説明がついてしまうものは、改善の材料になりません。</strong></p>
+  <p>条件を増やしたくなったら、例外としてではなく<strong>ルールそのものを書き換え</strong>、そこから記録を取り直します。</p>
+  <p>また、<strong>一度に1つだけ変える</strong>ことも重要です。同時に2つ変えると、どちらが効いたのか分からなくなります。</p>
+  <div class="note">ルールは完成させてから使うものではなく、使いながら書き換えていくものです。ただし書き換えるタイミングは、連敗直後ではなく、決めた回数の検証が終わったときにします。</div>
+</section>
+
+<section id="faq">
+  <h2 class="sec"><span class="num">05</span>よくある質問</h2>
+  <h3>FXの売買ルールには何を書けばいいですか？</h3>
+  <p>環境・入る条件・損切り・利確・数量・やらない条件の6つです。とくに「やらない条件」を忘れがちで、これがないと条件が揃わない場面でも無理やり入ってしまいます。</p>
+  <h3>ルールが十分かどうかはどう確かめますか？</h3>
+  <p>そのルールを他人に渡して、同じチャートで同じ判断ができるかで確かめます。「強い上昇のとき」のような判定できない言葉が残っていると、読む人によって違う取引になります。</p>
+  <h3>ルールに例外を作ってもいいですか？</h3>
+  <p>避けてください。例外があると、負けたときも勝ったときも後から説明がついてしまい、改善の材料になりません。条件を増やしたいときは例外ではなくルールそのものを書き換え、記録を取り直します。</p>
+</section>
+
+<section class="nextread">
+  <h2 class="sec"><span class="num">＋</span>この続きに読む</h2>
+  <div class="cards two">
+  <a class="pcard" href="pro-backtest.html">
+    <div class="top"><h3>検証のやり方</h3></div>
+    <p class="lead">作ったルールを数字で確かめる</p><span class="go">見る →</span>
+  </a>
+  <a class="pcard" href="money-journal.html">
+    <div class="top"><h3>トレード記録のつけ方</h3></div>
+    <p class="lead">守れたかを記録する</p><span class="go">見る →</span>
+  </a>
+  </div>
+</section>
+
+<div class="ad-slot" data-ad="bottom"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<nav class="pager">
+  <a class="prev" href="pro-liquidity.html"><span class="dir">← 前の記事</span><span class="ttl">流動性とストップ狩り</span></a>
+  <a class="next" href="pro-backtest.html"><span class="dir">次の記事 →</span><span class="ttl">検証のやり方</span></a>
+</nav>
+
+<footer>
+  <p><strong>ご利用にあたって</strong><br>
+  当サイトはFXの学習を目的とした情報サイトであり、<strong>投資助言ではありません。</strong>
+  運営者は金融商品取引法に基づく投資助言・代理業の登録を受けておらず、特定の売買を勧めるものではありません。
+  FXは元本が保証されない取引で、預託した証拠金を上回る損失が生じる可能性もあります。
+  掲載している情報の正確性・完全性・最新性は保証しません。
+  掲載しているチャート図はすべて解説のために作成した模式図であり、実際の相場データではありません。
+  実際の取引は必ずご自身の判断と責任で、デモ口座や少額での検証を経てから行ってください。</p>
+  <p class="footlinks"><a href="about.html">運営者情報・編集方針</a> ／ <a href="privacy.html">免責事項・プライバシーポリシー</a> ／ <a href="roadmap.html">学習ロードマップ</a></p>
+</footer>
+
+</div>
+<script src="site.js" defer></script>
+<script src="ads.js" defer></script>
+</body>
+</html>

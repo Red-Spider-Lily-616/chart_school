@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FXの注文方法｜成行・指値・逆指値の使い分け｜FX学習ノート</title>
+<link rel="canonical" href="https://red-spider-lily-616.github.io/chart_school/start-order-types.html">
+<meta name="description" content="FXの注文方法を整理します。成行・指値・逆指値の違い、損切りに逆指値を使う理由、OCOとIFDの組み合わせ方まで、最初の取引の前に覚えておきたい範囲をまとめました。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#fcfcfb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a19" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="FX学習ノート">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="FXの注文方法｜成行・指値・逆指値の使い分け｜FX学習ノート">
+<meta property="og:description" content="FXの注文方法を整理します。成行・指値・逆指値の違い、損切りに逆指値を使う理由、OCOとIFDの組み合わせ方まで、最初の取引の前に覚えておきたい範囲をまとめました。">
+<meta property="og:url" content="https://red-spider-lily-616.github.io/chart_school/start-order-types.html">
+<meta property="og:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FXの注文方法｜成行・指値・逆指値の使い分け｜FX学習ノート">
+<meta name="twitter:description" content="FXの注文方法を整理します。成行・指値・逆指値の違い、損切りに逆指値を使う理由、OCOとIFDの組み合わせ方まで、最初の取引の前に覚えておきたい範囲をまとめました。">
+<meta name="twitter:image" content="https://red-spider-lily-616.github.io/chart_school/og.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FX学習ノート", "item": "https://red-spider-lily-616.github.io/chart_school/"}, {"@type": "ListItem", "position": 2, "name": "FXの始め方", "item": "https://red-spider-lily-616.github.io/chart_school/start.html"}, {"@type": "ListItem", "position": 3, "name": "FXの注文方法｜成行・指値・逆指値の使い分け", "item": "https://red-spider-lily-616.github.io/chart_school/start-order-types.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "FXの注文方法｜成行・指値・逆指値の使い分け｜FX学習ノート", "description": "FXの注文方法を整理します。成行・指値・逆指値の違い、損切りに逆指値を使う理由、OCOとIFDの組み合わせ方まで、最初の取引の前に覚えておきたい範囲をまとめました。", "inLanguage": "ja", "url": "https://red-spider-lily-616.github.io/chart_school/start-order-types.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://red-spider-lily-616.github.io/chart_school/start-order-types.html"}, "image": "https://red-spider-lily-616.github.io/chart_school/og.png", "datePublished": "2026-09-20", "dateModified": "2026-09-20", "articleSection": "FXの始め方", "author": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/about.html"}, "publisher": {"@type": "Organization", "name": "FX学習ノート", "url": "https://red-spider-lily-616.github.io/chart_school/", "logo": {"@type": "ImageObject", "url": "https://red-spider-lily-616.github.io/chart_school/og.png"}}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "指値と逆指値の違いは何ですか？", "acceptedAnswer": {"@type": "Answer", "text": "値段を指定する方向が逆です。指値は「これ以下で買う／これ以上で売る」と自分に有利な方向、逆指値は「これ以上で買う／これ以下で売る」と不利な方向に指定します。損切りに使うのは逆指値のほうです。"}}, {"@type": "Question", "name": "損切り注文はどの注文方法で出しますか？", "acceptedAnswer": {"@type": "Answer", "text": "逆指値です。損切りは今より不利な価格で決済する注文なので、有利な方向にしか指定できない指値では出せません。逆指値を置いておけば、画面を見ていない間に相場が動いても自動で決済されます。"}}, {"@type": "Question", "name": "成行注文なら必ず希望の値段で約定しますか？", "acceptedAnswer": {"@type": "Answer", "text": "しません。成行は約定することは保証されますが、値段は保証されません。相場が急に動いている場面では、注文時のレートと実際の約定レートがずれることがあり、これをスリッページと呼びます。"}}]}</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="sitenav"><div class="inner">
+<a class="home" href="index.html">FX学習ノート</a>
+<a href="roadmap.html">ロードマップ</a>
+<a class="cur" href="start.html">はじめて</a>
+<a href="chart.html">チャート</a>
+<a href="method.html">手法</a>
+<a href="fund.html">経済指標</a>
+<a href="money.html">資金管理</a>
+<a href="pro.html">実践</a>
+<a href="glossary.html">用語集</a>
+<button class="themetoggle" id="themeBtn" type="button">◐ 表示切替</button>
+</div></nav>
+<div class="wrap">
+
+<nav class="crumb"><a href="index.html">ホーム</a> › <a href="start.html">FXの始め方</a> › <span>FXの注文方法｜成行・指値・逆指値の使い分け</span></nav>
+
+<header class="hero">
+  <p class="eyebrow">FXの始め方　I-5</p>
+  <h1>FXの注文方法｜成行・指値・逆指値の使い分け</h1>
+  <p class="lede">注文の種類は多く見えますが、<strong>覚えるべきは3つだけ</strong>です。成行・指値・逆指値。残りはこの3つの組み合わせにすぎません。</p>
+  <p class="meta">想定読者:損益の計算ができるようになった人 ／ 読了目安:7分 ／ 最終更新: 2026年9月20日</p>
+</header>
+
+<div class="note note-legal">
+このページはFXの学習を目的とした一般的な情報で、<strong>投資助言ではありません</strong>。
+特定の売買を勧めるものではなく、将来の利益を保証するものでもありません。
+FXは元本が保証されない取引です。<a href="privacy.html">免責事項</a>をご確認ください。
+<span class="ad-notice">※このページには広告を含む場合があります。</span>
+</div>
+
+<div class="tldr">
+  <span class="tag">この記事の要点</span>
+  <ul>
+    <li>成行はすぐ約定する注文、指値は有利な方向、逆指値は不利な方向に値段を指定する注文</li>
+    <li>損切りに使うのは逆指値。これを覚えないまま取引を始めない</li>
+    <li>OCOは利確と損切りを同時に置く形、IFDは新規と決済をセットで出す形</li>
+  </ul>
+</div>
+
+<div class="ad-slot" data-ad="top"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<nav class="toc">
+  <h2>もくじ</h2>
+  <ol>
+    <li><a href="#s1">覚えるのは3つだけ</a></li>
+    <li><a href="#s2">なぜ損切りに逆指値を使うのですか？</a></li>
+    <li><a href="#s3">OCOとIFDは何が違いますか？</a></li>
+    <li><a href="#s4">スリッページに注意する</a></li>
+  </ol>
+</nav>
+
+<section id="s1">
+  <h2 class="sec"><span class="num">01</span>覚えるのは3つだけ</h2>
+  <p>注文方法は、<strong>値段を指定するかどうか</strong>と、<strong>どちら方向に指定するか</strong>で分かれます。</p>
+  <table>
+    <thead><tr><th style="width:24%">注文</th><th>内容</th><th>主な使いどころ</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">成行</td><td>値段を指定せず、今のレートですぐ売買する</td><td>すぐ入りたい・すぐ決済したい場面</td></tr>
+      <tr><td class="rank">指値</td><td>「これ以下で買う／これ以上で売る」と有利な方向に指定</td><td>押し目や戻りを待って入る場面</td></tr>
+      <tr><td class="rank">逆指値</td><td>「これ以上で買う／これ以下で売る」と不利な方向に指定</td><td><strong>損切り</strong>、ブレイクを狙った新規</td></tr>
+    </tbody>
+  </table>
+  <p>「不利な方向に指定する」という逆指値の考え方が、最初はつかみにくいところです。次の章で扱います。</p>
+</section>
+
+<section id="s2">
+  <h2 class="sec"><span class="num">02</span>なぜ損切りに逆指値を使うのですか？</h2>
+  <p>損切りとは、<strong>自分にとって不利な価格まで動いたら決済する</strong>という注文だからです。</p>
+  <p>150円で買ったポジションを149.50円で切りたいとします。これは「今より安い値段で売る」という注文なので、有利な方向に指定する指値では出せません。逆指値を使います。</p>
+  <p>逆指値を置いておけば、画面を見ていない間に相場が動いても自動で決済されます。<strong>見ていられないときほど必要になる注文です。</strong></p>
+  <div class="warn"><strong>逆指値を覚える前に取引を始めないでください。</strong>損切り注文を置けないまま入ると、下がったときに「戻るかもしれない」と考えてしまい、損失が膨らみやすくなります。</div>
+</section>
+
+<div class="ad-slot" data-ad="mid"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<section id="s3">
+  <h2 class="sec"><span class="num">03</span>OCOとIFDは何が違いますか？</h2>
+  <p>どちらも、3つの基本注文を組み合わせたものです。</p>
+  <h3>OCO注文</h3>
+  <p>2つの注文を同時に出し、<strong>片方が約定したらもう片方が自動でキャンセル</strong>される形です。保有中のポジションに対して、利益確定の指値と損切りの逆指値を同時に置く使い方が一般的です。</p>
+  <h3>IFD注文</h3>
+  <p>新規注文と、それが約定したあとの決済注文を<strong>あらかじめセットで出しておく</strong>形です。「149円まで下がったら買い、151円になったら売る」といった予約ができます。</p>
+  <h3>IFO注文</h3>
+  <p>IFDとOCOを組み合わせたものです。新規・利確・損切りの3つを一度に予約できるため、<strong>入る前にすべてを決めておきたいとき</strong>に使われます。</p>
+</section>
+
+<section id="s4">
+  <h2 class="sec"><span class="num">04</span>スリッページに注意する</h2>
+  <p>注文した値段と、実際に約定した値段はズレることがあります。これをスリッページと呼びます。</p>
+  <p>成行注文は「必ず約定する」代わりに、値段は保証されません。相場が急に動いている場面では、想定より不利な値段で約定することがあります。</p>
+  <p>とくに<strong>経済指標の発表直後は、数十pips単位でズレることもあります。</strong>損切りの逆指値も例外ではなく、置いた価格ぴったりで切れるとは限りません。</p>
+  <div class="note">多くのFX会社では、許容できるスリッページの幅を設定できます。設定方法や挙動は会社ごとに違うため、デモ口座で確かめてから本番に進むのが安全です。</div>
+</section>
+
+<section id="faq">
+  <h2 class="sec"><span class="num">05</span>よくある質問</h2>
+  <h3>指値と逆指値の違いは何ですか？</h3>
+  <p>値段を指定する方向が逆です。指値は「これ以下で買う／これ以上で売る」と自分に有利な方向、逆指値は「これ以上で買う／これ以下で売る」と不利な方向に指定します。損切りに使うのは逆指値のほうです。</p>
+  <h3>損切り注文はどの注文方法で出しますか？</h3>
+  <p>逆指値です。損切りは今より不利な価格で決済する注文なので、有利な方向にしか指定できない指値では出せません。逆指値を置いておけば、画面を見ていない間に相場が動いても自動で決済されます。</p>
+  <h3>成行注文なら必ず希望の値段で約定しますか？</h3>
+  <p>しません。成行は約定することは保証されますが、値段は保証されません。相場が急に動いている場面では、注文時のレートと実際の約定レートがずれることがあり、これをスリッページと呼びます。</p>
+</section>
+
+<section class="nextread">
+  <h2 class="sec"><span class="num">＋</span>この続きに読む</h2>
+  <div class="cards two">
+  <a class="pcard" href="money-stoploss.html">
+    <div class="top"><h3>損切りの決め方</h3></div>
+    <p class="lead">どの価格に逆指値を置くか</p><span class="go">見る →</span>
+  </a>
+  <a class="pcard" href="start-market-hours.html">
+    <div class="top"><h3>取引時間と3つの市場</h3></div>
+    <p class="lead">いつ動くのか</p><span class="go">見る →</span>
+  </a>
+  </div>
+</section>
+
+<div class="ad-slot" data-ad="bottom"><span class="ad-label">広告</span><div class="ad-body"></div></div>
+
+<nav class="pager">
+  <a class="prev" href="start-spread-swap.html"><span class="dir">← 前の記事</span><span class="ttl">スプレッドとスワップ</span></a>
+  <a class="next" href="start-market-hours.html"><span class="dir">次の記事 →</span><span class="ttl">取引時間と3つの市場</span></a>
+</nav>
+
+<footer>
+  <p><strong>ご利用にあたって</strong><br>
+  当サイトはFXの学習を目的とした情報サイトであり、<strong>投資助言ではありません。</strong>
+  運営者は金融商品取引法に基づく投資助言・代理業の登録を受けておらず、特定の売買を勧めるものではありません。
+  FXは元本が保証されない取引で、預託した証拠金を上回る損失が生じる可能性もあります。
+  掲載している情報の正確性・完全性・最新性は保証しません。
+  掲載しているチャート図はすべて解説のために作成した模式図であり、実際の相場データではありません。
+  実際の取引は必ずご自身の判断と責任で、デモ口座や少額での検証を経てから行ってください。</p>
+  <p class="footlinks"><a href="about.html">運営者情報・編集方針</a> ／ <a href="privacy.html">免責事項・プライバシーポリシー</a> ／ <a href="roadmap.html">学習ロードマップ</a></p>
+</footer>
+
+</div>
+<script src="site.js" defer></script>
+<script src="ads.js" defer></script>
+</body>
+</html>
