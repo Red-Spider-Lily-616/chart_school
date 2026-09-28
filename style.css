@@ -341,3 +341,10 @@ section#faq h3, section#about h3{font-size:16.5px; margin:26px 0 6px}
   table thead, table tbody{display:table; width:100%; min-width:max-content}
   th, td{padding:10px 12px; font-size:13.5px}
 }
+
+/* ---- HTMLサイトマップ ---- */
+.sitelist{margin:14px 0 0; padding-left:22px; columns:2; column-gap:36px}
+.sitelist li{margin:7px 0; break-inside:avoid; font-size:14.5px}
+.sitelist a{color:var(--ink-2); text-decoration:none; border-bottom:1px solid transparent}
+.sitelist a:hover{color:var(--line1); border-bottom-color:var(--line1)}
+@media (max-width:640px){.sitelist{columns:1}}
